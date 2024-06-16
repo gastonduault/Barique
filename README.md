@@ -2,6 +2,7 @@
 
 > ### Sources
 >  - https://www.youtube.com/watch?v=K7ghUiXLef8
+>  - [FreeCodeCamp](https://www.youtube.com/watch?v=K7ghUiXLef8)
 
 > ### Ideas 
 > 1. #### Technologies

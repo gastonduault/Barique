@@ -1,7 +1,7 @@
 # PolyWine_nextGen
 
-> - 🔨 : In progress
-> - ✅ : Done
+> ### Sources
+>  - https://www.youtube.com/watch?v=K7ghUiXLef8
 
 > ### Ideas 
 > 1. #### Technologies
@@ -16,6 +16,9 @@
 >    - Modern Interface / Sleek design
 >    - Dynamic and fast navigation
 
+
+> - 🔨 : In progress
+> - ✅ : Done
 > ### Main Needs
 > 1. #### Basic Actions
 >    - Authentication: Google, Apple

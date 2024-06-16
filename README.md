@@ -13,6 +13,8 @@
 >    - Docker
 > 2. #### Features
 >    - Chatbot sommelier
+>    - Modern Interface / Sleek design
+>    - Dynamic and fast navigation
 
 > ### Main Needs
 > 1. #### Basic Actions

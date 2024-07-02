@@ -58,7 +58,7 @@
     >>     - *send* **json**: `{id_cave}`
 >
 >#### Test des endpoints :
-> - Info d'une cave <br/>
+> - Add utilisateur<br/>
 ``` curl http://localhost:5001/cave/1```
 > - Liste des bouteilles d'une cave (à partir de son id)<br/>
 ``` curl http://localhost:5001/cave/bouteilles/1```

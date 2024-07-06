@@ -1,24 +1,24 @@
 <template>
-  <section class="page">
-    <header>
+  <div class="page">
+    <ion-header class="header">
       <h1>WELCOME HERE 🤗</h1>
-      <img src="@/assets/img/Logo_PolyWine.png"  alt="logo polywine"/>
-    </header>
+      <img src="../assets/img/Logo_PolyWine.png"  alt="logo polywine"/>
+    </ion-header>
 
-    <form>
+    <div class="form">
       <div class="google">
         <img class="google-logo" src="@/assets/img/Google_login.png"  alt="logo google"/>
         <button class="google-login" @click="logIn"> Sign In / Login 🗝️ with Google</button>
       </div>
       <p> - OR - </p>
       <div class="credentials">
-        <input type="text" value="" placeholder="Name">
-        <input type="email" value="" placeholder="Email">
-        <input type="password" value="" placeholder="Password">
+        <input type="text" value="" placeholder="Name" />
+        <input type="email" value="" placeholder="Email" />
+        <input type="password" value="" placeholder="Password" />
         <button class="creds-login">Sign In / Login 🗝️</button>
       </div>
-    </form>
-  </section>
+    </div>
+  </div>
 </template>
 
 
@@ -33,11 +33,12 @@ onMounted(() => {
 async function logIn() {
   const response = await GoogleAuth.signIn();
   console.log(response);
+
 }
 </script>
 
 <style scoped>
-  header {
+  .header {
     width: 100%;
     height: 33vh;
     position: relative;
@@ -46,6 +47,7 @@ async function logIn() {
     flex-direction: column;
     align-content: center;
     align-items: center;
+    background-color: var(--background-color);
   }
 
   h1 {
@@ -53,7 +55,7 @@ async function logIn() {
     margin: 20px 0 0 0;
   }
 
-  header img {
+  .header img {
     width: 200px;
     animation: img-appear .7s;
     transform: rotate(-35deg);
@@ -61,7 +63,7 @@ async function logIn() {
     bottom: -40px;
   }
 
-  form {
+  .form {
     width: 100%;
     background-color: var(--background-dark);
     height: 67vh;
@@ -74,7 +76,7 @@ async function logIn() {
     justify-content: space-around;
   }
 
-  form .google-logo {
+  .form .google-logo {
     width: 60px;
     margin: 20px auto;
   }
@@ -112,7 +114,7 @@ async function logIn() {
     height: 25%;
   }
 
-  form p {
+  .form p {
     font-weight: bold;
     color: var(--white);
   }

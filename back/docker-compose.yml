@@ -1,36 +1,39 @@
-version: '3'
+version: '3.8'
 
 services:
-  api-flask:
-    build: ./flask/
-    volumes:
-      - ./flask/:/usr/src/app/
-    ports:
-      - "5001:5001"
-    environment:
-      PORT: 5001
-      FLASK_DEBUG: 1
-    depends_on:
-      - mysql
-
   mysql:
+    image: mysql:8.0
     container_name: mysql
-    image: mysql
     restart: always
-    ports:
-      - "3306:3306"
-    command: --default-authentication-plugin=mysql_native_password
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: polywine
       MYSQL_USER: user
       MYSQL_PASSWORD: user
     volumes:
+      - mysql-data:/var/lib/mysql
       - ./mysql:/docker-entrypoint-initdb.d
       - ./mysql/logs:/var/log/mysql
+    ports:
+      - "3306:3306"
+    command: --default-authentication-plugin=mysql_native_password
 
   adminer:
     image: adminer
     restart: always
     ports:
-      - "8080:8080"
+      - 8080:8080
+
+  api-flask:
+    build: ./flask/
+    volumes:
+      - ./flask/:/usr/src/app/
+    environment:
+      FLASK_ENV: development
+    ports:
+      - "5001:5001"
+    depends_on:
+      - mysql
+
+volumes:
+  mysql-data:

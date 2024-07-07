@@ -1,5 +1,5 @@
 <template>
-  <div class="page">
+  <ion-page>
     <ion-header class="header">
       <h1>WELCOME HERE 🤗</h1>
       <img src="../assets/img/Logo_PolyWine.png"  alt="logo polywine"/>
@@ -18,18 +18,43 @@
         <button class="creds-login">Sign In / Login 🗝️</button>
       </div>
     </div>
-  </div>
+  </ion-page>
 </template>
 
 
 <script lang="ts">
 import { GoogleAuth } from '@codetrix-studio/capacitor-google-auth';
 import axios from "axios";
+import { Storage } from '@ionic/storage';
+import { useRouter } from 'vue-router';
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/vue';
+import store from '@/store';
 
 export default {
   name: "HomePage",
-  mounted() {
+  data() {
+    return {
+      storage: new Storage,
+    }
+  },
+  components: {
+    IonContent, IonHeader, IonPage, IonTitle, IonToolbar
+  },
+  setup() {
+    const router = useRouter();
+    return { router }
+  },
+  async created() {
+    this.storage = new Storage();
+    await this.storage.create();
+    const account_id = await this.storage.get('uid');
+    if(account_id) await store.dispatch('user/login', account_id);
+  },
+  async mounted() {
     GoogleAuth.initialize();
+  },
+  computed: {
+    connected: () => { return store.getters['user/getConnected'] }
   },
   methods: {
     async logIn() {
@@ -40,14 +65,12 @@ export default {
         nom: response.name,
         profile_picture: response.imageUrl
       }
-      try {
-        const responseRequest = await axios.post('http://localhost:5001/utilisateurs', utilisateur);
-        console.log(responseRequest);
-      } catch(error) {
-        console.error(error);
-      }
-      //TODO: add loader
-      // finally {}
+      await store.dispatch('user/authentification', utilisateur);
+      await this.saveUserData(store.getters['user/getUSer'].uid)
+    },
+    async saveUserData(uid: any) {
+      console.log(uid)
+      await this.storage.set('uid', uid);
     },
   }
 }
@@ -65,6 +88,7 @@ export default {
     align-content: center;
     align-items: center;
     background-color: var(--background-color);
+    box-shadow: none !important;
   }
 
   h1 {

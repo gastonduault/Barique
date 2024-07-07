@@ -1,9 +1,9 @@
 import type { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'io.ionic.starter',
+  appId: 'com.example.app',
   appName: 'front',
-  webDir: 'dist',
+  webDir: 'public',
   plugins: {
     GoogleAuth: {
       scopes: ['profile', 'email'],
@@ -14,6 +14,3 @@ const config: CapacitorConfig = {
 };
 
 export default config;
-
-
-

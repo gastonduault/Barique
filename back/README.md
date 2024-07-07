@@ -4,6 +4,10 @@
 - Store database if services shutdown
 - Generate swagger (endpoints)
 
+## CMD:
+- `docker system prune -a --volumes`
+
+
 
 ## Get start
 - install *docker*

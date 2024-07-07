@@ -41,7 +41,6 @@ class Ami(db.Model):
     utilisateur_id = db.Column(db.Integer, db.ForeignKey('utilisateurs.uid'), nullable=False)
     ami_id = db.Column(db.Integer, db.ForeignKey('utilisateurs.uid'), nullable=False)
 
-
 @app.route('/utilisateurs', methods=['POST'])
 def add_or_update_utilisateur():
     data = request.get_json()
@@ -60,12 +59,34 @@ def add_or_update_utilisateur():
         db.session.add(utilisateur)
     try:
         db.session.commit()
-        return jsonify({'message': 'Utilisateur ajouté/mis à jour avec succès!'}), 201
+        return jsonify({
+            'message': 'Utilisateur ajouté/mis à jour avec succès!',
+            'uid': utilisateur.uid,
+            'nom': utilisateur.nom,
+            'email': utilisateur.email,
+            'profile_picture': utilisateur.profile_picture
+        }), 201
     except Exception as e:
         db.session.rollback()
         return jsonify({'message': 'Erreur lors de l\'ajout/mise à jour de l\'utilisateur', 'error': str(e)}), 500
     finally:
         db.session.close()
+
+
+@app.route('/login', methods=['POST'])
+def login():
+    data = request.get_json()
+    utilisateur = Utilisateur.query.filter_by(uid=data.get('uid')).first()
+    if utilisateur:
+        return jsonify({
+            'uid': utilisateur.uid,
+            'nom': utilisateur.nom,
+            'email': utilisateur.email,
+            'profile_picture': utilisateur.profile_picture
+        }), 200
+    else:
+        return jsonify({'message': 'Utilisateur non trouvé'}), 404
+
 
 
 @app.route('/caves', methods=['POST'])
@@ -84,6 +105,12 @@ def add_cave():
         return jsonify({'message': 'Erreur lors de l\'ajout de la cave', 'error': str(e)}), 500
     finally:
         db.session.close()
+
+@app.route('/caves/owner/<int:proprietaire_uid>', methods=['GET'])
+def get_caves_by_proprietaire(proprietaire_uid):
+    caves = Cave.query.filter_by(proprietaire_uid=proprietaire_uid).all()
+    caves_list = [{'id': cave.id, 'nom': cave.nom} for cave in caves]
+    return jsonify({'caves': caves_list})
 
 
 @app.route('/bouteilles', methods=['POST'])

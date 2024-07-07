@@ -22,19 +22,36 @@
 </template>
 
 
-<script setup lang="ts">
-import { defineComponent, onMounted } from 'vue';
+<script lang="ts">
 import { GoogleAuth } from '@codetrix-studio/capacitor-google-auth';
+import axios from "axios";
 
-onMounted(() => {
-  GoogleAuth.initialize();
-});
-
-async function logIn() {
-  const response = await GoogleAuth.signIn();
-  console.log(response);
-
+export default {
+  name: "HomePage",
+  mounted() {
+    GoogleAuth.initialize();
+  },
+  methods: {
+    async logIn() {
+      const response = await GoogleAuth.signIn();
+      const utilisateur = {
+        email: response.email,
+        account_id: response.id,
+        nom: response.name,
+        profile_picture: response.imageUrl
+      }
+      try {
+        const responseRequest = await axios.post('http://localhost:5001/utilisateurs', utilisateur);
+        console.log(responseRequest);
+      } catch(error) {
+        console.error(error);
+      }
+      //TODO: add loader
+      // finally {}
+    },
+  }
 }
+
 </script>
 
 <style scoped>

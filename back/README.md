@@ -1,5 +1,7 @@
 ## TODO of back
 - Change schema of database ✅
+- add certificat openSSL (HTTPS)
+  - sudo certbot certonly --standalone -d http://
 - refactoring and clean flask
 - save mysql docker volume
 - manage and store picture of bottle

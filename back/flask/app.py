@@ -1,6 +1,7 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
+import ssl
 
 app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "*", "allow_headers": "*", "methods": "*"}})
@@ -295,4 +296,7 @@ def delete_utilisateur(utilisateur_id):
 
 
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=5001)
+    context = ssl.SSLContext(ssl.PROTOCOL_TLS)
+    context.load_cert_chain('cert.pem', 'key.pem')
+    app.run(debug=True, host='0.0.0.0', port=5001, ssl_context=context)
+

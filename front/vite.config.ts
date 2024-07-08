@@ -11,6 +11,16 @@ export default defineConfig({
     vue(),
     legacy()
   ],
+  server: {
+    proxy: {
+      '/api': {
+        target: 'https://192.168.88.35:5001',
+        changeOrigin: true,
+        secure: false, // Permet d'accepter les certificats auto-signés
+        rewrite: (path) => path.replace(/^\/api/, ''),
+      },
+    },
+  },
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),

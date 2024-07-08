@@ -29,6 +29,7 @@ import { Storage } from '@ionic/storage';
 import { useRouter } from 'vue-router';
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/vue';
 import store from '@/store';
+import router from "@/router";
 
 export default {
   name: "HomePage",
@@ -48,7 +49,8 @@ export default {
     this.storage = new Storage();
     await this.storage.create();
     const account_id = await this.storage.get('uid');
-    if(account_id) await store.dispatch('user/login', account_id);
+    if(account_id) await store.dispatch('user/login', account_id)
+        .then(() => { if(this.connected) router.push('./caveList') });
   },
   async mounted() {
     GoogleAuth.initialize();
@@ -67,9 +69,9 @@ export default {
       }
       await store.dispatch('user/authentification', utilisateur);
       await this.saveUserData(store.getters['user/getUSer'].uid)
+      if(this.connected) await router.push('/caveList');
     },
     async saveUserData(uid: any) {
-      console.log(uid)
       await this.storage.set('uid', uid);
     },
   }

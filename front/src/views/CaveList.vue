@@ -53,19 +53,14 @@ export default {
       nameCellar: "",
     }
   },
-  setup() {
-    const router = useRouter();
-    return { router }
-  },
   async created() {
-    if(!this.connected){
-      this.storage = new Storage();
-      await this.storage.create();
-      const account_id = await this.storage.get('uid');
-      if(account_id) await store.dispatch('user/login', account_id);
-    }
+    this.storage = new Storage();
+    await this.storage.create();
+    const account_id = await this.storage.get('uid');
+    if(account_id && !this.connected) await store.dispatch('user/login', account_id);
   },
   computed: {
+    connected: () => { return store.getters['user/getConnected'] },
     utilisateur: () => {
       const utilisateur = store.getters["user/getUSer"]
       if(utilisateur.uid !== null) {
@@ -73,16 +68,13 @@ export default {
       }
       return utilisateur
     },
-    connected: () => { return store.getters['user/getConnected'] },
     cellars: () => {
       return store.getters['cellar/getCellar'] }
   },
   methods: {
     async disconnect() {
-      Promise.any([
-        this.storage.clear(),
-        store.dispatch('user/disconnect'),
-      ])
+      await this.storage.clear()
+      await store.dispatch('user/disconnect')
     },
     async createCellar() {
       if(this.nameCellar !== "" ){

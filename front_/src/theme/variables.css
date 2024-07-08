@@ -1,0 +1,51 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Open+Sans:wght@400;600&display=swap');
+
+:root {
+    --white: #FFFFFF;
+    --black: #000000;
+    --background-color: #fff7f7;
+    --background-dark: #9f5353;
+    --font-pink: #c76060;
+    --font-black: #3A3A3A;
+}
+
+body {
+    background-color: var(--background-color);
+    color: var(--font-black);
+    margin: 0 0;
+    padding: 0 0;
+}
+
+h1 {
+    color: var(--font-pink);
+}
+
+.page {
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--background-color);
+}
+
+.header {
+    background-color: var(--background-color) !important;
+    box-shadow: none !important;
+}
+
+.white-background {
+    background-color: var(--white);
+}
+
+@keyframes img-appear {
+    0% {
+        bottom: 0;
+        transform: rotate(0deg);
+    }
+    100% {
+        bottom: -40px;
+        transform: rotate(-35deg);
+    }
+}
+
+
+
+

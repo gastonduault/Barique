@@ -1,6 +1,6 @@
 import { createStore } from 'vuex'
-import user from './user'
-import cellar from './cellar'
+import user from './modules/user'
+import cellar from './modules/cellar'
 
 export default createStore({
   state: {},

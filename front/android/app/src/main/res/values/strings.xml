@@ -2,6 +2,7 @@
 <resources>
     <string name="app_name">front</string>
     <string name="title_activity_main">front</string>
-    <string name="package_name">com.example.app</string>
-    <string name="custom_url_scheme">com.example.app</string>
+    <string name="package_name">io.ionic.starter</string>
+    <string name="custom_url_scheme">io.ionic.starter</string>
+    <string name="server_client_id">803691537332-kmnjce99q497ckkcpmje5so2e581enqu.apps.googleusercontent.com</string>
 </resources>

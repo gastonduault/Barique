@@ -1,18 +1,24 @@
 ## TODO of front
 - auth google
-  - for web
+  - for web✅
   - for android
   - for ios
 - store cookie on device after auth
-  - for web
+  - for web✅
   - for android 
   - for ios
 - add secure encryption id key
-- add store of vuex
+- add store of vuex ✅
+- add multi lang i18v
 <br /><br />
-- add / remove bottle
+- add 
+   - take photo
+   - send photo http
+   - manual
 - see bottle
-- add cave / edit cave
+- add cave ✅
+- edit cave
+
 
 
 ## CMD ionic

@@ -1,8 +1,11 @@
 ## TODO of back
-- Change schema of database
+- Change schema of database ✅
+- refactoring and clean flask
+- save mysql docker volume
+- manage and store picture of bottle
 - Fix the error of the 3306 port
-- Store database if services shutdown
 - Generate swagger (endpoints)
+- look for host backend 
 
 ## CMD:
 - `docker system prune -a --volumes`

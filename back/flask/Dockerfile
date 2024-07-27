@@ -1,7 +1,10 @@
-FROM python:3.8
-RUN mkdir /usr/src/app/
-COPY . /usr/src/app/
-WORKDIR /usr/src/app/
-EXPOSE 5001
-RUN pip install -r requirement.txt
-CMD ["python", "app.py"]
+FROM python:3.8-slim
+
+WORKDIR /app
+
+COPY requirements.txt requirements.txt
+RUN pip install -r requirements.txt
+
+COPY . .
+
+CMD ["python", "run.py"]

@@ -26,14 +26,12 @@ services:
 
   api-flask:
     build: ./flask/
-    volumes:
-      - ./flask/:/usr/src/app/
-    environment:
-      FLASK_ENV: development
     ports:
       - "5001:5001"
     depends_on:
       - mysql
+    environment:
+      FLASK_ENV: development
 
 volumes:
   mysql-data:

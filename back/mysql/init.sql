@@ -27,11 +27,11 @@ CREATE TABLE bouteilles (
     FOREIGN KEY (cave_id) REFERENCES caves(id)
 );
 
-CREATE TABLE amis (
-    id INTEGER NOT NULL AUTO_INCREMENT,
-    utilisateur_id INTEGER NOT NULL,
-    ami_id INTEGER NOT NULL,
-    PRIMARY KEY (id),
-    FOREIGN KEY (utilisateur_id) REFERENCES utilisateurs(uid),
-    FOREIGN KEY (ami_id) REFERENCES utilisateurs(uid)
-);
+-- CREATE TABLE amis (
+--     id INTEGER NOT NULL AUTO_INCREMENT,
+--     utilisateur_id INTEGER NOT NULL,
+--     ami_id INTEGER NOT NULL,
+--     PRIMARY KEY (id),
+--     FOREIGN KEY (utilisateur_id) REFERENCES utilisateurs(uid),
+--     FOREIGN KEY (ami_id) REFERENCES utilisateurs(uid)
+-- );

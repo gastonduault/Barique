@@ -9,4 +9,6 @@ RUN pip install --upgrade pip && \
 
 COPY . .
 
+EXPOSE 5001
+
 CMD ["python", "run.py"]

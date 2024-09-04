@@ -10,15 +10,17 @@
           <input type="text" placeholder="Name" v-model="name"/>
           <span v-if="name.length == 0" class="required">*</span>
         </div>
-        <input type="text" placeholder="Cepage" />
-        <input type="number" placeholder="Millesime ex: 2016" min="1900" max="2099" step="1" />
+        <input type="text" placeholder="Cepage" v-model="cepage" />
+        <input type="text" placeholder="Region" v-model="region" />
+        <input type="number" placeholder="Vintage ex: 2016" v-model="vintage"
+               min="1900" max="2099" step="1" />
         <div class="input category">
           <img v-for="category in categories"
                :class="{'selected': categorySelected===category}"
                @click="categorySelected = category"
                :src="'/src/assets/img/grape_'+category+'.png'"/>
         </div>
-        <button class="create" @click="create" type="submit">create</button>
+        <button class="create"  @click="create" type="submit">create</button>
       </div>
     </div>
     <loader v-if="loading"/>
@@ -36,17 +38,19 @@ export default defineComponent({
   data() {
     return {
       selectingCategory: false,
+      name: "",
+      vintage: "",
+      region: "",
       categorySelected: "rouge",
       categories: ["rouge", "blanc", "rose"],
       loading: true,
-      name: ""
     }
   },
   mounted() {
     this.loading = false
   },
   methods: {
-    click() {
+    create() {
 
     }
   }

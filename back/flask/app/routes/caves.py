@@ -25,3 +25,8 @@ def get_caves_by_proprietaire(proprietaire_uid):
     caves = Cave.query.filter_by(proprietaire_uid=proprietaire_uid).all()
     caves_list = [{'id': cave.id, 'nom': cave.nom} for cave in caves]
     return jsonify({'caves': caves_list})
+
+
+@bp.route('/test', methods=['GET'])
+def test():
+    return jsonify({'hello': 'test'})

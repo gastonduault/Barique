@@ -1,9 +1,11 @@
-FROM python:3.8-slim
+FROM python:3.8
 
-WORKDIR /app
+RUN mkdir /usr/src/app/
+COPY . /usr/src/app/
+WORKDIR /usr/src/app/
 
-COPY requirements.txt requirements.txt
-RUN pip install -r requirements.txt
+RUN pip install --upgrade pip && \
+    pip install -r requirement.txt
 
 COPY . .
 

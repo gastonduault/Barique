@@ -1,6 +1,7 @@
 import { createStore } from 'vuex'
 import user from './modules/user'
 import cellar from './modules/cellar'
+import bottles from './modules/bottles'
 
 export default createStore({
   state: {},
@@ -8,6 +9,8 @@ export default createStore({
   actions: {},
   mutations: {},
   modules: {
-    user, cellar
+    user,
+    cellar,
+    bottles
   },
 })

@@ -10,14 +10,15 @@
         <img class="google-logo" src="@/assets/img/Google_login.png"  alt="logo google"/>
         <button class="google-login" @click="logIn"> Sign In / Login 🗝️ with Google</button>
       </div>
-      <p> - OR - </p>
-      <div class="credentials">
-        <input type="text" value="" placeholder="Name" />
-        <input type="email" value="" placeholder="Email" />
-        <input type="password" value="" placeholder="Password" />
-        <button class="creds-login">Sign In / Login 🗝️</button>
-      </div>
+<!--      <p> - OR - </p>-->
+<!--      <div class="credentials">-->
+<!--        <input type="text" value="" placeholder="Name" />-->
+<!--        <input type="email" value="" placeholder="Email" />-->
+<!--        <input type="password" value="" placeholder="Password" />-->
+<!--        <button class="creds-login">Sign In / Login 🗝️</button>-->
+<!--      </div>-->
     </div>
+    <loader v-if="loading"/>
   </ion-page>
 </template>
 
@@ -26,10 +27,10 @@
 import { GoogleAuth } from '@codetrix-studio/capacitor-google-auth';
 import axios from "axios";
 import { Storage } from '@ionic/storage';
-import { useRouter } from 'vue-router';
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/vue';
-import store from '@/store';
 import router from "@/router";
+import store from '@/store';
+import loader from "@/components/loader.vue"
 
 export default {
   name: "HomePage",
@@ -39,11 +40,7 @@ export default {
     }
   },
   components: {
-    IonContent, IonHeader, IonPage, IonTitle, IonToolbar
-  },
-  setup() {
-    const router = useRouter();
-    return { router }
+    IonContent, IonHeader, IonPage, IonTitle, IonToolbar, loader
   },
   async created() {
     this.storage = new Storage();
@@ -56,7 +53,9 @@ export default {
     GoogleAuth.initialize();
   },
   computed: {
-    connected: () => { return store.getters['user/getConnected'] }
+    connected: () => { return store.getters['user/getConnected'] },
+    loading: () => { console.log(store.getters['user/getLoading'])
+      return store.getters['user/getLoading'] },
   },
   methods: {
     async logIn() {
@@ -82,7 +81,7 @@ export default {
 <style scoped>
   .header {
     width: 100%;
-    height: 33vh;
+    height: 40vh;
     position: relative;
     padding: 0 0;
     display: flex;
@@ -109,7 +108,7 @@ export default {
   .form {
     width: 100%;
     background-color: var(--background-dark);
-    height: 67vh;
+    height: 60vh;
     animation: form-appear .5s ease-out;
     border-radius: 25px 25px 0 0;
     display: flex;
@@ -120,24 +119,15 @@ export default {
   }
 
   .form .google-logo {
-    width: 60px;
+    width: 100px;
     margin: 20px auto;
-  }
-
-  @keyframes form-appear {
-    0% {
-      transform: translateY(+100%);
-    }
-    100% {
-      transform: translateY(0%);
-    }
   }
 
   button {
     width: 300px;
     background-color: var(--white);
     color: var(--black);
-    padding: 10px 5px;
+    padding: 10px 15px;
     border-radius: 25px 25px;
     transition: .3s;
   }
@@ -154,7 +144,7 @@ export default {
     align-items: center;
     justify-content: space-around;
     width: 100%;
-    height: 25%;
+    height: 45%;
   }
 
   .form p {

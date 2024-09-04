@@ -14,7 +14,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'https://192.168.88.35:5001',
+        target: 'http://localhost:5001',
         changeOrigin: true,
         secure: false, // Permet d'accepter les certificats auto-signés
         rewrite: (path) => path.replace(/^\/api/, ''),

@@ -3,7 +3,7 @@ CREATE TABLE utilisateurs (
     account_id VARCHAR(50),
     nom VARCHAR(50) NOT NULL,
     email VARCHAR(50) NOT NULL,
-    profile_picture VARCHAR(200),
+    profile_picture VARCHAR(1000),
     PRIMARY KEY (uid)
 );
 

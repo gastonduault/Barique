@@ -3,42 +3,65 @@ import axios from "axios";
 const API_URL = '/api'; // Utiliser le proxy
 
 const state = {
-  cellars: []
+  cellars: [],
+  cellarSelected: {
+    id: null,
+    nom: null
+  },
+  loading: false,
 };
 
 const getters = {
-  getCellar(state) {
+  getCellar(state: any) {
     return state.cellars
   },
+  getCellarSelected(state: any) {
+    return state.cellarSelected
+  },
+  getLoading(state: any) {
+    return state.loading
+  }
 };
 const actions = {
-  listCellars({commit}, uid) {
-    try {
-      axios.get(`${API_URL}/caves/owner/`+uid).then((response) => {
-        commit('setCellar', response.data.caves);
-      })
-    } catch (error) {
+  async listCellars({commit}: any, uid: any) {
+    commit('setLoading', true)
+    await axios.get(`${API_URL}/caves/owner/`+uid)
+      .then((response) => {
+        commit('setCellars', response.data.caves)
+    }).catch((error) => {
       console.log(error)
-    }
-    //TODO: add loader
+    }).finally(() => {
+      commit('setLoading', false)
+    })
   },
-  async createCellar({commit, dispatch}, cellar) {
-    try {
-      await axios.post(`${API_URL}/caves`, cellar).then((response) => {
-        dispatch('listCellars', cellar.proprietaire_uid);
+  async createCellar({commit, dispatch}: any, cellar: any) {
+    commit('setLoading', true)
+    await axios.post(`${API_URL}/caves`, cellar)
+      .then((response) => {
+        dispatch('listCellars', cellar.proprietaire_uid)
+      }).catch((error) => {
+        console.log(error)
+      }).finally(() => {
+        commit('setLoading', false)
       })
-    } catch (error) {
-      console.log(error)
-    }
+  },
+  async updtaeCellarSelected({commit}: any, cellar:any) {
+    await commit('setCellarSelected', cellar)
   }
 };
 
 const mutations = {
-  setCellar(state, value) {
+  setCellars(state: any, value: any) {
     state.cellars = value
   },
-  addCellar(state, value) {
+  addCellar(state: any, value: any) {
     state.cellars.push(value)
+  },
+  setCellarSelected(state: any, value: any) {
+    state.cellarSelected = value
+  },
+  setLoading(state: any, value: any) {
+    state.loading = value
   }
 };
 

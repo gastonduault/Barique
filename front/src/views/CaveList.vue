@@ -15,7 +15,7 @@
         <p v-if="cellars.length === 0 && !creation" class="no-cave">
           you don't have a cellar at the moment, you can <strong>create</strong> one.
         </p>
-        <div class="cellar" v-for="cellar in cellars">
+        <div class="cellar" v-for="cellar in cellars" @click="clickCellar(cellar)">
           <img src="@/assets/img/cave.png" />
           <p>{{cellar.nom}}</p>
         </div>
@@ -25,13 +25,17 @@
           </button>
         </div>
         <div v-if="creation" class="creation-cellar">
-          <input type="text" placeholder="Name of your cellar" v-model="nameCellar"/>
+          <img src="@/assets/img/cancel.png" class="cancel-creation" alt="cancel creation" @click="creation = false"/>
+          <input type="text" placeholder="Name of your cellar"
+                 v-on:keydown="keydownCellarName($event)"
+                 v-model="nameCellar"/>
           <button class="create-2" @click="createCellar">
             <img src="@/assets/img/ajouter.png" alt="add cellar" width="15">
           </button>
         </div>
       </div>
     </div>
+    <Loader v-if="loading" />
   </ion-page>
 </template>
 
@@ -39,12 +43,13 @@
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/vue';
 import store from '@/store';
 import {Storage} from "@ionic/storage";
-import {useRouter} from "vue-router";
+import router from "@/router";
+import Loader from "@/components/loader.vue";
 
 export default {
   name: "CaveList",
   components: {
-    IonContent, IonHeader, IonPage, IonTitle, IonToolbar
+    IonContent, IonHeader, IonPage, IonTitle, IonToolbar, Loader
   },
   data() {
     return {
@@ -68,13 +73,17 @@ export default {
       }
       return utilisateur
     },
-    cellars: () => {
-      return store.getters['cellar/getCellar'] }
+    cellars: () => { return store.getters['cellar/getCellar'] },
+    loading: () => { return store.getters['cellar/getLoading'] }
   },
   methods: {
     async disconnect() {
       await this.storage.clear()
       await store.dispatch('user/disconnect')
+      this.$router.push('./home')
+    },
+    keydownCellarName(event: any) {
+      if(event.code === "Enter" || event.key === "Enter") this.createCellar()
     },
     async createCellar() {
       if(this.nameCellar !== "" ){
@@ -82,9 +91,14 @@ export default {
           proprietaire_uid: this.utilisateur.uid,
           nom: this.nameCellar
         }
-        await store.dispatch('cellar/createCellar', cellar);
-        this.creation = false;
+        await store.dispatch('cellar/createCellar', cellar)
+        this.nameCellar = "";
+        this.creation = false
       }
+    },
+    async clickCellar(cellar: any) {
+      await store.dispatch('cellar/updtaeCellarSelected', cellar)
+      router.push('/Cave')
     }
   }
 }
@@ -162,6 +176,17 @@ export default {
 
 .cellar {
   margin-right: 15px;
+  cursor: pointer;
+  border: solid 1px transparent;
+  transition: .2s;
+  border-radius: 5px 5px;
+  padding: 10px 10px;
+}
+
+.cellar:hover,
+.cellar:active,
+.cellar:focus{
+  border-color: var(--font-black);
 }
 
 .cellar p {
@@ -202,7 +227,7 @@ export default {
   background-color: var(--background-color);
   font-size: .9em;
   border: var(--font-pink) solid 1px;
-  margin-right: 10px;
+  margin: 0 10px;
 }
 
 .creation-cellar input:focus,
@@ -220,4 +245,20 @@ export default {
   align-items: center;
   justify-content: space-between;
 }
+
+.cancel-creation {
+  width: 20px;
+  border-radius: 50%;
+  padding: 3px 3px;
+  cursor: pointer;
+  transition: .3s;
+}
+
+.cancel-creation:focus,
+.cancel-creation:active,
+.cancel-creation:hover{
+  background-color: #fce5e5;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+}
+
 </style>

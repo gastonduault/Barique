@@ -3,7 +3,6 @@ version: '3.8'
 services:
   mysql:
     image: mysql:8.0
-    container_name: mysql
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: root
@@ -11,27 +10,28 @@ services:
       MYSQL_USER: user
       MYSQL_PASSWORD: user
     volumes:
-      - mysql-data:/var/lib/mysql
       - ./mysql:/docker-entrypoint-initdb.d
-      - ./mysql/logs:/var/log/mysql
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h localhost"]
+      interval: 10s
+      timeout: 10s
+      retries: 10
+
+  api-flask:
+    build: ./flask/
+    depends_on:
+      mysql:
+        condition: service_healthy
+    volumes:
+      - ./flask/app/:/usr/src/run/
     ports:
-      - "3306:3306"
-    command: --default-authentication-plugin=mysql_native_password
+      - "5001:5001"
 
   adminer:
     image: adminer
     restart: always
     ports:
       - 8080:8080
-
-  api-flask:
-    build: ./flask/
-    ports:
-      - "5001:5001"
-    depends_on:
-      - mysql
-    environment:
-      FLASK_ENV: development
 
 volumes:
   mysql-data:

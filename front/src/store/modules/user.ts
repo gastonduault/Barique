@@ -1,91 +1,101 @@
 import axios from "axios";
-import router from "@/router";
 
 const API_URL = '/api'; // Utiliser le proxy
 
 const state = {
-     user : {
-        email: null,
-        uid: null,
-        nom: null,
-        profile_picture: null
-    },
-    connected: false,
+  user : {
+    email: null,
+    uid: null,
+    nom: null,
+    profile_picture: null
+  },
+  connected: false,
+  loading: false,
 };
 
 const getters = {
-    getUSer(state) {
-        return state.user
-    },
-    getConnected(state) {
-        return state.connected
-    }
+  getUSer(state: any) {
+    return state.user
+  },
+  getConnected(state: any) {
+    return state.connected
+  },
+  getLoading(state: any) {
+    return state.loading
+  }
 };
 
 const actions = {
-    async login({ commit }, uid) {
-        try {
-            const response = await axios.post(`${API_URL}/login`, { uid });
-            const user = {
-                email: response.data.email,
-                uid: response.data.uid,
-                nom: response.data.nom,
-                profile_picture: response.data.profile_picture,
-            };
-            commit('setUser', user);
-            commit('setConnected', true);
-        } catch (error) {
-            commit('setConnected', false);
-            console.error(error);
-        }
-    },
-
-    async authentification({ commit }, user) {
-        try {
-            const response = await axios.post(`${API_URL}/utilisateurs`, user);
-            const userData = {
-                email: response.data.email,
-                uid: response.data.uid,
-                nom: response.data.nom,
-                profile_picture: response.data.profile_picture,
-            };
-            commit('setUser', userData);
-            commit('setConnected', true);
-        } catch (error) {
-            commit('setConnected', false);
-            console.error(error);
-        }
-        // TODO: add loader
-        // finally {}
-    },
-    async disconnect({commit}) {
+  async login({ commit }: any, uid: any) {
+    commit("setLoading", true)
+    await axios.post(`${API_URL}/login`, { uid })
+      .then((response) => {
         const user = {
-            email: null,
-            account_id: null,
-            nom: null,
-            profile_picture: null
-        }
-        commit('setConnected', false );
+          email: response.data.email,
+          uid: response.data.uid,
+          nom: response.data.nom,
+          profile_picture: response.data.profile_picture,
+        };
         commit('setUser', user);
-        router.push('/home')
+        commit('setConnected', true);
+      }).catch((error) => {
+        commit('setConnected', false);
+        console.error(error);
+      }).finally(() => {
+        commit("setLoading", false)
+      })
+  },
+
+  async authentification({ commit }: any, user: any) {
+    commit("setLoading", true)
+    console.log(API_URL + "/utilisateurs")
+    await axios.post(`http://localhost:5001/utilisateurs`, user)
+      .then((response) => {
+        const userData = {
+          email: response.data.email,
+          uid: response.data.uid,
+          nom: response.data.nom,
+          profile_picture: response.data.profile_picture,
+        };
+        commit('setUser', userData);
+        commit('setConnected', true);
+      }).catch ((error) => {
+        commit('setConnected', false);
+        console.error(error);
+      }).finally(() => {
+        commit("setLoading", false)
+      })
+  },
+  async disconnect({commit}: any) {
+    const user = {
+      email: null,
+      account_id: null,
+      nom: null,
+      profile_picture: null
     }
+    commit('setConnected', false );
+    commit('setUser', user);
+  }
 };
 
 const mutations = {
-    setUser(state, value) {
-        state.user = value
-        console.log(value)
-    },
-    setConnected(state, value) {
-        state.connected = value
-        console.log("connected = true")
-    }
+  setUser(state: any, value: any) {
+    state.user = value
+    console.log(value)
+  },
+  setConnected(state: any, value: any) {
+    state.connected = value
+    console.log("connected = true")
+  },
+  setLoading(state: any, value: any) {
+    state.loading = value
+  }
 };
 
 export default {
-    state,
-    getters,
-    actions,
-    mutations,
-    namespaced: true,
+  state,
+  getters,
+  actions,
+  mutations,
+  namespaced: true,
 };

@@ -1,15 +1,20 @@
 import axios from "axios";
+import router from "@/router";
 
 const API_URL = '/api'; // Utiliser le proxy
 
 const state = {
   bottles: [],
   loadibg: false,
+  bottleAdded: false,
 };
 
 const getters = {
   getBottles(state: any) {
-    return state.cellars
+    return state.bottles
+  },
+  getBottleAdded(state: any) {
+    return state.bottleAdded
   },
   getLoading(state: any) {
     return state.loading
@@ -18,33 +23,29 @@ const getters = {
 
 const actions = {
   async bottles({commit}: any, id: any) {
-    console.log("request")
     commit('setLoading', true)
-    await axios.get(`${API_URL}/bouteilles/cave/` + id)
+    axios.get(`${API_URL}/bouteilles/cave/` + id)
       .then((response) => {
         if(response.status == 200) // bottle in the cellar
-          console.log(response.data)
-        // } else if (response.status == 201) { // cellar empty
-        //
-        // }
-        // commit('setBottles', response.data.bouteilles)
+          commit('setBottles', response.data)
+        console.log(response.data)
       }).catch((error) => {
         console.log(error)
       }).finally(() => {
         commit('setLoading', false)
       })
   },
-  async create({commit}: any, bottle) {
+  async create({commit, dispatch}: any, bottle) {
     commit('setLoading', true)
-    await axios.post(`${API_URL}/bouteilles`, bottle)
-      .then((response) => {
-        if(response.status == 200) // bottle in the cellar
-          console.log(response.data)
-        // } else if (response.status == 201) { // cellar empty
-        //
-        // }
-        // commit('setBottles', response.data.bouteilles)
+    commit('setBottleAdded', false)
+    axios.post(`${API_URL}/bouteilles`, bottle)
+      .then(async (response) => {
+        if(response.status == 200) {// bottle in the cellar
+          await commit('setBottleAdded', true)
+          dispatch('bottles', bottle.cave_id)
+        }
       }).catch((error) => {
+        commit('setBottleAdded', false)
         console.log(error)
       }).finally(() => {
         commit('setLoading', false)
@@ -58,6 +59,9 @@ const mutations = {
   },
   setLoading(state: any, value: any) {
     state.loading = value
+  },
+  setBottleAdded(state: any, value: any) {
+    state.bottleAdded = value
   }
 };
 

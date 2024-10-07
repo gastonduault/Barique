@@ -1,10 +1,11 @@
 <template>
   <ion-page>
-    <ion-header class="header" @click="console.log(utilisateur)">
+    <ion-header class="header">
       <button class="deconeciton" @click="disconnect">
         <img src="@/assets/img/decconection.png" alt="deconnection image"/>
       </button>
-      <img :src="utilisateur.profile_picture" alt="profil picture"/>
+<!--      <img :src="utilisateur.profile_picture" alt="profil picture"/>-->
+      <img v-if="utilisateur && utilisateur.profile_picture" :src="utilisateur.profile_picture" alt="profil picture" />
       <h1>Hi!
         <span>{{ utilisateur.nom }}</span>
       </h1>
@@ -80,7 +81,7 @@ export default {
     async disconnect() {
       await this.storage.clear()
       await store.dispatch('user/disconnect')
-      this.$router.push('./home')
+      this.$router.push('/home')
     },
     keydownCellarName(event: any) {
       if(event.code === "Enter" || event.key === "Enter") this.createCellar()
@@ -98,6 +99,8 @@ export default {
     },
     async clickCellar(cellar: any) {
       await store.dispatch('cellar/updtaeCellarSelected', cellar)
+      await this.storage.set('cellar_selected_id', cellar.id);
+      await this.storage.set('cellar_selected_nom', cellar.nom);
       router.push('/Cave')
     }
   }

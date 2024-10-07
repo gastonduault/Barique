@@ -1,9 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Open+Sans:wght@400;600&display=swap');
 
 :root {
-    --white: #FFFFFF;
+    --white: #ffffff;
     --black: #000000;
     --background-color: #fff7f7;
+    --background-grey: #efe1e1;
     --background-dark: #9f5353;
     --font-pink: #c76060;
     --font-black: #3A3A3A;
@@ -50,11 +51,25 @@ h1 {
 @keyframes form-appear {
     0% {
         transform: translateY(+100%);
+        border-radius: 0 0 0 0;
     }
     100% {
         transform: translateY(0%);
+        border-radius: 25px 25px 0 0;
     }
 }
+
+@keyframes form-disappear {
+    0% {
+        transform: translateY(0%);
+        border-radius: 25px 25px 0 0;
+    }
+    100% {
+        transform: translateY(+100%);
+        border-radius: 0 0 0 0;
+    }
+}
+
 
 
 

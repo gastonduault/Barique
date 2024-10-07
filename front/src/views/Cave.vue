@@ -6,15 +6,30 @@
       <h3> {{ cellar.nom }} </h3>
     </ion-header>
     <div class="content">
-      <p>For the moment your cellar is empty <br />
+      <p v-if="bottles && bottles.length === 0">For the moment your cellar is empty <br />
         you can
         <span class="add-link" @click="addBottle">add bottle</span>
       </p>
+      <div v-for="bottle in bottles" :key="bottle.id" class="bottle">
+        <img class="category"
+             :src="'/src/assets/img/grape_'+bottle.categorie+'.png'"
+             alt="bunch of grapes"/>
+        <img class="bottle-img"
+             v-if="bottle.imaga && bottle.image.id"
+             :src="bottle.image.url"
+             alt=" image of bottle"/>
+        <img class="bottle-img"
+             :class="{'rose': bottle.categorie === 'rose'}"
+             v-else :src="'/src/assets/img/bouteille_'+bottle.categorie+'.png'"
+             alt="image of bottle"/>
+        <p>{{ bottle.nom }}</p>
+      </div>
       <button class="add-bottle" @click="addBottle">
         <img src="@/assets/img/ajouter.png" alt="add bottle" />
       </button>
     </div>
     <Loader v-if="loading" />
+    <AddBottle v-if="addBottleOpen" @close-add-bottle="addBottleOpen = false" />
   </ion-page>
 </template>
 
@@ -25,31 +40,51 @@ import {Storage} from "@ionic/storage";
 import {useRouter} from "vue-router";
 import router from "@/router";
 import Loader from "@/components/loader.vue";
+import AddBottle from "@/views/AddBottle.vue";
 
 export default {
   name: "CaveList",
   components: {
-    IonContent, IonHeader, IonPage, IonTitle, IonToolbar, Loader
+    IonContent, IonHeader, IonPage, IonTitle, IonToolbar, Loader, AddBottle
   },
   data() {
     return {
       storage: new Storage,
+      addBottleOpen: false,
     }
   },
+  async created() {
+    this.storage = new Storage();
+    await this.storage.create();
+  },
   computed: {
-    connected: () => { return store.getters['user/getConnected'] },
-    utilisateur: () => { return store.getters["user/getUSer"] },
-    cellar: () => {
-      const cellar = store.getters['cellar/getCellarSelected']
-      if( cellar.id !== null ) store.dispatch('bottles/bottles', cellar.id)
-      return cellar
-    },
-    bottles: () => { return store.getters['bottles/getBottles'] },
-    loading: () => {return store.getters['bottles/getLoading'] }
+    connected: () => store.getters['user/getConnected'],
+    utilisateur: () => store.getters["user/getUSer"],
+    cellar: () => store.getters['cellar/getCellarSelected'],
+    bottles: () => store.getters['bottles/getBottles'],
+    loading: () => store.getters['bottles/getLoading']
+  },
+  async mounted() {
+    if( this.cellar ) {
+      const cellar = {
+        id: await this.storage.get('cellar_selected_id'),
+        nom: await this.storage.get('cellar_selected_nom'),
+      }
+      await store.dispatch('cellar/updtaeCellarSelected', cellar)
+    }
+    store.dispatch('bottles/bottles', this.cellar.id)
+    await this.storage.create();
+    const account_id = await this.storage.get('uid');
+    if(account_id && !this.connected) await store.dispatch('user/login', account_id)
+    console.log(this.bottles)
   },
   methods: {
-    back() { router.push('/caveList') },
-    addBottle() { router.push('/newBottle') }
+    async back() {
+      router.push('/caveList')
+      await this.storage.remove("cave_selected_id")
+      await this.storage.remove("cave_selected_nom");
+    },
+    addBottle() { this.addBottleOpen = true }
   }
 }
 
@@ -58,7 +93,7 @@ export default {
 <style scoped>
 .header {
   align-items: center;
-  height: 50px;
+  padding: 5px;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -97,8 +132,46 @@ export default {
   width: 100%;
   text-align: center;
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
+  align-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  overflow-y: auto;
+  padding: 10px 10px;
+}
+
+.bottle {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 12px;
+  background-color: var(--background-grey);
+  border-radius: 5px;
+  width: 130px;
+  height: 150px;
+}
+
+.bottle .category {
+  width: 20px;
+  position: absolute;
+  left: 5px;
+}
+
+.bottle .bottle-img {
+  margin-top: 20px;
+  width: 20%;
+  //height: 108.78px;
+}
+
+.bottle .bottle-img.rose {
+  width: 15%;
+}
+
+.bottle p {
+  margin: 10px 0 0 0;
 }
 
 .add-link {

@@ -18,9 +18,9 @@ CREATE TABLE caves (
 CREATE TABLE bouteilles (
     id integer not null AUTO_INCREMENT,
     nom VARCHAR(50) NOT NULL,
-    region VARCHAR(50) NOT NULL,
-    cepage VARCHAR(50) NOT NULL,
-    millesime integer NOT NULL,
+    region VARCHAR(50),
+    cepage VARCHAR(50),
+    millesime integer,
     categorie VARCHAR(50) NOT NULL,
     cave_id integer not null,
     primary key (id),

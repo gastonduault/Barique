@@ -1,4 +1,4 @@
-version: '3.8'
+
 
 services:
   mysql:
@@ -13,8 +13,8 @@ services:
       - ./mysql:/docker-entrypoint-initdb.d
     healthcheck:
       test: ["CMD-SHELL", "mysqladmin ping -h localhost"]
-      interval: 10s
-      timeout: 10s
+      interval: 5s
+      timeout: 20s
       retries: 10
 
   api-flask:

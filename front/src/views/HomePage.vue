@@ -25,8 +25,8 @@
 
 <script lang="ts">
 import { GoogleAuth } from '@codetrix-studio/capacitor-google-auth';
-import axios from "axios";
 import { Storage } from '@ionic/storage';
+import VueCookies from 'vue-cookies'
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/vue';
 import router from "@/router";
 import store from '@/store';
@@ -45,17 +45,19 @@ export default {
   async created() {
     this.storage = new Storage();
     await this.storage.create();
-    const account_id = await this.storage.get('uid');
-    if(account_id) await store.dispatch('user/login', account_id)
+    const account_id_storage = await this.storage.get('uid');
+    if(account_id_storage) {
+      console.log("account_id_storage : " + account_id_storage)
+      store.dispatch('user/login', account_id_storage)
         .then(() => { if(this.connected) router.push('./caveList') });
+    }
   },
   async mounted() {
     GoogleAuth.initialize();
   },
   computed: {
     connected: () => { return store.getters['user/getConnected'] },
-    loading: () => { console.log(store.getters['user/getLoading'])
-      return store.getters['user/getLoading'] },
+    loading: () => { return store.getters['user/getLoading'] },
   },
   methods: {
     async logIn() {

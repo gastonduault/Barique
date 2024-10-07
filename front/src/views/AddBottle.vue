@@ -1,10 +1,10 @@
 <template>
-  <ion-page>
-    <ion-header class="header">
-<!--      <h3> New bottle </h3>-->
-    </ion-header>
-    <div class="content">
-      <h1> New bottle </h1>
+    <div class="top"></div>
+    <div class="addbottle" :class="{'close': closeModal}">
+      <h1>
+        <img src="@/assets/img/close-red.png" alt="close add bottle" @click="close">
+        New bottle
+      </h1>
       <div class="fields">
         <div class="field">
           <input type="text" placeholder="Name" v-model="name"/>
@@ -20,11 +20,9 @@
                @click="categorySelected = category"
                :src="'/src/assets/img/grape_'+category+'.png'"/>
         </div>
-        <button class="create"  @click="create" type="submit">create</button>
       </div>
+      <button class="create" :class="{'disable': name.length===0}" @click="create" type="submit">create</button>
     </div>
-    <loader v-if="loading"/>
-  </ion-page>
 </template>
 
 <script lang="ts">
@@ -32,8 +30,9 @@
 import {defineComponent} from "vue";
 import {IonHeader, IonPage} from "@ionic/vue";
 import loader from "@/components/loader.vue";
+import store from "@/store";
 
-export default defineComponent({
+export default{
   components: {loader, IonPage, IonHeader},
   data() {
     return {
@@ -41,65 +40,108 @@ export default defineComponent({
       name: "",
       vintage: "",
       region: "",
+      cepage: "",
       categorySelected: "rouge",
       categories: ["rouge", "blanc", "rose"],
       loading: true,
+      closeModal: false,
     }
+  },
+  computed: {
+    bottleAdded: () => store.getters['bottles/getBottleAdded']
   },
   mounted() {
     this.loading = false
   },
   methods: {
-    create() {
+    async create() {
+      if(this.name.length === 0) return
 
+      const bottle = {
+        nom: this.name,
+        categorie: this.categorySelected,
+        cave_id: store.getters['cellar/getCellarSelected'].id
+      }
+      if(this.region.length > 0) bottle["region"] = this.region
+      if(this.cepage.length > 0) bottle["cepage"] = this.cepage
+      if(this.vintage.length > 0) bottle["millesime"] = this.vintage
+
+      await store.dispatch('bottles/create', bottle)
+      this.close()
+    },
+    close() {
+      this.closeModal=true
+      console.log("emit 1")
+      setTimeout(() => {
+        console.log("emit 2")
+        this.$emit('closeAddBottle')
+      }, 500)
     }
   }
-})
+}
 </script>
 
 <style scoped>
-.header {
-  text-align: center;
+.top {
+  width: 100%;
   height: 100vh;
-  background-image: url("@/assets/img/add_wallpaper.jpg");
-  background-size: cover;
-  position: relative;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  backdrop-filter: blur(2px);
 }
 
 h1 {
   font-weight: bold;
-  color: white ;
+  color: var(--font-black);
   font-size: 1.2em;
+  position: relative;
+  width: 100%;
+  text-align: center;
 }
 
-.content {
+h1 img {
   position: absolute;
-  top: 30vh;
+  left: 10%;
+  width: 25px;
+  cursor: pointer;
+}
+
+.addbottle {
+  position: absolute;
+  top: 35vh;
   left: 0;
   width: 100%;
-  height: 70vh;
+  height: 65vh;
   z-index: 10;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
-  background-color: #c76060;
-  border-radius: 25px 25px 0 0;
-  animation: form-appear .5s ease-out;
+  background-color: var(--white);
+  animation: form-appear .5s ease-out forwards;
+  //border: #c76060 solid 1px;
+  border: var(--background-dark) solid 1px;
+  border-bottom: 0;
 }
 
-.content .fields {
+.addbottle.close {
+  animation: form-disappear .5s ease-out forwards;
+}
+
+.addbottle .fields {
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
   gap: 10%;
-  height: 70%;
+  height: 50%;
 }
 
 
-.content input {
+.addbottle input {
   width: 290px;
   padding: 10px 10px;
   border-radius: 25px 25px;
@@ -120,8 +162,8 @@ h1 {
   top: 6px;
 }
 
-.content input:focus,
-.content input:active {
+.addbottle input:focus,
+.addbottle input:active {
   border: solid 2px var(--font-pink);
 }
 
@@ -151,15 +193,19 @@ h1 {
   border-radius: 5px 5px;
   font-size: 1em;
   font-weight: bold;
-  color: var(--font-pink);
+  background-color: var(--font-pink);
   text-transform: uppercase;
-  margin-top: 5%;
+  margin-top: 20px;
   padding: 10px 10px;
-  background-color: var(--background-color);
+  color: var(--background-color);
 }
 
 .create:active {
   opacity: .8;
+}
+.create.disable {
+  pointer-events: none;
+  opacity: 0.8;
 }
 
 </style>

@@ -28,6 +28,7 @@ const actions = {
     await axios.get(`${API_URL}/caves/owner/`+uid)
       .then((response) => {
         commit('setCellars', response.data.caves)
+        console.log(response)
     }).catch((error) => {
       console.log(error)
     }).finally(() => {

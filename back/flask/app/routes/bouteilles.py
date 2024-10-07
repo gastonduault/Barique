@@ -17,7 +17,7 @@ def add_bouteille():
     try:
         db.session.add(new_bouteille)
         db.session.commit()
-        return jsonify({'message': 'Bouteille ajoutée avec succès!'}), 201
+        return jsonify({'message': 'Bouteille ajoutée avec succès!'}), 200
     except Exception as e:
         db.session.rollback()
         return jsonify({'message': 'Erreur lors de l\'ajout de la bouteille', 'error': str(e)}), 500

@@ -1,5 +1,6 @@
 from flask import Blueprint, jsonify, request
-from ..models import Bouteille, db
+from ..models import Bouteille, Historique, db
+from datetime import datetime
 
 bp = Blueprint('bouteilles', __name__, url_prefix='/bouteilles')
 
@@ -51,9 +52,20 @@ def delete_bouteille(bouteille_id):
     if not bouteille:
         return jsonify({'message': 'Bouteille non trouvée'}), 404
     try:
+        historique = Historique(
+            nom=bouteille.nom,
+            region=bouteille.region,
+            cepage=bouteille.cepage,
+            millesime=bouteille.millesime,
+            categorie=bouteille.categorie,
+            cave_id=bouteille.cave_id,
+            date_suppression=datetime.utcnow()
+        )
+        db.session.add(historique)
         db.session.delete(bouteille)
         db.session.commit()
-        return jsonify({'message': 'Bouteille supprimée avec succès!'}), 200
+
+        return jsonify({'message': 'Bouteille supprimée avec succès et ajoutée à l\'historique!'}), 200
     except Exception as e:
         db.session.rollback()
         return jsonify({'message': f'Erreur lors de la suppression de la bouteille : {str(e)}'}), 500
@@ -64,11 +76,6 @@ def delete_bouteille(bouteille_id):
 @bp.route('/cave/<int:cave_id>', methods=['GET'])
 def get_bouteilles_by_cave(cave_id):
     bouteilles = Bouteille.query.filter_by(cave_id=cave_id).all()
-    if not bouteilles:
-        return jsonify({
-        'message': 'Aucune bouteille trouvée pour cette cave',
-        'bouteilles': []
-        }), 201
     return jsonify([bouteille.to_dict() for bouteille in bouteilles]), 200
 
 

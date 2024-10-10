@@ -10,7 +10,10 @@
         you can
         <span class="add-link" @click="addBottle">add bottle</span>
       </p>
-      <div v-for="bottle in bottles" :key="bottle.id" class="bottle">
+      <div v-for="bottle in bottles"
+           @click="bottleSelected = bottle"
+           :key="bottle.id"
+           class="bottle">
         <img class="category"
              :src="'/src/assets/img/grape_'+bottle.categorie+'.png'"
              alt="bunch of grapes"/>
@@ -30,6 +33,9 @@
     </div>
     <Loader v-if="loading" />
     <AddBottle v-if="addBottleOpen" @close-add-bottle="addBottleOpen = false" />
+    <Bottle v-if="bottleSelected !== null"
+            @close-modale="bottleSelected = null"
+            :bottle="bottleSelected"/>
   </ion-page>
 </template>
 
@@ -41,16 +47,18 @@ import {useRouter} from "vue-router";
 import router from "@/router";
 import Loader from "@/components/loader.vue";
 import AddBottle from "@/views/AddBottle.vue";
+import Bottle from "@/views/Bottle.vue"
 
 export default {
   name: "CaveList",
   components: {
-    IonContent, IonHeader, IonPage, IonTitle, IonToolbar, Loader, AddBottle
+    IonContent, IonHeader, IonPage, IonTitle, IonToolbar, Loader, AddBottle, Bottle
   },
   data() {
     return {
       storage: new Storage,
       addBottleOpen: false,
+      bottleSelected: null,
     }
   },
   async created() {
@@ -128,7 +136,7 @@ export default {
 }
 
 .content {
-  height: 100%;
+  height: calc(100% - 37px);
   width: 100%;
   text-align: center;
   display: flex;
@@ -138,7 +146,8 @@ export default {
   flex-wrap: wrap;
   gap: 20px;
   overflow-y: auto;
-  padding: 10px 10px;
+  padding: 10px 10px 10px 10px;
+  //margin-top: 20px;
 }
 
 .bottle {

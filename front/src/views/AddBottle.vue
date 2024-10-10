@@ -64,7 +64,7 @@ export default{
       }
       if(this.region.length > 0) bottle["region"] = this.region
       if(this.cepage.length > 0) bottle["cepage"] = this.cepage
-      if(this.vintage.length > 0) bottle["millesime"] = this.vintage
+      if(this.vintage !== "") bottle["millesime"] = this.vintage
 
       await store.dispatch('bottles/create', bottle)
       this.close()
@@ -169,10 +169,11 @@ h1 img {
 
 .category {
   display: flex;
-  background-color: var(--background-color);
+  //background-color: var(--background-color);
   padding: 2px 2px;
   border-radius: 10px 10px;
   gap: 4px 10px;
+  background-color: #e7e7e7;
 }
 
 .category img{

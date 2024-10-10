@@ -7,6 +7,7 @@ const state = {
   bottles: [],
   loadibg: false,
   bottleAdded: false,
+  bottleDeletd: false,
 };
 
 const getters = {
@@ -18,6 +19,9 @@ const getters = {
   },
   getLoading(state: any) {
     return state.loading
+  },
+  getBottleDeleted(state: any) {
+    return state.bottleDeletd
   }
 };
 
@@ -45,11 +49,27 @@ const actions = {
           dispatch('bottles', bottle.cave_id)
         }
       }).catch((error) => {
-        commit('setBottleAdded', false)
-        console.log(error)
-      }).finally(() => {
-        commit('setLoading', false)
-      })
+      commit('setBottleAdded', false)
+      console.log(error)
+    }).finally(() => {
+      commit('setLoading', false)
+    })
+  },
+  async delete({commit, dispatch}: any, bottle) {
+    commit('setLoading', true)
+    commit('setBottleDeleted', false)
+    axios.delete(`${API_URL}/bouteilles/${bottle.id}`)
+      .then(async (response) => {
+        if(response.status == 200) {// bottle in the cellar
+          await commit('setBottleDeleted', true)
+          dispatch('bottles', bottle.cave_id)
+        }
+      }).catch((error) => {
+      commit('setBottleDeleted', true)
+      console.log(error)
+    }).finally(() => {
+      commit('setLoading', false)
+    })
   },
 };
 
@@ -62,6 +82,10 @@ const mutations = {
   },
   setBottleAdded(state: any, value: any) {
     state.bottleAdded = value
+  },
+  setBottleDeleted(state: any, value: any) {
+    console.log("bottle deletdd ")
+    state.bottleDeleted = value
   }
 };
 

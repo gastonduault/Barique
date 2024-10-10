@@ -3,18 +3,19 @@
 services:
   mysql:
     image: mysql:8.0
-    restart: always
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: polywine
       MYSQL_USER: user
       MYSQL_PASSWORD: user
+    ports:
+      - "3306:3306"
     volumes:
       - ./mysql:/docker-entrypoint-initdb.d
     healthcheck:
       test: ["CMD-SHELL", "mysqladmin ping -h localhost"]
-      interval: 5s
-      timeout: 20s
+      interval: 10s
+      timeout: 30s
       retries: 10
 
   api-flask:

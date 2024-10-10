@@ -3,7 +3,7 @@ CREATE TABLE utilisateurs (
     account_id VARCHAR(50),
     nom VARCHAR(50) NOT NULL,
     email VARCHAR(50) NOT NULL,
-    profile_picture VARCHAR(1000),
+    profile_picture VARCHAR(500),
     PRIMARY KEY (uid)
 );
 
@@ -25,6 +25,18 @@ CREATE TABLE bouteilles (
     cave_id integer not null,
     primary key (id),
     FOREIGN KEY (cave_id) REFERENCES caves(id)
+);
+
+CREATE TABLE historique (
+    id integer not null AUTO_INCREMENT,
+    nom VARCHAR(50) NOT NULL,
+    region VARCHAR(50),
+    cepage VARCHAR(50),
+    millesime integer,
+    categorie VARCHAR(50) NOT NULL,
+    cave_id integer not null,
+    primary key (id),
+    date_suppression TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 -- CREATE TABLE amis (

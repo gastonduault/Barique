@@ -36,7 +36,6 @@ export default{
   components: {loader, IonPage, IonHeader},
   data() {
     return {
-      selectingCategory: false,
       name: "",
       vintage: "",
       region: "",

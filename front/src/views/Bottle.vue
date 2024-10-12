@@ -1,27 +1,55 @@
 <template>
-    <div class="top"></div>
+    <div class="top" @click="close"></div>
     <div v-if="bottle" class="addbottle" :class="{'close': closeModal}">
       <h1>
         <img src="@/assets/img/close-red.png" class="close-modale" alt="close add bottle" @click="close">
-        {{ bottle.nom }}
+        <input v-model="nom" type="text" :class="{'editable': editBottle}" />
+        <img v-if="!editBottle" src="@/assets/img/edit.png" class="edit-bottle" alt="edit" @click="editBottle = true"/>
+<!--        <img v-else src="@/assets/img/valid.png" class="edit-bottle valid" alt="edit" @click="updateBottle"/>-->
       </h1>
       <div class="fields">
-        <img class="bottle-img"
-             v-if="bottle.imaga && bottle.image.id"
-             :src="bottle.image.url"
-             alt=" image of bottle"/>
-        <img class="bottle-img"
-             :class="{'rose': bottle.categorie === 'rose'}"
-             v-else :src="'/src/assets/img/bouteille_'+bottle.categorie+'.png'"
-             alt="image of bottle"/>
-        <ul>
-          <li><strong>Region :</strong> {{ bottle.region }}</li>
-          <li><strong>Cepage :</strong> {{ bottle.cepage }}</li>
-          <li><strong>Millesime :</strong> {{ bottle.millesime }}</li>
-        </ul>
-        <button class="remove-bottle" @click="bottleDrunk">
-          bottle drunk
-        </button>
+        <div class="info-bottle">
+          <div>
+            <img class="bottle-img"
+                 v-if="bottle.imaga && bottle.image.id"
+                 :src="bottle.image.url"
+                 alt=" image of bottle"/>
+            <img class="bottle-img"
+                 :class="{'rose': bottle.categorie === 'rose'}"
+                 v-else :src="'/src/assets/img/bouteille_'+bottle.categorie+'.png'"
+                 alt="image of bottle"/>
+          </div>
+          <ul>
+            <li :class="{'editable': editBottle}">
+              <strong>Region : </strong>
+              <input v-model="region" type="text"/>
+            </li>
+            <li :class="{'editable': editBottle}">
+              <strong>Cepage :</strong>
+              <input v-model="cepage" type="text" />
+            </li>
+            <li :class="{'editable': editBottle}">
+              <strong>Millesime :</strong>
+              <input v-model="millesime" type="number" min="1900" max="2099" step="1" :class="{'editable': editBottle}"/>
+            </li>
+          </ul>
+          <div v-if="editBottle" class="input category">
+            <img v-for="category in categories"
+                 :class="{'selected': categorySelected===category}"
+                 @click="categorySelected = category"
+                 :src="'/src/assets/img/grape_'+category+'.png'"/>
+          </div>
+        </div>
+        <div class="bottom">
+          <button v-if="!editBottle" class="remove-bottle" @click="bottleDrunk">
+            <p>bottle drunk</p>
+            <img src="@/assets/img/bottle_drunk.png" alt="remove bottle"/>
+          </button>
+          <nav v-else>
+            <button @click="cancelEditBottle">Cancel</button>
+            <button @click="updateBottle">Update</button>
+          </nav>
+        </div>
       </div>
     </div>
 </template>
@@ -39,6 +67,13 @@ export default{
     return {
       loading: true,
       closeModal: false,
+      editBottle: false,
+      nom: String,
+      region: String,
+      cepage: String,
+      millesime: Number,
+      categorySelected: "rouge",
+      categories: ["rouge", "blanc", "rose"],
     }
   },
   props: {
@@ -49,6 +84,7 @@ export default{
   },
   mounted() {
     this.loading = false
+    this.initBottleInfo()
     console.log(this.bottle)
   },
   methods: {
@@ -58,9 +94,34 @@ export default{
         this.$emit('closeModale')
       }, 500)
     },
+    initBottleInfo() {
+      this.nom = this.bottle.nom
+      this.region = this.bottle.region
+      this.cepage = this.bottle.cepage
+      this.millesime = this.bottle.millesime
+      this.categorySelected = this.bottle.categorie
+    },
     async bottleDrunk() {
+      this.initBottleInfo();
       await store.dispatch("bottles/delete", this.bottle)
       this.close()
+    },
+    cancelEditBottle() {
+      this.initBottleInfo()
+      this.editBottle = false
+    },
+    async updateBottle() {
+      const bottle_updated = {
+        "cepage": this.cepage,
+        "millesime": this.millesime,
+        "region": this.region,
+        "nom": this.nom,
+        "categorie": this.categorySelected,
+        "id": this.bottle.id,
+        "cave_id": this.bottle.cave_id
+      }
+      await store.dispatch("bottles/update", bottle_updated)
+      this.editBottle = false
     }
   }
 }
@@ -86,12 +147,33 @@ h1 {
   text-align: center;
 }
 
+h1 input {
+  background-color: transparent;
+  border: transparent solid 1px;
+  pointer-events: none;
+  padding: 2px 0;
+  text-align: center;
+}
+
 h1 img.close-modale {
   position: absolute;
   left: 10%;
   width: 25px;
   cursor: pointer;
 }
+
+h1 img.edit-bottle {
+  position: absolute;
+  right: 10%;
+  top: 25%;
+  width: 15px;
+  cursor: pointer;
+}
+
+h1 img.edit-bottle.valid {
+  width: 20px;
+}
+
 
 .addbottle {
   position: absolute;
@@ -106,8 +188,9 @@ h1 img.close-modale {
   justify-content: space-around;
   background-color: var(--white);
   animation: form-appear .5s ease-out forwards;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
   //border: #c76060 solid 1px;
-  border: var(--background-dark) solid 1px;
+  //border: var(--background-dark) solid 1px;
   border-bottom: 0;
 }
 
@@ -119,33 +202,184 @@ h1 img.close-modale {
   width: 100%;
   display: flex;
   align-items: center;
-  justify-content: start;
   flex-direction: column;
+  justify-content: space-around;
   gap: 10%;
   height: 80%;
   position : relative;
 }
 
+.info-bottle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  position: relative;
+}
+
+.info-bottle div{
+  width: 35%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .bottle-img {
   margin-top: 20px;
-  width: 15%;
-  position: absolute;
-  top: 0;
-  left: 30px;
+  width: 40px;
 }
 
 .bottle-img.rose {
-  width: 10%;
+  width: 35px;
+}
+
+ul {
+  padding-left: 0;
+  width: 65%;
 }
 
 li {
   list-style: none;
-  margin-top: 30px;
+  margin: 30px 0 0 0;
   color: var(--font-black);
+  position: relative;
+  width: 80%;
+  padding: 3px 0 0 0 ;
+}
+
+li.editable{
+  //background-color: #e7e7e7;
+}
+
+li input {
+  position: absolute;
+  width: 100%;
+  top: -3px;
+  left: 0;
+  background-color: transparent;
+  border: transparent solid 1px;
+  pointer-events: none;
+  padding: 5px 0;
+}
+
+li.editable input,
+input.editable{
+  border: solid 1px var(--font-pink);
+  border-radius: 25px 25px;
+  pointer-events: all;
+  z-index: 0;
+}
+
+
+li:nth-child(1) input {
+  padding-left: 69px;
+}
+
+li:nth-child(2) input {
+  padding-left: 74px;
+}
+
+li:nth-child(3) input {
+  padding-left: 89px;
 }
 
 li strong {
+  padding-left: 10px;
   color: var(--background-dark);
 }
+
+
+.category {
+  position: absolute;
+  bottom: -50px;
+  margin: 0 auto;
+  display: flex;
+  padding: 2px 2px;
+  border-radius: 10px 10px;
+  gap: 4px 10px;
+  background-color: #e7e7e7;
+}
+
+.category img{
+  padding: 8px 8px;
+  cursor: pointer;
+  transition: .5s ease-out;
+  border-radius: 0 0;
+  border: solid 1px transparent;
+}
+
+.category img.selected{
+  border-radius: 10px 10px;
+  border: solid 1px #bdbdbd;
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+}
+
+.bottom {
+  height: 10%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bottom nav {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 0 10px;
+  justify-content: center;
+}
+
+.bottom nav button {
+  position: relative;
+  border-radius: 5px 5px;
+  font-size: 1em;
+  background-color: #769dde;
+  padding: 7px 15px;
+  font-weight: bold;
+  letter-spacing: 2px;
+  color: var(--background-color);
+}
+
+.bottom nav button:nth-child(1) {
+  background-color: #a9b1bf;
+}
+
+.bottom nav button:nth-child(1):focus {
+  background-color: #969ca7;
+}
+
+.remove-bottle {
+  position: relative;
+  border-radius: 5px 5px;
+  font-size: 1em;
+  font-weight: bold;
+  background-color: #769dde;
+  text-transform: uppercase;
+  padding: 5px 10px 20px 10px;
+  color: var(--background-color);
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.remove-bottle,
+.bottom nav button:nth-child(2):focus {
+  background-color: #6889c2;
+}
+
+.remove-bottle img {
+  width: 30px;
+  position: absolute;
+  bottom: -13px;
+  transform: rotateZ(10deg);
+  transition: 1s ease-out;
+}
+
+.remove-bottle p {
+  margin: 0 0;
+}
+
+
 
 </style>

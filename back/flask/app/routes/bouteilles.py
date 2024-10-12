@@ -37,7 +37,6 @@ def update_bouteille(bouteille_id):
         bouteille.cepage = data.get('cepage', bouteille.cepage)
         bouteille.millesime = data.get('millesime', bouteille.millesime)
         bouteille.categorie = data.get('categorie', bouteille.categorie)
-        bouteille.cave_id = data.get('cave_id', bouteille.cave_id)
         db.session.commit()
         return jsonify({'message': 'Bouteille mise à jour avec succès!'}), 200
     except Exception as e:

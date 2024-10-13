@@ -32,7 +32,6 @@ const actions = {
       .then((response) => {
         if(response.status == 200) // bottle in the cellar
           commit('setBottles', response.data)
-        console.log(response.data)
       }).catch((error) => {
         console.log(error)
       }).finally(() => {
@@ -71,14 +70,15 @@ const actions = {
   async delete({commit, dispatch}: any, bottle) {
     commit('setLoading', true)
     commit('setBottleDeleted', false)
-    axios.delete(`${API_URL}/bouteilles/${bottle.id}`)
+    axios.post(`${API_URL}/bouteilles/drunk/${bottle.id}`, bottle)
       .then(async (response) => {
         if(response.status == 200) {// bottle in the cellar
           await commit('setBottleDeleted', true)
           dispatch('bottles', bottle.cave_id)
+          dispatch('history/bottles', bottle.cave_id, {root: true})
         }
       }).catch((error) => {
-      commit('setBottleDeleted', true)
+      commit('setBottleDeleted', false)
       console.log(error)
     }).finally(() => {
       commit('setLoading', false)
@@ -97,7 +97,6 @@ const mutations = {
     state.bottleAdded = value
   },
   setBottleDeleted(state: any, value: any) {
-    console.log("bottle deletdd ")
     state.bottleDeleted = value
   }
 };

@@ -26,6 +26,11 @@ const routes: Array<RouteRecordRaw> = [
     path: '/newBottle',
     name: 'AddBottle',
     component: () => import('@/views/AddBottle.vue')
+  },
+  {
+    path: '/historique',
+    name: 'Historique',
+    component: () => import('@/views/Historique.vue')
   }
 ];
 

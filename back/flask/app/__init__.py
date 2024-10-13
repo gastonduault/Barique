@@ -12,8 +12,9 @@ def create_app():
     db.init_app(app)
 
     with app.app_context():
-        from .routes import utilisateurs, caves, bouteilles, amis
+        from .routes import utilisateurs, caves, bouteilles, amis, historique
 
+        app.register_blueprint(historique.bp)
         app.register_blueprint(utilisateurs.bp)
         app.register_blueprint(caves.bp)
         app.register_blueprint(bouteilles.bp)

@@ -32,7 +32,7 @@ class Historique(db.Model):
     nom = db.Column(db.String(255), nullable=False)
     region = db.Column(db.String(255), nullable=True)
     cepage = db.Column(db.String(255), nullable=True)
-    millesime = db.Column(db.String(255), nullable=True)
+    millesime = db.Column(db.Integer, nullable=True)
     categorie = db.Column(db.String(255), nullable=True)
     cave_id = db.Column(db.Integer, nullable=False)
     date_suppression = db.Column(db.DateTime, default=datetime.utcnow)

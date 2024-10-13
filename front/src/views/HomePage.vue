@@ -47,7 +47,6 @@ export default {
     await this.storage.create();
     const account_id_storage = await this.storage.get('uid');
     if(account_id_storage) {
-      console.log("account_id_storage : " + account_id_storage)
       store.dispatch('user/login', account_id_storage)
         .then(() => { if(this.connected) router.push('./caveList') });
     }

@@ -45,8 +45,9 @@ def update_bouteille(bouteille_id):
     finally:
         db.session.close()
 
-@bp.route('/<int:bouteille_id>', methods=['DELETE'])
+@bp.route('drunk/<int:bouteille_id>', methods=['POST'])
 def delete_bouteille(bouteille_id):
+    data = request.get_json()
     bouteille = Bouteille.query.get(bouteille_id)
     if not bouteille:
         return jsonify({'message': 'Bouteille non trouvée'}), 404
@@ -58,7 +59,7 @@ def delete_bouteille(bouteille_id):
             millesime=bouteille.millesime,
             categorie=bouteille.categorie,
             cave_id=bouteille.cave_id,
-            date_suppression=datetime.utcnow()
+            date_suppression=data.get('date_suppression'),
         )
         db.session.add(historique)
         db.session.delete(bouteille)

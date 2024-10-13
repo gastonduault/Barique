@@ -74,18 +74,15 @@ export default{
       millesime: Number,
       categorySelected: "rouge",
       categories: ["rouge", "blanc", "rose"],
+      currentDate: new Date()
     }
   },
   props: {
     bottle: Object
   },
-  computed: {
-    bottleDeleted: () => store.getters["bottles/getBottleDeleted"]
-  },
   mounted() {
     this.loading = false
     this.initBottleInfo()
-    console.log(this.bottle)
   },
   methods: {
     close() {
@@ -103,6 +100,7 @@ export default{
     },
     async bottleDrunk() {
       this.initBottleInfo();
+      this.bottle['date_suppression'] = this.formatDateForMySQL(this.currentDate)
       await store.dispatch("bottles/delete", this.bottle)
       this.close()
     },
@@ -122,6 +120,16 @@ export default{
       }
       await store.dispatch("bottles/update", bottle_updated)
       this.editBottle = false
+    },
+    formatDateForMySQL(date) {
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, '0'); // Mois de 0 à 11
+      const day = String(date.getDate()).padStart(2, '0');
+      const hours = String(date.getHours()).padStart(2, '0');
+      const minutes = String(date.getMinutes()).padStart(2, '0');
+      const seconds = String(date.getSeconds()).padStart(2, '0');
+
+      return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
     }
   }
 }
@@ -187,11 +195,10 @@ h1 img.edit-bottle.valid {
   align-items: center;
   justify-content: space-around;
   background-color: var(--white);
-  animation: form-appear .5s ease-out forwards;
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  animation: form-appear .5s ease-out forwards;
   //border: #c76060 solid 1px;
   //border: var(--background-dark) solid 1px;
-  border-bottom: 0;
 }
 
 .addbottle.close {

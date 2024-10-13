@@ -70,9 +70,7 @@ export default{
     },
     close() {
       this.closeModal=true
-      console.log("emit 1")
       setTimeout(() => {
-        console.log("emit 2")
         this.$emit('closeAddBottle')
       }, 500)
     }
@@ -119,9 +117,9 @@ h1 img {
   align-items: center;
   justify-content: space-around;
   background-color: var(--white);
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
   animation: form-appear .5s ease-out forwards;
   //border: #c76060 solid 1px;
-  border: var(--background-dark) solid 1px;
   border-bottom: 0;
 }
 

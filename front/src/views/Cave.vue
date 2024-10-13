@@ -1,13 +1,14 @@
 <template>
   <ion-page>
-    <ion-header class="header" @click="console.log(cellar)">
+    <ion-header class="header">
       <img src="@/assets/img/back.png" alt="arrow back" class="back" @click="back"/>
       <img :src="utilisateur.profile_picture" alt="profil picture" class="pp"/>
       <h3> {{ cellar.nom }} </h3>
     </ion-header>
     <div class="content">
-      <p v-if="bottles && bottles.length === 0">For the moment your cellar is empty <br />
-        you can
+      <button class="historique-btn" @click="historique"></button>
+      <p v-if="bottles && bottles.length === 0" class="no-bottle">
+        For the moment your cellar is empty <br /> you can
         <span class="add-link" @click="addBottle">add bottle</span>
       </p>
       <div v-for="bottle in bottles"
@@ -44,10 +45,10 @@ import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/vue
 import store from '@/store';
 import {Storage} from "@ionic/storage";
 import {useRouter} from "vue-router";
-import router from "@/router";
 import Loader from "@/components/loader.vue";
 import AddBottle from "@/views/AddBottle.vue";
 import Bottle from "@/views/Bottle.vue"
+import router from "@/router";
 
 export default {
   name: "CaveList",
@@ -84,7 +85,6 @@ export default {
     await this.storage.create();
     const account_id = await this.storage.get('uid');
     if(account_id && !this.connected) await store.dispatch('user/login', account_id)
-    console.log(this.bottles)
   },
   methods: {
     async back() {
@@ -92,7 +92,10 @@ export default {
       await this.storage.remove("cave_selected_id")
       await this.storage.remove("cave_selected_nom");
     },
-    addBottle() { this.addBottleOpen = true }
+    addBottle() { this.addBottleOpen = true },
+    historique() {
+      router.push("/Historique")
+    }
   }
 }
 
@@ -106,16 +109,17 @@ export default {
   flex-direction: row;
   justify-content: center;
   justify-items: center;
+  height: 30px !important;
 }
 
 .header img.pp {
   width: 25px;
   border-radius: 50%;
-  margin-right: 20px;
+  margin-right: 10px;
 }
 
 .header img.back {
-  width: 25px;
+  width: 20px;
   position: absolute;
   left: 15px;
   border-radius: 50%;
@@ -132,22 +136,49 @@ export default {
 }
 
 .header h3 {
-  margin: 0 0;
+  margin: 1px 0 0 0;
+  font-size: 1em;
 }
 
 .content {
-  height: calc(100% - 37px);
   width: 100%;
+  height: calc(100% - 30px);
+  overflow-y: auto;
   text-align: center;
   display: flex;
   justify-content: center;
-  align-items: center;
-  align-content: center;
+  align-items: start;
+  align-content: start;
   flex-wrap: wrap;
   gap: 20px;
-  overflow-y: auto;
-  padding: 10px 10px 10px 10px;
+  padding: 10px 10px;
   //margin-top: 20px;
+}
+
+.no-bottle {
+  margin-top: 35vh;
+  line-height: 70px;
+}
+
+.historique-btn {
+  position: fixed;
+  z-index: 2;
+  width: 30px;
+  height: 30px;
+  right: 10px;
+  top: 35px;
+  background-color: var(--background-color);
+  background-image: url("@/assets/img/historique.png");
+  background-position: center;
+  background-size: 20px;
+  background-repeat: no-repeat;
+  border-radius: 25px 25px;
+  //box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+}
+
+.historique-btn:focus {
+  background-color: #e5cdcd;
 }
 
 .bottle {

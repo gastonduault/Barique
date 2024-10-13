@@ -6,27 +6,33 @@
       <h3> {{ cellar.nom }} </h3>
     </ion-header>
     <div class="content">
+      <div class="search-bottle">
+        <input v-model="search" placeholder="Search"/>
+        <button v-if="search !== ''" @click="search = ''"></button>
+      </div>
       <button class="historique-btn" @click="historique"></button>
       <p v-if="bottles && bottles.length === 0" class="no-bottle">
         For the moment your cellar is empty <br /> you can
         <span class="add-link" @click="addBottle">add bottle</span>
       </p>
-      <div v-for="bottle in bottles"
-           @click="bottleSelected = bottle"
-           :key="bottle.id"
-           class="bottle">
-        <img class="category"
-             :src="'/src/assets/img/grape_'+bottle.categorie+'.png'"
-             alt="bunch of grapes"/>
-        <img class="bottle-img"
-             v-if="bottle.imaga && bottle.image.id"
-             :src="bottle.image.url"
-             alt=" image of bottle"/>
-        <img class="bottle-img"
-             :class="{'rose': bottle.categorie === 'rose'}"
-             v-else :src="'/src/assets/img/bouteille_'+bottle.categorie+'.png'"
-             alt="image of bottle"/>
-        <p>{{ bottle.nom }}</p>
+      <div class="bottles">
+        <div v-for="bottle in bottles"
+             @click="bottleSelected = bottle"
+             :key="bottle.id"
+             class="bottle">
+          <img class="category"
+               :src="'/src/assets/img/grape_'+bottle.categorie+'.png'"
+               alt="bunch of grapes"/>
+          <img class="bottle-img"
+               v-if="bottle.imaga && bottle.image.id"
+               :src="bottle.image.url"
+               alt=" image of bottle"/>
+          <img class="bottle-img"
+               :class="{'rose': bottle.categorie === 'rose'}"
+               v-else :src="'/src/assets/img/bouteille_'+bottle.categorie+'.png'"
+               alt="image of bottle"/>
+          <p>{{ bottle.nom }}</p>
+        </div>
       </div>
       <button class="add-bottle" @click="addBottle">
         <img src="@/assets/img/ajouter.png" alt="add bottle" />
@@ -60,6 +66,7 @@ export default {
       storage: new Storage,
       addBottleOpen: false,
       bottleSelected: null,
+      search: "",
     }
   },
   async created() {
@@ -70,7 +77,16 @@ export default {
     connected: () => store.getters['user/getConnected'],
     utilisateur: () => store.getters["user/getUSer"],
     cellar: () => store.getters['cellar/getCellarSelected'],
-    bottles: () => store.getters['bottles/getBottles'],
+    bottles () {
+      const allBottles = store.getters['bottles/getBottles']
+      if(this.search === "") {
+        return allBottles
+      }else {
+        return allBottles.filter(bottle =>
+            bottle.nom.toLowerCase().includes(this.search.toLowerCase())
+        )
+      }
+    },
     loading: () => store.getters['bottles/getLoading']
   },
   async mounted() {
@@ -145,14 +161,46 @@ export default {
   height: calc(100% - 30px);
   overflow-y: auto;
   text-align: center;
+  padding: 10px 10px;
+  //margin-top: 20px;
+}
+
+.bottles {
   display: flex;
   justify-content: center;
   align-items: start;
   align-content: start;
   flex-wrap: wrap;
   gap: 20px;
-  padding: 10px 10px;
-  //margin-top: 20px;
+}
+
+div.search-bottle {
+  margin: 0 auto 10px auto;
+  position: relative;
+  width: 70%;
+}
+
+div.search-bottle input{
+  background-color: var(--background-color);
+  border: solid 1px var(--background-grey);
+  border-radius: 25px 25px;
+  padding: 5px 5px;
+  width: 100%;
+}
+
+div.search-bottle button {
+  width: 17px;
+  height: 17px;
+  padding: 5px 5px;
+  background-image: url("@/assets/img/close.png");
+  background-size: 14px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: var(--background-dark);
+  border-radius: 25px 25px;
+  position: absolute;
+  top: 7px;
+  right: 7px;
 }
 
 .no-bottle {
@@ -166,7 +214,7 @@ export default {
   width: 30px;
   height: 30px;
   right: 10px;
-  top: 35px;
+  top: 40px;
   background-color: var(--background-color);
   background-image: url("@/assets/img/historique.png");
   background-position: center;

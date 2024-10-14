@@ -3,6 +3,7 @@
 :root {
     --white: #ffffff;
     --black: #000000;
+    --blue: #769dde;
     --background-color: #fff7f7;
     --background-grey: #efe1e1;
     --background-dark: #9f5353;
@@ -35,6 +36,16 @@ h1 {
 
 .white-background {
     background-color: var(--white);
+}
+
+.add-link {
+    color: var(--font-pink);
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.add-link:hover {
+    border-bottom: solid 2px var(--font-pink);
 }
 
 @keyframes img-appear {

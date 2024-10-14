@@ -25,8 +25,8 @@ const getters = {
 const actions = {
   async listCellars({commit}: any, uid: any) {
     commit('setLoading', true)
-    await axios.get(`${API_URL}/caves/owner/`+uid)
-      .then((response) => {
+    axios.get(`${API_URL}/caves/owner/`+uid)
+    .then((response) => {
         commit('setCellars', response.data.caves)
     }).catch((error) => {
       console.log(error)
@@ -34,16 +34,38 @@ const actions = {
       commit('setLoading', false)
     })
   },
-  async createCellar({commit, dispatch}: any, cellar: any) {
+  async create({commit, dispatch}: any, cellar: any) {
     commit('setLoading', true)
-    await axios.post(`${API_URL}/caves`, cellar)
-      .then((response) => {
+    axios.post(`${API_URL}/caves`, cellar)
+    .then((response) => {
         dispatch('listCellars', cellar.proprietaire_uid)
-      }).catch((error) => {
+    }).catch((error) => {
         console.log(error)
-      }).finally(() => {
+    }).finally(() => {
         commit('setLoading', false)
-      })
+    })
+  },
+  async update({commit, dispatch}: any, cellar: any) {
+    commit('setLoading', true)
+    axios.post(`${API_URL}/caves/${cellar.id}`, cellar)
+    .then((response) => {
+        commit('setCellarSelected', cellar)
+    }).catch((error) => {
+      console.log(error)
+    }).finally(() => {
+      commit('setLoading', false)
+    })
+  },
+  async delete({commit, dispatch}: any, cellar: any) {
+    commit('setLoading', true)
+    axios.delete(`${API_URL}/caves/${cellar.id}`)
+      .then((response) => {
+        commit('setCellarSelected', {})
+      }).catch((error) => {
+      console.log(error)
+    }).finally(() => {
+      commit('setLoading', false)
+    })
   },
   async updtaeCellarSelected({commit}: any, cellar:any) {
     await commit('setCellarSelected', cellar)

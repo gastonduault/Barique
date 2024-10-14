@@ -25,75 +25,6 @@
           <p>{{ getHours(bottle.date_suppression) }}</p>
         </div>
       </div>
-
-      <div v-for="bottle in bottles" :key="bottle.id" class="bottle">
-        <img class="category"
-             :src="'/src/assets/img/grape_'+bottle.categorie+'.png'"
-             alt="bunch of grapes"/>
-        <div class="nom-millesime">
-          <p>
-            {{ bottle.nom }}
-          </p>
-          <p>
-            {{ bottle.millesime }}
-          </p>
-        </div>
-        <div class="date">
-          <p>{{ getDay(bottle.date_suppression) }}</p>
-          <p>{{ getHours(bottle.date_suppression) }}</p>
-        </div>
-      </div>
-      <div v-for="bottle in bottles" :key="bottle.id" class="bottle">
-        <img class="category"
-             :src="'/src/assets/img/grape_'+bottle.categorie+'.png'"
-             alt="bunch of grapes"/>
-        <div class="nom-millesime">
-          <p>
-            {{ bottle.nom }}
-          </p>
-          <p>
-            {{ bottle.millesime }}
-          </p>
-        </div>
-        <div class="date">
-          <p>{{ getDay(bottle.date_suppression) }}</p>
-          <p>{{ getHours(bottle.date_suppression) }}</p>
-        </div>
-      </div>
-      <div v-for="bottle in bottles" :key="bottle.id" class="bottle">
-        <img class="category"
-             :src="'/src/assets/img/grape_'+bottle.categorie+'.png'"
-             alt="bunch of grapes"/>
-        <div class="nom-millesime">
-          <p>
-            {{ bottle.nom }}
-          </p>
-          <p>
-            {{ bottle.millesime }}
-          </p>
-        </div>
-        <div class="date">
-          <p>{{ getDay(bottle.date_suppression) }}</p>
-          <p>{{ getHours(bottle.date_suppression) }}</p>
-        </div>
-      </div>
-      <div v-for="bottle in bottles" :key="bottle.id" class="bottle">
-        <img class="category"
-             :src="'/src/assets/img/grape_'+bottle.categorie+'.png'"
-             alt="bunch of grapes"/>
-        <div class="nom-millesime">
-          <p>
-            {{ bottle.nom }}
-          </p>
-          <p>
-            {{ bottle.millesime }}
-          </p>
-        </div>
-        <div class="date">
-          <p>{{ getDay(bottle.date_suppression) }}</p>
-          <p>{{ getHours(bottle.date_suppression) }}</p>
-        </div>
-      </div>
     </div>
     <Loader v-if="loading" />
   </ion-page>
@@ -203,7 +134,7 @@ export default {
 
 .content {
   width: 100%;
-  //height: calc(100% - 30px);
+  height: 100%;
   overflow-y: auto;
   text-align: center;
   display: flex;
@@ -214,7 +145,6 @@ export default {
   gap: 5px;
   padding: 10px 10px;
   color: var(--font-black);
-  //margin-top: 20px;
 }
 
 .bottle {

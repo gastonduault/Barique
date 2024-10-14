@@ -1,5 +1,5 @@
 <template>
-    <div class="top"></div>
+    <div class="top" @click="close"></div>
     <div class="addbottle" :class="{'close': closeModal}">
       <h1>
         <img src="@/assets/img/close-red.png" alt="close add bottle" @click="close">

@@ -178,6 +178,11 @@ h1 img.edit-bottle {
   cursor: pointer;
 }
 
+h1 img.edit-bottle:focus{
+  box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+  transform: rotateZ(30deg);
+}
+
 h1 img.edit-bottle.valid {
   width: 20px;
 }
@@ -224,7 +229,7 @@ h1 img.edit-bottle.valid {
   position: relative;
 }
 
-.info-bottle div{
+.info-bottle div:nth-child(1){
   width: 35%;
   display: flex;
   align-items: center;
@@ -340,20 +345,23 @@ li strong {
 .bottom nav button {
   position: relative;
   border-radius: 5px 5px;
-  font-size: 1em;
-  background-color: #769dde;
-  padding: 7px 15px;
-  font-weight: bold;
-  letter-spacing: 2px;
   color: var(--background-color);
+  font-size: 1em;
+  font-weight: bold;
+  text-transform: uppercase;
+  padding: 10px 10px;
+}
+
+.bottom nav button:nth-child(2) {
+  background-color: var(--font-pink);
 }
 
 .bottom nav button:nth-child(1) {
-  background-color: #a9b1bf;
+  background-color: var(--blue);
 }
 
 .bottom nav button:nth-child(1):focus {
-  background-color: #969ca7;
+  background-color: #6889c2;
 }
 
 .remove-bottle {
@@ -361,7 +369,7 @@ li strong {
   border-radius: 5px 5px;
   font-size: 1em;
   font-weight: bold;
-  background-color: #769dde;
+  background-color: var(--blue);
   text-transform: uppercase;
   padding: 5px 10px 20px 10px;
   color: var(--background-color);

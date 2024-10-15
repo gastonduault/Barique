@@ -10,13 +10,13 @@
     </ion-header>
     <div class="content">
       <div class="search-bottle">
-        <input v-model="search" placeholder="Search"/>
+        <input v-model="search" :placeholder="$t('search')"/>
         <button v-if="search !== ''" @click="search = ''"></button>
       </div>
       <button class="historique-btn" @click="historique"></button>
       <p v-if="bottles && bottles.length === 0" class="no-bottle">
-        For the moment your cellar is empty <br /> you can
-        <span class="add-link" @click="addBottle">add bottle</span>
+        {{ $t('no_bottle.msg_1')}} <br /> {{ $t('no_bottle.msg_2')}}
+        <span class="add-link" @click="addBottle">{{ $t('no_bottle.msg_3')}}</span>.
       </p>
       <div class="bottles">
         <div v-for="bottle in bottles"

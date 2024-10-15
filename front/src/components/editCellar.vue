@@ -5,7 +5,7 @@
            class="cancel-creation"
            alt="cancel creation"
            @click="close"/>
-      <input type="text" placeholder="Name of your cellar"
+      <input type="text" :placeholder="$t('name_cellar')"
              v-if="!remove"
              v-on:keydown="keydownCellarName($event)"
              v-model="nameCellar"/>
@@ -15,20 +15,20 @@
            alt="cancel creation"
            @click="remove=true"/>
       <p class="warning" v-if="remove">
-        Are you sure you want to <strong>delete</strong> this <br/>cellar ?
+        {{$t('delete_cellar.warn_1') }} <strong>{{$t('delete') }}</strong> {{$t('delete_cellar.warn_2') }} <br/>{{$t('cellar') }} ?
       </p>
       <button v-if="!cellar && !remove" @click="createCellar" :class="{'disable': nameCellar === ''}">
-        Create
+        {{$t('create') }}
       </button>
       <button v-else-if="cellar && !remove" @click="updateCellar" :class="{'disable': nameCellar === ''}">
-        Update
+        {{$t('update') }}
       </button>
       <nav v-else>
         <button @click="remove = false">
-          cancel
+          {{$t('cancel') }}
         </button>
         <button @click="deleteCellar">
-          delete
+          {{$t('delete') }}
         </button>
       </nav>
     </div>

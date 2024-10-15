@@ -1,14 +1,15 @@
 <template>
   <ion-page>
     <ion-header class="header">
-      <h1>WELCOME HERE 🤗</h1>
+      <SelectLang class="select-lang"/>
+      <h1>{{ $t('welcome') }} 🤗</h1>
       <img src="../assets/img/Logo_PolyWine.png"  alt="logo polywine"/>
     </ion-header>
 
     <div class="form">
       <div class="google">
         <img class="google-logo" src="@/assets/img/Google_login.png"  alt="logo google"/>
-        <button class="google-login" @click="logIn"> Sign In / Login 🗝️ with Google</button>
+        <button class="google-login" @click="logIn"> {{ $t('sign')}} 🗝️{{ $t('google')}}</button>
       </div>
 <!--      <p> - OR - </p>-->
 <!--      <div class="credentials">-->
@@ -24,13 +25,14 @@
 
 
 <script lang="ts">
-import { GoogleAuth } from '@codetrix-studio/capacitor-google-auth';
-import { Storage } from '@ionic/storage';
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/vue'
+import { GoogleAuth } from '@codetrix-studio/capacitor-google-auth'
+import { Storage } from '@ionic/storage'
 import VueCookies from 'vue-cookies'
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/vue';
-import router from "@/router";
-import store from '@/store';
+import store from '@/store'
+import router from "@/router"
 import loader from "@/components/loader.vue"
+import SelectLang from "@/components/selectLang.vue"
 
 export default {
   name: "HomePage",
@@ -40,7 +42,7 @@ export default {
     }
   },
   components: {
-    IonContent, IonHeader, IonPage, IonTitle, IonToolbar, loader
+    IonContent, IonHeader, IonPage, IonTitle, IonToolbar, loader, SelectLang
   },
   async created() {
     this.storage = new Storage();
@@ -82,20 +84,27 @@ export default {
 <style scoped>
   .header {
     width: 100%;
-    height: 40vh;
+    height: 65vh;
     position: relative;
     padding: 0 0;
     display: flex;
     flex-direction: column;
     align-content: center;
     align-items: center;
+    justify-content: start;
     background-color: var(--background-color);
     box-shadow: none !important;
   }
 
+  .select-lang {
+    position: absolute;
+    top: 5px;
+    right: 20px;
+  }
+
   h1 {
     font-weight: bold;
-    margin: 20px 0 0 0;
+    margin: 30% 0 0 0;
   }
 
   .header img {
@@ -109,7 +118,7 @@ export default {
   .form {
     width: 100%;
     background-color: var(--background-dark);
-    height: 60vh;
+    height: 35vh;
     animation: form-appear .5s ease-out;
     border-radius: 25px 25px 0 0;
     display: flex;
@@ -121,7 +130,7 @@ export default {
 
   .form .google-logo {
     width: 100px;
-    margin: 20px auto;
+    margin: 0px auto;
   }
 
   button {
@@ -145,7 +154,8 @@ export default {
     align-items: center;
     justify-content: space-around;
     width: 100%;
-    height: 45%;
+    padding: 5% 0;
+    height: 100%;
   }
 
   .form p {

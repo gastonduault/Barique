@@ -4,17 +4,18 @@
       <button class="deconeciton" @click="disconnect">
         <img src="@/assets/img/decconection.png" alt="deconnection image"/>
       </button>
+      <SelectLang class="select-lang"/>
 <!--      <img :src="utilisateur.profile_picture" alt="profil picture"/>-->
       <img v-if="utilisateur && utilisateur.profile_picture" :src="utilisateur.profile_picture" alt="profil picture" />
-      <h1>Hi!
+      <h1>{{ $t('hello') }}
         <span>{{ utilisateur.nom }}</span>
       </h1>
     </ion-header>
     <div class="content">
-      <p class="under-line">Your cellars</p>
+      <p class="under-line">{{ $t('your_cellar') }}</p>
       <div class="cellars">
         <p v-if="cellars.length === 0 && !creation" class="no-cave">
-          you don't have a cellar at the moment, you can <strong class="add-link" @click="creation = true">create</strong> one.
+          {{ $t('no_cellar.msg_1') }} <strong class="add-link" @click="creation = true">{{ $t('no_cellar.msg_2') }}</strong> {{ $t('no_cellar.msg_3') }}.
         </p>
         <div class="cellar" v-for="cellar in cellars" @click="clickCellar(cellar)">
           <img src="@/assets/img/cave.png" />
@@ -39,10 +40,12 @@ import store from '@/store';
 import router from "@/router";
 import Loader from "@/components/loader.vue";
 import EditCellar from "@/components/editCellar.vue";
+import SelectLang from "@/components/selectLang.vue";
 
 export default {
   name: "CaveList",
   components: {
+    SelectLang,
     IonContent, IonHeader, IonPage, IonTitle, IonToolbar, Loader, EditCellar
   },
   data() {
@@ -86,7 +89,7 @@ export default {
       await this.storage.set('cellar_selected_id', cellar.id)
       await this.storage.set('cellar_selected_nom', cellar.nom)
       router.push('/Cave')
-    }
+    },
   }
 }
 
@@ -120,6 +123,12 @@ export default {
   top: 10px;
   left: 10px;
   background: none;
+}
+
+.select-lang {
+  position: absolute;
+  top: 10px;
+  right: 20px;
 }
 
 .deconeciton img{

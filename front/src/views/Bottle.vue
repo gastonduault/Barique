@@ -3,7 +3,7 @@
     <div v-if="bottle" class="addbottle" :class="{'close': closeModal}">
       <h1>
         <img src="@/assets/img/close-red.png" class="close-modale" alt="close add bottle" @click="close">
-        <input v-model="nom" type="text" :class="{'editable': editBottle}" />
+        <input v-model="nom" type="text" :placeholder="$t('name')" :class="{'editable': editBottle}" />
         <img v-if="!editBottle" src="@/assets/img/edit.png" class="edit-bottle" alt="edit" @click="editBottle = true"/>
 <!--        <img v-else src="@/assets/img/valid.png" class="edit-bottle valid" alt="edit" @click="updateBottle"/>-->
       </h1>
@@ -21,15 +21,15 @@
           </div>
           <ul>
             <li :class="{'editable': editBottle}">
-              <strong>Region : </strong>
+              <strong>{{ $t('region') }} : </strong>
               <input v-model="region" type="text"/>
             </li>
             <li :class="{'editable': editBottle}">
-              <strong>Cepage :</strong>
+              <strong>{{ $t('cepage') }} :</strong>
               <input v-model="cepage" type="text" />
             </li>
             <li :class="{'editable': editBottle}">
-              <strong>Millesime :</strong>
+              <strong>{{ $t('vintage') }} :</strong>
               <input v-model="millesime" type="number" min="1900" max="2099" step="1" :class="{'editable': editBottle}"/>
             </li>
           </ul>
@@ -42,12 +42,12 @@
         </div>
         <div class="bottom">
           <button v-if="!editBottle" class="remove-bottle" @click="bottleDrunk">
-            <p>bottle drunk</p>
+            <p>{{ $t('bottle_drunk') }}</p>
             <img src="@/assets/img/bottle_drunk.png" alt="remove bottle"/>
           </button>
           <nav v-else>
-            <button @click="cancelEditBottle">Cancel</button>
-            <button @click="updateBottle">Update</button>
+            <button @click="cancelEditBottle">{{ $t('cancel') }}</button>
+            <button @click="updateBottle">{{ $t('update') }}</button>
           </nav>
         </div>
       </div>

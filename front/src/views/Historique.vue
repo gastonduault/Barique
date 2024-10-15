@@ -2,11 +2,11 @@
   <ion-page>
     <ion-header class="header">
       <img src="@/assets/img/back.png" alt="arrow back" class="back" @click="back"/>
-      <h3> History </h3>
+      <h3> {{ $t('history') }} </h3>
     </ion-header>
     <div class="content">
       <p v-if="bottles && bottles.length === 0" class="no-bottle">
-        For the moment your history of bottle drunk <br /> is empty
+        {{ $t('no_history.msg_1') }}<br />{{ $t('no_history.msg_2') }}
       </p>
       <div v-for="bottle in bottles" :key="bottle.id" class="bottle">
         <img class="category"

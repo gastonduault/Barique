@@ -3,16 +3,16 @@
     <div class="addbottle" :class="{'close': closeModal}">
       <h1>
         <img src="@/assets/img/close-red.png" alt="close add bottle" @click="close">
-        New bottle
+        {{ $t('new_bottle') }}
       </h1>
       <div class="fields">
         <div class="field">
-          <input type="text" placeholder="Name" v-model="name"/>
+          <input type="text" :placeholder="$t('name')" v-model="name"/>
           <span v-if="name.length == 0" class="required">*</span>
         </div>
-        <input type="text" placeholder="Cepage" v-model="cepage" />
-        <input type="text" placeholder="Region" v-model="region" />
-        <input type="number" placeholder="Vintage ex: 2016" v-model="vintage"
+        <input type="text" :placeholder="$t('cepage')" v-model="cepage" />
+        <input type="text" :placeholder="$t('region')" v-model="region" />
+        <input type="number" :placeholder="$t('vintage_input')" v-model="vintage"
                min="1900" max="2099" step="1" />
         <div class="input category">
           <img v-for="category in categories"
@@ -21,7 +21,7 @@
                :src="'/src/assets/img/grape_'+category+'.png'"/>
         </div>
       </div>
-      <button class="create" :class="{'disable': name.length===0}" @click="create" type="submit">create</button>
+      <button class="create" :class="{'disable': name.length===0}" @click="create" type="submit">{{ $t('create') }}</button>
     </div>
 </template>
 

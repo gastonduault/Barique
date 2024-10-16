@@ -19,6 +19,7 @@ services:
       retries: 20
 
   api-flask:
+    build: ./flask/
     image: gastoooon/macave_backend:latest
     depends_on:
       mysql:

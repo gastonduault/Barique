@@ -27,4 +27,3 @@ jobs:
           docker tag gastoooon/macave_backend:latest docker.io/gastoooon/macave_backend:latest
           docker push docker.io/gastoooon/macave_backend:latest
 
-

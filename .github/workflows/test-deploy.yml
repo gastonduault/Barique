@@ -23,8 +23,8 @@ jobs:
       - name: Build and push backend image
         working-directory: ./back
         run: |
-          docker compose -f docker-compose-prod.yml build api-flask 
-          docker tag gastoooon/macave_backend:latest gastoooon/macave_backend:latest
-          docker push gastoooon/macave_backend:latest
+          docker compose -f docker-compose-prod.yml build api-flask
+          docker tag gastoooon/macave_backend:latest docker.io/gastoooon/macave_backend:latest
+          docker push docker.io/gastoooon/macave_backend:latest
 
 

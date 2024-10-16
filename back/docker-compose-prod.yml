@@ -14,9 +14,9 @@ services:
       - ./mysql:/docker-entrypoint-initdb.d
     healthcheck:
       test: ["CMD-SHELL", "mysqladmin ping -h localhost"]
-      interval: 10s
-      timeout: 30s
-      retries: 10
+      interval: 20s
+      timeout: 50s
+      retries: 20
 
   api-flask:
     image: gastoooon/macave_backend:latest

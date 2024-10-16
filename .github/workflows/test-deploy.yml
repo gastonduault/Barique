@@ -20,5 +20,7 @@ jobs:
       - name: Build and push backend image
         run: |
           cd back
-          docker compose build gastoooon/macave_backend:latest .
+          docker compose build back-api-flask
+          docker tag api-flask:latest gastoooon/macave_backend:latest
           docker push gastoooon/macave_backend:latest
+

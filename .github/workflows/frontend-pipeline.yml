@@ -1,0 +1,31 @@
+name: Frontend Pipeline
+
+on:
+  push:
+    branches:
+      -main
+    pull_request:
+      branches:
+        - main
+
+
+jobs:
+  front-pipeline:
+    name: frontend Tests
+    runs-on: ubuntu-latest
+
+  steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '16'
+
+    - name: Install Ionic CLI
+      run: npm install -g @ionic/cli
+
+    - name: Build the app
+      working-directory: ./front
+      run: ionic build

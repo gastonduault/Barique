@@ -1,4 +1,4 @@
-name: test Pipeline
+name: backend Pipeline
 
 on:
   push:
@@ -9,7 +9,7 @@ on:
       - main
 
 jobs:
-  backend-tests:
+  backend-pipeline:
     name: Backend Tests
     runs-on: ubuntu-latest
 
@@ -44,4 +44,8 @@ jobs:
           export MYSQL_DATABASE=${{ secrets.MYSQL_DATABASE }}
           export MYSQL_USER=${{ secrets.MYSQL_USER }}
           export MYSQL_PASSWORD=${{ secrets.MYSQL_PASSWORD }}
-          docker compose -f docker-compose-prod.yml up
+          docker compose -f docker-compose-prod.yml up -d
+
+      - name: Stop Docker Compose
+        working-directory: ./back
+        run: docker compose -f docker-compose-prod.yml down

@@ -1,0 +1,38 @@
+
+
+services:
+  mysql:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: polywine
+      MYSQL_USER: user
+      MYSQL_PASSWORD: user
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./mysql:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h localhost"]
+      interval: 10s
+      timeout: 30s
+      retries: 10
+
+  api-flask:
+    build: ./flask/
+    depends_on:
+      mysql:
+        condition: service_healthy
+    volumes:
+      - ./flask/app/:/usr/src/run/
+    ports:
+      - "5001:5001"
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+
+volumes:
+  mysql-data:

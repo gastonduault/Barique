@@ -1,4 +1,4 @@
-name: backend Pipeline
+name: Continuous Integration Pipeline
 
 on:
   push:
@@ -9,6 +9,31 @@ on:
       - main
 
 jobs:
+  front-pipeline:
+    name: Frontend Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+
+      - name: Install Ionic CLI
+        run: npm install -g @ionic/cli
+
+      - name: Install project dependencies
+        working-directory: ./front
+        run: npm install
+
+      - name: Build the app
+        working-directory: ./front
+        run: ionic build
+
+
   backend-pipeline:
     name: Backend Tests
     runs-on: ubuntu-latest

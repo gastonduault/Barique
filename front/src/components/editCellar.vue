@@ -9,6 +9,17 @@
              v-if="!remove"
              v-on:keydown="keydownCellarName($event)"
              v-model="nameCellar"/>
+      <div class="images" v-if="!remove">
+        <p>{{ $t('image_cellar') }}</p>
+        <div>
+          <img v-for="img in images"
+               key="img"
+               @click="imgSelected = img"
+               :class="{'selected': imgSelected === img}"
+               :src="`${API_URL}${img}`"
+               alt="image cellar" />
+        </div>
+      </div>
       <img src="@/assets/img/delete.png"
            v-if="cellar"
            class="remove-cellar"
@@ -45,22 +56,30 @@ export default {
     return {
       closeModal: false,
       nameCellar: "",
-      remove: false
+      remove: false,
+      API_URL: '/api',
+      imgSelected: '',
     }
   },
   computed: {
     utilisateur: () => store.getters['user/getUSer'],
+    images: () => store.getters['cellar/getImages']
   },
   props: {
     cellar: Object,
   },
-  mounted() {
+  async mounted() {
+    await store.dispatch('cellar/listImage')
     this.init()
   },
   methods: {
     init() {
       if(this.cellar) {
         this.nameCellar = this.cellar.nom
+      }
+      if(this.images) {
+        this.imgSelected = this.images[0]
+        console.log(this.imgSelected)
       }
     },
     async close() {
@@ -76,7 +95,8 @@ export default {
       if(this.nameCellar !== "" ){
         const cellar = {
           proprietaire_uid: this.utilisateur.uid,
-          nom: this.nameCellar
+          nom: this.nameCellar,
+          profile_picture: this.imgSelected,
         }
         await store.dispatch('cellar/create', cellar)
         this.close()
@@ -85,6 +105,7 @@ export default {
     async updateCellar() {
       if(this.nameCellar !== "" ){
         this.cellar['nom'] = this.nameCellar
+        this.cellar['profile_picture'] = this.imgSelected
         await store.dispatch("cellar/update", this.cellar)
         this.close()
       }
@@ -126,6 +147,7 @@ export default {
   align-items: center;
   justify-content: center;
   overflow: hidden;
+  padding-bottom: 10%;
 }
 
 .content.close {
@@ -201,6 +223,40 @@ input {
   border-radius: 25px 25px;
   padding: 10px 10px;
   width: 75%;
+  margin-bottom: 10%;
+}
+
+.images {
+  width: 85%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.images p{
+  margin: 0 0;
+  padding: 0 0;
+}
+
+.images div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #e7e7e7;
+  padding: 4px 2px 2px 2px;
+  border-radius: 10px 10px;
+  flex-wrap: wrap;
+  gap: 4px 10px;
+}
+
+.images img {
+  width: 45%;
+  border-radius: 3px 3px;
+}
+
+.images img.selected {
+  border: solid 2.5px var(--font-pink);
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
 }
 
 button {

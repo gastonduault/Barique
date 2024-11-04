@@ -63,7 +63,7 @@ export default {
     loading: () => store.getters['history/getLoading']
   },
   async mounted() {
-    if( this.cellar ) {
+    if(!this.cellar ) {
       const cellar = {
         id: await this.storage.get('cellar_selected_id'),
         nom: await this.storage.get('cellar_selected_nom'),

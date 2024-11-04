@@ -23,8 +23,11 @@ services:
     depends_on:
       mysql:
         condition: service_healthy
+    environment:
+      - FLASK_ENV=development
     volumes:
       - ./flask/app/:/usr/src/run/
+      - ./flask/static/uploads:/usr/src/app/app/static/uploads
     ports:
       - "5001:5001"
 

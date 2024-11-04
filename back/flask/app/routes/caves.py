@@ -1,4 +1,5 @@
-from flask import Blueprint, jsonify, request
+from flask import Blueprint, jsonify, request, current_app
+import os
 from ..models import Cave, Bouteille, Historique, db
 
 bp = Blueprint('caves', __name__, url_prefix='/caves')
@@ -7,6 +8,7 @@ bp = Blueprint('caves', __name__, url_prefix='/caves')
 def add_cave():
     data = request.get_json()
     new_cave = Cave(
+        profile_picture=data['profile_picture'],
         proprietaire_uid=data.get('proprietaire_uid'),
         nom=data.get('nom')
     )
@@ -28,6 +30,7 @@ def update_cave(cave_id):
         return jsonify({'message': 'Cave non trouvée'}), 404
     try:
         cave.nom = data.get('nom', cave.nom)
+        cave.profile_picture = data.get('profile_picture', cave.profile_picture)
         db.session.commit()
         return jsonify({'message': 'Cave mise à jour avec succès!'}), 200
     except Exception as e:
@@ -56,10 +59,16 @@ def delete_bouteille(cave_id):
 @bp.route('/owner/<int:proprietaire_uid>', methods=['GET'])
 def get_caves_by_proprietaire(proprietaire_uid):
     caves = Cave.query.filter_by(proprietaire_uid=proprietaire_uid).all()
-    caves_list = [{'id': cave.id, 'nom': cave.nom} for cave in caves]
+    caves_list = [{'id': cave.id, 'nom': cave.nom, 'profile_picture': cave.profile_picture} for cave in caves]
     return jsonify({'caves': caves_list})
 
 
-@bp.route('/test', methods=['GET'])
-def test():
-    return jsonify({'hello': 'test'})
+@bp.route('/images', methods=['GET'])
+def get_available_images():
+    upload_folder = os.path.join(current_app.root_path, 'static', 'uploads')
+    images = []
+    for filename in os.listdir(upload_folder):
+        if filename.endswith(('.png', '.jpg', '.jpeg', '.gif')):
+            images.append(f'/static/uploads/{filename}')
+
+    return jsonify({'available_images': images}), 200

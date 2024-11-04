@@ -2,7 +2,7 @@
   <ion-page v-if="showComponent && cellar.id">
     <ion-header class="header">
       <img src="@/assets/img/back.png" alt="arrow back" class="back" @click="back"/>
-      <img :src="utilisateur.profile_picture" alt="profil picture" class="pp"/>
+      <img :src="'/api' + cellar.profile_picture" alt="profil picture" class="pp"/>
       <h3>
         {{ cellar.nom }}
       </h3>
@@ -99,15 +99,11 @@ export default {
     loading: () => store.getters['bottles/getLoading']
   },
   async mounted() {
-    this.init()
+    await this.init()
   },
-  // async updated() {
-  //   if(this.showComponent && this.cellar.id) {
-  //     this.init()
-  //   }
-  // },
   methods: {
     async init() {
+      console.log(this.cellar)
       if(this.cellar ) {
         const cellar = {
           id: await this.storage.get('cellar_selected_id'),
@@ -152,8 +148,8 @@ export default {
 }
 
 .header img.pp {
-  width: 25px;
-  border-radius: 50%;
+  width: 30px;
+  border-radius: 5px 5px;
   margin-right: 10px;
 }
 

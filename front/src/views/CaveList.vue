@@ -5,7 +5,6 @@
         <img src="@/assets/img/decconection.png" alt="deconnection image"/>
       </button>
       <SelectLang class="select-lang"/>
-<!--      <img :src="utilisateur.profile_picture" alt="profil picture"/>-->
       <img v-if="utilisateur && utilisateur.profile_picture" :src="utilisateur.profile_picture" alt="profil picture" />
       <h1>{{ $t('hello') }}
         <span>{{ utilisateur.nom }}</span>
@@ -18,7 +17,9 @@
           {{ $t('no_cellar.msg_1') }} <strong class="add-link" @click="creation = true">{{ $t('no_cellar.msg_2') }}</strong> {{ $t('no_cellar.msg_3') }}.
         </p>
         <div class="cellar" v-for="cellar in cellars" @click="clickCellar(cellar)">
-          <img src="@/assets/img/cave.png" />
+          <div>
+            <img :src="`${API_URL}${cellar.profile_picture}`" />
+          </div>
           <p>{{cellar.nom}}</p>
         </div>
         <div class="line-create">
@@ -53,6 +54,7 @@ export default {
       storage: new Storage,
       creation: false,
       nameCellar: "",
+      API_URL: '/api'
     }
   },
   async created() {
@@ -187,9 +189,14 @@ export default {
   margin: 5px 0 0 0;
 }
 
-.cellar img {
-  width: 40px;
+.cellar div{
+  width: 100px;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
+
 
 .line-create {
   width: 100%;

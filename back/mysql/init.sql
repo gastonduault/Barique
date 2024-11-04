@@ -11,6 +11,7 @@ CREATE TABLE caves (
     id integer not null AUTO_INCREMENT,
     proprietaire_uid integer not null,
     nom VARCHAR(50) NOT NULL unique,
+    profile_picture VARCHAR(500),
     primary key (id),
     foreign key (proprietaire_uid) references utilisateurs(uid)
 );

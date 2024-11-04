@@ -7,13 +7,14 @@ class Utilisateur(db.Model):
     account_id = db.Column(db.String(50))
     nom = db.Column(db.String(50), nullable=False)
     email = db.Column(db.String(50), nullable=False)
-    profile_picture = db.Column(db.String(50))
+    profile_picture = db.Column(db.String(500))
 
 class Cave(db.Model):
     __tablename__ = 'caves'
     id = db.Column(db.Integer, primary_key=True)
     proprietaire_uid = db.Column(db.Integer, db.ForeignKey('utilisateurs.uid'), nullable=False)
     nom = db.Column(db.String(50), nullable=False, unique=True)
+    profile_picture = db.Column(db.String(500))
 
 class Bouteille(db.Model):
     __tablename__ = 'bouteilles'

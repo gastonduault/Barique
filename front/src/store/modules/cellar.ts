@@ -8,6 +8,7 @@ const state = {
     id: null,
     nom: null
   },
+  images: [],
   loading: false,
 };
 
@@ -20,6 +21,9 @@ const getters = {
   },
   getLoading(state: any) {
     return state.loading
+  },
+  getImages(state: any) {
+    return state.images
   }
 };
 const actions = {
@@ -67,6 +71,16 @@ const actions = {
       commit('setLoading', false)
     })
   },
+  async listImage({commit}: any) {
+    await commit('setLoading', true)
+    await axios.get(`${API_URL}/caves/images`)
+      .then(async (response) => {
+        await commit('setImages', response.data.available_images)
+      })
+      .finally(() => {
+        commit('setLoading', false)
+      })
+  },
   async updtaeCellarSelected({commit}: any, cellar:any) {
     await commit('setCellarSelected', cellar)
   }
@@ -84,6 +98,9 @@ const mutations = {
   },
   setLoading(state: any, value: any) {
     state.loading = value
+  },
+  setImages(state: any, value: any) {
+    state.images = value
   }
 };
 

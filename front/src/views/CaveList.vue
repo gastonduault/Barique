@@ -72,6 +72,8 @@ export default {
       const utilisateur = store.getters["user/getUSer"]
       if(utilisateur.uid !== null) {
         store.dispatch('cellar/listCellars', utilisateur.uid);
+      } else {
+        this.$router.push('/home')
       }
       return utilisateur
     },

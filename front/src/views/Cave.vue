@@ -103,8 +103,10 @@ export default {
   },
   methods: {
     async init() {
-      console.log(this.cellar)
-      if(this.cellar ) {
+      if(!this.utilisateur) {
+        this.$router.push('/home')
+      }
+      if(!this.cellar ) {
         const cellar = {
           id: await this.storage.get('cellar_selected_id'),
           nom: await this.storage.get('cellar_selected_nom'),
@@ -144,7 +146,7 @@ export default {
   flex-direction: row;
   justify-content: center;
   justify-items: center;
-  height: 30px !important;
+  height: 40px !important;
 }
 
 .header img.pp {

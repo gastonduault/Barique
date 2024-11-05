@@ -128,16 +128,15 @@ export default {
   top: 0;
   left: 0;
   z-index: 10;
-  backdrop-filter: blur(2px);
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .content {
-  width: 80%;
-  height: 50%;
-  background-color: var(--white);
+  box-sizing: content-box;
+  backdrop-filter: blur(6px);
+  background-color: rgba(210, 210, 210, 0.04);
   border-radius: 10px 10px;
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
   animation: modal-appear .5s ease-out forwards;
@@ -178,7 +177,7 @@ export default {
   100% {
     transform: translateY(0%);
     width: 80%;
-    height: 50%;
+    height: 55%;
   }
 }
 
@@ -186,7 +185,7 @@ export default {
   0% {
     transform: translateY(0%);
     width: 80%;
-    height: 50%;
+    height: 55%;
   }
   100% {
     transform: translateY(+100%);
@@ -196,8 +195,8 @@ export default {
 }
 
 .cancel-creation {
-  width: 15px;
-  height: 15px;
+  width: 12px;
+  height: 12px;
   position: absolute;
   top: 10px;
   left: 10px;
@@ -209,8 +208,8 @@ p.warning {
 }
 
 .remove-cellar {
-  width: 20px;
-  height: 20px;
+  width: 17px;
+  height: 17px;
   position: absolute;
   top: 8px;
   right: 8px;
@@ -223,11 +222,11 @@ input {
   border-radius: 25px 25px;
   padding: 10px 10px;
   width: 75%;
-  margin-bottom: 10%;
+  margin-bottom: 5%;
 }
 
 .images {
-  width: 85%;
+  width: 90%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -242,15 +241,18 @@ input {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #e7e7e7;
+  background-color: #f3f3f3;
   padding: 4px 2px 2px 2px;
   border-radius: 10px 10px;
   flex-wrap: wrap;
   gap: 4px 10px;
+  max-height: 37vh;
+  overflow-y: auto;
 }
 
 .images img {
-  width: 45%;
+  width: 40%;
+  min-width: 110px;
   border-radius: 3px 3px;
 }
 
@@ -261,7 +263,7 @@ input {
 
 button {
   position: absolute;
-  bottom: 20px;
+  bottom: 10px;
   border-radius: 5px 5px;
   font-size: 1em;
   font-weight: bold;

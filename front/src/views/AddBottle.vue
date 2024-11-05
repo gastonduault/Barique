@@ -86,7 +86,6 @@ export default{
   top: 0;
   left: 0;
   z-index: 10;
-  backdrop-filter: blur(2px);
 }
 
 h1 {
@@ -101,7 +100,7 @@ h1 {
 h1 img {
   position: absolute;
   left: 10%;
-  width: 25px;
+  width: 23px;
   cursor: pointer;
 }
 
@@ -116,7 +115,7 @@ h1 img {
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
-  background-color: var(--white);
+  backdrop-filter: blur(10px);
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
   animation: form-appear .5s ease-out forwards;
   //border: #c76060 solid 1px;

@@ -143,7 +143,6 @@ export default{
   top: 0;
   left: 0;
   z-index: 10;
-  backdrop-filter: blur(2px);
 }
 
 h1 {
@@ -151,7 +150,7 @@ h1 {
   color: var(--font-black);
   font-size: 1.2em;
   position: relative;
-  width: 100%;
+  width: 80%;
   text-align: center;
 }
 
@@ -165,8 +164,8 @@ h1 input {
 
 h1 img.close-modale {
   position: absolute;
-  left: 10%;
-  width: 25px;
+  left: -5%;
+  width: 23px;
   cursor: pointer;
 }
 
@@ -174,7 +173,7 @@ h1 img.edit-bottle {
   position: absolute;
   right: 10%;
   top: 25%;
-  width: 15px;
+  width: 13px;
   cursor: pointer;
 }
 
@@ -199,9 +198,10 @@ h1 img.edit-bottle.valid {
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
-  background-color: var(--white);
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
   animation: form-appear .5s ease-out forwards;
+  backdrop-filter: blur(6px);
+  background-color: rgba(210, 210, 210, 0.04);
   //border: #c76060 solid 1px;
   //border: var(--background-dark) solid 1px;
 }
@@ -257,6 +257,7 @@ li {
   position: relative;
   width: 80%;
   padding: 3px 0 0 0 ;
+  font-size: 0.8em;
 }
 
 li.editable{
@@ -284,15 +285,15 @@ input.editable{
 
 
 li:nth-child(1) input {
-  padding-left: 69px;
+  padding-left: 62px;
 }
 
 li:nth-child(2) input {
-  padding-left: 74px;
+  padding-left: 65px;
 }
 
 li:nth-child(3) input {
-  padding-left: 89px;
+  padding-left: 78px;
 }
 
 li strong {
@@ -309,7 +310,7 @@ li strong {
   padding: 2px 2px;
   border-radius: 10px 10px;
   gap: 4px 10px;
-  background-color: #e7e7e7;
+  background-color: #f3f3f3;
 }
 
 .category img{

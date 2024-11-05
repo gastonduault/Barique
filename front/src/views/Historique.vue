@@ -63,6 +63,9 @@ export default {
     loading: () => store.getters['history/getLoading']
   },
   async mounted() {
+    if(!this.utilisateur) {
+      this.$router.push('/home')
+    }
     if(!this.cellar ) {
       const cellar = {
         id: await this.storage.get('cellar_selected_id'),
@@ -107,7 +110,7 @@ export default {
   flex-direction: row;
   justify-content: center;
   justify-items: center;
-  height: 30px !important;
+  height: 40px !important;
 }
 
 .header img.back {

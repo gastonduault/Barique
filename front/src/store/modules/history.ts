@@ -30,6 +30,19 @@ const actions = {
       commit('setLoading', false)
     })
   },
+  async update({commit, dispatch}: any, bottle) {
+    commit('setLoading', true)
+    axios.post(`${API_URL}/historique/${bottle.id}`, bottle)
+      .then(async (response) => {
+        if(response.status == 200) {// bottle in the cellar
+          dispatch('bottles', bottle.cave_id)
+        }
+      }).catch((error) => {
+      console.log(error)
+    }).finally(() => {
+      commit('setLoading', false)
+    })
+  },
 };
 
 const mutations = {

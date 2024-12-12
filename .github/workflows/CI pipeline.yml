@@ -78,7 +78,7 @@ jobs:
         working-directory: ./back
         run: |
           docker compose -f docker-compose-dev.yml build api-flask
-          docker tag gastoooon/macave_backend:dev gastoooon/macave_backend:dev
+          docker tag back-api-flask gastoooon/macave_backend:dev
           docker push gastoooon/macave_backend:dev
 
       - name: Stop Docker Compose

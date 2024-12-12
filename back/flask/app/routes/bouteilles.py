@@ -57,15 +57,15 @@ def delete_bouteille(bouteille_id):
         return jsonify({'message': 'Bouteille non trouvée'}), 404
     try:
         historique = Historique(
-            nom=bouteille.nom,
-            region=bouteille.region,
-            cepage=bouteille.cepage,
-            millesime=bouteille.millesime,
-            categorie=bouteille.categorie,
-            cave_id=bouteille.cave_id,
+            nom=data.get('nom'),
+            region=data.get('region'),
+            cepage=data.get('cepage'),
+            millesime=data.get('millesime'),
+            categorie=data.get('categorie'),
+            cave_id=data.get('cave_id'),
             date_suppression=data.get('date_suppression'),
-            score=bouteille.score,
-            notice=bouteille.notice
+            score=data.get('score'),
+            notice=data.get('notice')
         )
         db.session.add(historique)
         db.session.delete(bouteille)

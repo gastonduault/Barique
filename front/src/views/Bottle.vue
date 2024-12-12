@@ -119,10 +119,24 @@ export default{
       this.score = this.bottle.score
     },
     async bottleDrunk() {
-      this.initBottleInfo();
-      this.bottle['date_suppression'] = this.formatDateForMySQL(this.currentDate)
-      await store.dispatch("bottles/delete", this.bottle)
-      this.close()
+      const bottle_updated = {
+        "id": this.bottle.id,
+        "cepage": this.cepage,
+        "millesime": this.millesime,
+        "region": this.region,
+        "nom": this.nom,
+        "categorie": this.categorySelected,
+        "id": this.bottle.id,
+        "cave_id": this.bottle.cave_id,
+        "score": this.score,
+        "notice": this.notice,
+        "date_suppression": this.formatDateForMySQL(this.currentDate)
+      }
+      await store.dispatch("bottles/delete", bottle_updated)
+      this.closeModal=true
+      setTimeout(() => {
+        this.$emit('closeModale')
+      }, 500)
     },
     async updateBottle() {
       const bottle_updated = {

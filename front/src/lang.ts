@@ -45,7 +45,8 @@ const i18n = createI18n({
       },
       image_cellar: "image de la cave",
       bottle_opinion: "Votre avis sur cette bouteille",
-      opinion: "Votre avis sur cette bouteille"
+      opinion: "Votre avis sur cette bouteille",
+      add: "Ajouter",
     },
     en: {
       welcome: 'welcome here',
@@ -89,7 +90,8 @@ const i18n = createI18n({
     },
     image_cellar: "cellar image",
     bottle_opinion: "Your opinion on this bottle",
-    opinion: "Your opinion on this bottle"
+    opinion: "Your opinion on this bottle",
+    add: "Add",
   }
 });
 

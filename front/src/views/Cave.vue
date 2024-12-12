@@ -103,9 +103,6 @@ export default {
   },
   methods: {
     async init() {
-      if(!this.utilisateur) {
-        this.$router.push('/home')
-      }
       if(!this.cellar ) {
         const cellar = {
           id: await this.storage.get('cellar_selected_id'),
@@ -257,7 +254,7 @@ div.search-bottle button {
   width: 30px;
   height: 30px;
   right: 10px;
-  top: 40px;
+  top: 47px;
   background-color: var(--background-color);
   background-image: url("@/assets/img/historique.png");
   background-position: center;
@@ -313,7 +310,7 @@ div.search-bottle button {
   display: flex;
   align-items: center;
   justify-content: center;
-  bottom: 15px;
+  bottom: 4vh;
 }
 
 .add-bottle img {

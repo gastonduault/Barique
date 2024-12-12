@@ -43,7 +43,9 @@ const i18n = createI18n({
         msg_1: "Pour le moment votre historique de bouteille bue",
         msg_2: 'est vide'
       },
-      image_cellar: "image de la cave"
+      image_cellar: "image de la cave",
+      bottle_opinion: "Votre avis sur cette bouteille",
+      opinion: "Votre avis sur cette bouteille"
     },
     en: {
       welcome: 'welcome here',
@@ -85,7 +87,9 @@ const i18n = createI18n({
         msg_2: 'is empty'
       },
     },
-    image_cellar: "cellar image"
+    image_cellar: "cellar image",
+    bottle_opinion: "Your opinion on this bottle",
+    opinion: "Your opinion on this bottle"
   }
 });
 

@@ -13,7 +13,9 @@ def add_bouteille():
         cepage=data.get('cepage'),
         millesime=data.get('millesime'),
         categorie=data.get('categorie'),
-        cave_id=data.get('cave_id')
+        cave_id=data.get('cave_id'),
+        score=data.get('score'),
+        notice=data.get('notice')
     )
     try:
         db.session.add(new_bouteille)
@@ -37,6 +39,8 @@ def update_bouteille(bouteille_id):
         bouteille.cepage = data.get('cepage', bouteille.cepage)
         bouteille.millesime = data.get('millesime', bouteille.millesime)
         bouteille.categorie = data.get('categorie', bouteille.categorie)
+        bouteille.score = data.get('score', bouteille.score)
+        bouteille.notice = data.get('notice', bouteille.notice)
         db.session.commit()
         return jsonify({'message': 'Bouteille mise à jour avec succès!'}), 200
     except Exception as e:
@@ -60,17 +64,20 @@ def delete_bouteille(bouteille_id):
             categorie=bouteille.categorie,
             cave_id=bouteille.cave_id,
             date_suppression=data.get('date_suppression'),
+            score=bouteille.score,
+            notice=bouteille.notice
         )
         db.session.add(historique)
         db.session.delete(bouteille)
         db.session.commit()
 
-        return jsonify({'message': 'Bouteille supprimée avec succès et ajoutée à l\'historique!'}), 200
+        return jsonify({'message': 'Bouteille supprimée avec succès et ajoutée à l\'historique avec son avis!'}), 200
     except Exception as e:
         db.session.rollback()
         return jsonify({'message': f'Erreur lors de la suppression de la bouteille : {str(e)}'}), 500
     finally:
         db.session.close()
+
 
 
 @bp.route('/cave/<int:cave_id>', methods=['GET'])
@@ -87,7 +94,9 @@ def to_dict(self):
         'cepage': self.cepage,
         'millesime': self.millesime,
         'categorie': self.categorie,
-        'cave_id': self.cave_id
+        'cave_id': self.cave_id,
+        'score': self.score,
+        'notice': self.notice
     }
 
 Bouteille.to_dict = to_dict

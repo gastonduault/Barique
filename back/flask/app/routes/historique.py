@@ -17,7 +17,10 @@ def to_dict(self):
         'millesime': self.millesime,
         'categorie': self.categorie,
         'cave_id': self.cave_id,
+        'score': self.score,
+        'notice': self.notice,
         'date_suppression': self.date_suppression
     }
+
 
 Historique.to_dict = to_dict

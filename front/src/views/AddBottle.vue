@@ -162,14 +162,13 @@ h1 img {
 .addbottle input:active {
   border: solid 2px var(--font-pink);
 }
-
 .category {
+  margin: 10px auto;
   display: flex;
-  //background-color: var(--background-color);
   padding: 2px 2px;
   border-radius: 10px 10px;
   gap: 4px 10px;
-  background-color: #e7e7e7;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 }
 
 .category img{
@@ -182,8 +181,7 @@ h1 img {
 
 .category img.selected{
   border-radius: 10px 10px;
-  border: solid 1px #bdbdbd;
-  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+  border: solid 1px var(--background-dark);
 }
 
 .create {

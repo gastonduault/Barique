@@ -33,13 +33,27 @@ jobs:
           docker tag gastoooon/macave_backend:dev gastoooon/macave_backend:latest
           docker push gastoooon/macave_backend:latest
 
-      - name: Build and push backend image
-        working-directory: ./back
+      - name: SSH into VPS and create .env
+        env:
+          MYSQL_ROOT_PASSWORD: ${{ secrets.MYSQL_ROOT_PASSWORD }}
+          MYSQL_DATABASE: ${{ secrets.MYSQL_DATABASE }}
+          MYSQL_USER: ${{ secrets.MYSQL_USER }}
+          MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
         run: |
-          export MYSQL_ROOT_PASSWORD=${{ secrets.MYSQL_ROOT_PASSWORD }}
-          export MYSQL_DATABASE=${{ secrets.MYSQL_DATABASE }}
-          export MYSQL_USER=${{ secrets.MYSQL_USER }}
-          export MYSQL_PASSWORD=${{ secrets.MYSQL_PASSWORD }}
-          docker compose -f docker-compose-prod.yml build api-flask
-          docker tag gastoooon/macave_backend:latest docker.io/gastoooon/macave_backend:latest
-          docker push docker.io/gastoooon/macave_backend:latest
+          ssh -o StrictHostKeyChecking=no -i ${{ secrets.SSH_PRIVATE_KEY }} ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} << 'EOF'
+          echo "MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}" > ~~/Ma_Cave/back/.env
+          echo "MYSQL_DATABASE=${MYSQL_DATABASE}" >> ~/Ma_Cave/back/.env
+          echo "MYSQL_USER=${MYSQL_USER}" >> ~/Ma_Cave/back/.env
+          echo "MYSQL_PASSWORD=${MYSQL_PASSWORD}" >> ~/Ma_Cave/back/.env
+          echo "FLASK_ENV=production" >> ~/Ma_Cave/back/.env
+          EOF
+
+      - name: Deploy backend with Docker Compose
+        run: |
+          ssh -o StrictHostKeyChecking=no -i ${{ secrets.SSH_PRIVATE_KEY }} ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} << 'EOF'
+          cd  ~/Ma_Cave
+          git stash
+          git pull origin production
+          cd back
+          docker compose --env-file .env -f docker-compose-prod.yml up --build -d
+          EOF

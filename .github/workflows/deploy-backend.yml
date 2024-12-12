@@ -1,64 +1,66 @@
 name: Deploy Backend
 
 on:
+  pull_request:
+    branches:
+      - production
+    types:
+      - closed
   push:
     branches:
       - production
 
 jobs:
   deploy-backend:
-    name: Deploy Backend to VPS
+    name: Deploy Backend
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout the code
         uses: actions/checkout@v4
 
-      - name: Configure SSH Key
-        run: |
-          mkdir -p ~/.ssh
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
-          ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
+      - name: Set up Docker buildx
+        uses: docker/setup-buildx-action@v3
 
-      - name: Test server connectivity
-        run: |
-          echo "Testing connectivity to server..."
-          ping -c 4 ${{ secrets.SSH_HOST }}
+      - name: Login to Docker
+        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
 
-      - name: SSH into VPS and create .env
+      - name: Pull development image, tag as production, and push
+        working-directory: ./back
         run: |
-          ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} << 'EOF'
-          mkdir -p ~/Ma_Cave/back
-          echo "MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}" > ~/Ma_Cave/back/.env
-          echo "MYSQL_DATABASE=${MYSQL_DATABASE}" >> ~/Ma_Cave/back/.env
-          echo "MYSQL_USER=${MYSQL_USER}" >> ~/Ma_Cave/back/.env
-          echo "MYSQL_PASSWORD=${MYSQL_PASSWORD}" >> ~/Ma_Cave/back/.env
-          echo "FLASK_ENV=production" >> ~/Ma_Cave/back/.env
-          EOF
+          docker pull gastoooon/macave_backend:dev
+          docker tag gastoooon/macave_backend:dev gastoooon/macave_backend:latest
+          docker push gastoooon/macave_backend:latest
+
+      - name: SSH Create .env
+        env:
+          MYSQL_ROOT_PASSWORD: ${{ secrets.MYSQL_ROOT_PASSWORD }}
+          MYSQL_DATABASE: ${{ secrets.MYSQL_DATABASE }}
+          MYSQL_USER: ${{ secrets.MYSQL_USER }}
+          MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: ${{ secrets.SSH_PORT }}
+          script: |
+            echo "MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}" > ~/Ma_Cave/back/.env
+            echo "MYSQL_DATABASE=${MYSQL_DATABASE}" >> ~/Ma_Cave/back/.env
+            echo "MYSQL_USER=${MYSQL_USER}" >> ~/Ma_Cave/back/.env
+            echo "MYSQL_PASSWORD=${MYSQL_PASSWORD}" >> ~/Ma_Cave/back/.env
+            echo "FLASK_ENV=production" >> ~/Ma_Cave/back/.env
 
       - name: Deploy backend with Docker Compose
-        run: |
-          ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} << 'EOF'
-          cd ~/Ma_Cave/back
-          docker compose --env-file .env -f docker-compose-prod.yml pull
-          docker compose --env-file .env -f docker-compose-prod.yml up --build -d
-          EOF
-
-      - name: Debug SSH setup (optional)
-        if: failure()
-        run: |
-          ls -la ~/.ssh
-          cat ~/.ssh/known_hosts
-
-      - name: Verify deployment (optional)
-        run: |
-          ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} << 'EOF'
-          docker ps
-          EOF
-
-    env:
-      MYSQL_ROOT_PASSWORD: ${{ secrets.MYSQL_ROOT_PASSWORD }}
-      MYSQL_DATABASE: ${{ secrets.MYSQL_DATABASE }}
-      MYSQL_USER: ${{ secrets.MYSQL_USER }}
-      MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: ${{ secrets.SSH_PORT }}
+          script: |
+            cd  ~/Ma_Cave
+            git stash
+            git pull origin production
+            cd back
+            docker compose --env-file .env -f docker-compose-prod.yml up --build -d

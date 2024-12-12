@@ -46,13 +46,7 @@ jobs:
           MYSQL_USER: ${{ secrets.MYSQL_USER }}
           MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
         run: |
-          ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} << 'EOF'
-          echo "MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}" > ~/Ma_Cave/back/.env
-          echo "MYSQL_DATABASE=${MYSQL_DATABASE}" >> ~/Ma_Cave/back/.env
-          echo "MYSQL_USER=${MYSQL_USER}" >> ~/Ma_Cave/back/.env
-          echo "MYSQL_PASSWORD=${MYSQL_PASSWORD}" >> ~/Ma_Cave/back/.env
-          echo "FLASK_ENV=production" >> ~/Ma_Cave/back/.env
-          EOF
+          ssh -o StrictHostKeyChecking=no -i ${{ secrets.SSH_PRIVATE_KEY }} ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}
 
       - name: Deploy backend with Docker Compose
         run: |

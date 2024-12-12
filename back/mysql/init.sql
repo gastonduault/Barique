@@ -24,6 +24,8 @@ CREATE TABLE bouteilles (
     millesime integer,
     categorie VARCHAR(50) NOT NULL,
     cave_id integer not null,
+    score integer,
+    notice VARCHAR(500),
     primary key (id),
     FOREIGN KEY (cave_id) REFERENCES caves(id)
 );
@@ -36,15 +38,8 @@ CREATE TABLE historique (
     millesime integer,
     categorie VARCHAR(50) NOT NULL,
     cave_id integer not null,
-    primary key (id),
-    date_suppression TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+    score integer,
+    notice VARCHAR(500),
+    date_suppression TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    primary key (id)
 );
-
--- CREATE TABLE amis (
---     id INTEGER NOT NULL AUTO_INCREMENT,
---     utilisateur_id INTEGER NOT NULL,
---     ami_id INTEGER NOT NULL,
---     PRIMARY KEY (id),
---     FOREIGN KEY (utilisateur_id) REFERENCES utilisateurs(uid),
---     FOREIGN KEY (ami_id) REFERENCES utilisateurs(uid)
--- );

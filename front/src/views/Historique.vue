@@ -2,16 +2,19 @@
   <ion-page>
     <ion-header class="header">
       <img src="@/assets/img/back.png" alt="arrow back" class="back" @click="back"/>
+      <img :src="'/api' + cellar.profile_picture" alt="profil picture" class="pp"/>
       <h3> {{ $t('history') }} </h3>
     </ion-header>
     <div class="content">
       <p v-if="bottles && bottles.length === 0" class="no-bottle">
         {{ $t('no_history.msg_1') }}<br />{{ $t('no_history.msg_2') }}
       </p>
-      <div v-for="bottle in bottles" :key="bottle.id" class="bottle">
-        <img class="category"
-             :src="'/src/assets/img/grape_'+bottle.categorie+'.png'"
-             alt="bunch of grapes"/>
+      <div
+          v-for="bottle in bottles"
+          :key="bottle.id"
+          @click="bottleSelected = bottle"
+          class="bottle"
+          :class="bottle.categorie">
         <div class="nom-millesime">
           <p>
             {{ bottle.nom }}
@@ -20,13 +23,25 @@
             {{ bottle.millesime }}
           </p>
         </div>
+        <div class="opinion">
+          <div v-if="bottle.score!==0 && bottle.score!==null" class="stars">
+            <div v-for="i in 5" :key="i">
+              <img src="@/assets/img/empty_star.png" alt="stars" v-if="bottle.score<i"/>
+              <img src="@/assets/img/star.png" alt="stars" v-else/>
+            </div>
+          </div>
+          <div v-else-if="bottle.notice!== '' && bottle.notice!==null" class="notice">
+            <p>{{bottle.notice}}</p>
+          </div>
+        </div>
         <div class="date">
           <p>{{ getDay(bottle.date_suppression) }}</p>
-          <p>{{ getHours(bottle.date_suppression) }}</p>
+          <p>{{ getYear(bottle.date_suppression) }}</p>
         </div>
       </div>
     </div>
     <Loader v-if="loading" />
+    <EditOpinion v-if="bottleSelected!==null" :bottle="bottleSelected" @close-modal="bottleSelected = null" />
   </ion-page>
 </template>
 
@@ -38,11 +53,13 @@ import router from "@/router";
 import Loader from "@/components/loader.vue";
 import AddBottle from "@/views/AddBottle.vue";
 import Bottle from "@/views/Bottle.vue"
+import EditOpinion from "@/components/editOpinion.vue";
 
 export default {
   name: "Historique",
   components: {
-    IonContent, IonHeader, IonPage, IonTitle, IonToolbar, Loader, AddBottle, Bottle
+    IonContent, IonHeader, IonPage, IonTitle, IonToolbar,
+    Loader, AddBottle, Bottle, EditOpinion
   },
   data() {
     return {
@@ -63,9 +80,6 @@ export default {
     loading: () => store.getters['history/getLoading']
   },
   async mounted() {
-    if(!this.utilisateur) {
-      this.$router.push('/home')
-    }
     if(!this.cellar ) {
       const cellar = {
         id: await this.storage.get('cellar_selected_id'),
@@ -83,19 +97,15 @@ export default {
       router.push('/Cave')
     },
     getDay(dateString) {
-      const date = new Date(dateString);
-      const day = date.getDate();
-      const month = date.toLocaleString('default', { month: 'short' });
-      const year = date.getFullYear();
-      const hours = String(date.getHours()).padStart(2, '0');
-      const minutes = String(date.getMinutes()).padStart(2, '0');
-      return `${day} ${month} ${year}`;
+      const date = new Date(dateString)
+      const day = date.getDate()
+      const month = date.toLocaleString('default', { month: 'short' })
+      return `${day} ${month}`
     },
-    getHours(dateString) {
-      const date = new Date(dateString);
-      const hours = String(date.getHours()).padStart(2, '0');
-      const minutes = String(date.getMinutes()).padStart(2, '0');
-      return `${hours} : ${minutes}`;
+    getYear(dateString) {
+      const date = new Date(dateString)
+      const year = date.getFullYear()
+      return `${year}`
     }
   }
 }
@@ -111,6 +121,12 @@ export default {
   justify-content: center;
   justify-items: center;
   height: 40px !important;
+}
+
+.header img.pp {
+  width: 30px;
+  border-radius: 5px 5px;
+  margin-right: 10px;
 }
 
 .header img.back {
@@ -146,7 +162,7 @@ export default {
   align-items: center;
   align-content: center;
   gap: 5px;
-  padding: 10px 10px;
+  padding: 10px 10px 50px 10px;
   color: var(--font-black);
 }
 
@@ -155,9 +171,21 @@ export default {
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  background-color: var(--background-grey);
   padding: 5px 5px;
   border-radius: 5px 5px;
+  height: 50px;
+}
+
+.bottle.rouge {
+  background-color: #f5caca;
+}
+
+.bottle.blanc {
+  background-color: #d8e0c3;
+}
+
+.bottle.rose {
+  background-color: #efc2da;
 }
 
 .nom-millesime {
@@ -167,7 +195,7 @@ export default {
   align-items: start;
   text-align: center;
   justify-content: center;
-  width: 200px;
+  width: 130px;
   overflow-x: hidden;
   text-wrap: nowrap;
   height: 40px;
@@ -180,6 +208,39 @@ export default {
 .nom-millesime p:nth-child(2){
   font-size: 0.9em;
   color: #535353;
+}
+
+.opinion {
+  width: 40%;
+  height: 100%;
+}
+
+.stars {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: space-around;
+}
+
+.notice {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.notice p {
+  font-size: .8em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+}
+
+.stars img {
+  width: 20px;
 }
 
 .date p:nth-child(1){

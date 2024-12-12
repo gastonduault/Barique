@@ -35,13 +35,13 @@
 </template>
 
 <script lang="ts">
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/vue';
-import {Storage} from "@ionic/storage";
-import store from '@/store';
-import router from "@/router";
-import Loader from "@/components/loader.vue";
-import EditCellar from "@/components/editCellar.vue";
-import SelectLang from "@/components/selectLang.vue";
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/vue'
+import {Storage} from "@ionic/storage"
+import store from '@/store'
+import router from "@/router"
+import Loader from "@/components/loader.vue"
+import EditCellar from "@/components/editCellar.vue"
+import SelectLang from "@/components/selectLang.vue"
 
 export default {
   name: "CaveList",
@@ -58,13 +58,13 @@ export default {
     }
   },
   async created() {
-    this.storage = new Storage();
-    await this.storage.create();
-    const account_id = await this.storage.get('uid');
-    if(account_id && !this.connected) await store.dispatch('user/login', account_id);
+    this.storage = new Storage()
+    await this.storage.create()
+    const account_id = await this.storage.get('uid')
+    if(account_id && !this.connected) await store.dispatch('user/login', account_id)
   },
   updated() {
-    store.dispatch('cellar/listCellars', this.utilisateur.uid);
+    store.dispatch('cellar/listCellars', this.utilisateur.uid)
   },
   computed: {
     connected: () => { return store.getters['user/getConnected'] },
@@ -72,8 +72,6 @@ export default {
       const utilisateur = store.getters["user/getUSer"]
       if(utilisateur.uid !== null) {
         store.dispatch('cellar/listCellars', utilisateur.uid);
-      } else {
-        this.$router.push('/home')
       }
       return utilisateur
     },
@@ -84,7 +82,7 @@ export default {
     async disconnect() {
       await this.storage.clear()
       await store.dispatch('user/disconnect')
-      this.$router.push('/home')
+      router.push('/home')
     },
     async clickCellar(cellar: any) {
       console.log(cellar)

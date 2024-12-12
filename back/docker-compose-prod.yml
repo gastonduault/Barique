@@ -12,16 +12,21 @@ services:
       - ./mysql:/docker-entrypoint-initdb.d
     healthcheck:
       test: ["CMD-SHELL", "mysqladmin ping -h localhost"]
-      interval: 20s
-      timeout: 50s
-      retries: 20
+      interval: 30s
+      timeout: 60s
+      retries: 30
 
   api-flask:
-    build: ./flask/
     image: gastoooon/macave_backend:latest
     depends_on:
       mysql:
         condition: service_healthy
+    environment:
+      - FLASK_ENV=production
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
     volumes:
       - ./flask/app/:/usr/src/run/
       - ./flask/static/uploads:/usr/src/app/app/static/uploads

@@ -3,15 +3,14 @@
     <div v-if="bottle" class="addbottle" :class="{'close': closeModal}">
       <h1>
         <img src="@/assets/img/close-red.png" class="close-modale" alt="close add bottle" @click="close">
-        <input v-model="nom" type="text" :placeholder="$t('name')" :class="{'editable': editBottle}" />
-        <img v-if="!editBottle" src="@/assets/img/edit.png" class="edit-bottle" alt="edit" @click="editBottle = true"/>
+        <input v-model="nom" type="text" :placeholder="$t('name')" class="editable" />
 <!--        <img v-else src="@/assets/img/valid.png" class="edit-bottle valid" alt="edit" @click="updateBottle"/>-->
       </h1>
       <div class="fields">
         <div class="info-bottle">
           <div>
             <img class="bottle-img"
-                 v-if="bottle.imaga && bottle.image.id"
+                 v-if="bottle.image && bottle.image.id"
                  :src="bottle.image.url"
                  alt=" image of bottle"/>
             <img class="bottle-img"
@@ -20,35 +19,49 @@
                  alt="image of bottle"/>
           </div>
           <ul>
-            <li :class="{'editable': editBottle}">
+            <li class="editable">
               <strong>{{ $t('region') }} : </strong>
               <input v-model="region" type="text"/>
             </li>
-            <li :class="{'editable': editBottle}">
+            <li class="editable">
               <strong>{{ $t('cepage') }} :</strong>
               <input v-model="cepage" type="text" />
             </li>
-            <li :class="{'editable': editBottle}">
+            <li class="editable">
               <strong>{{ $t('vintage') }} :</strong>
-              <input v-model="millesime" type="number" min="1900" max="2099" step="1" :class="{'editable': editBottle}"/>
+              <input v-model="millesime" type="number" min="1900" max="2099" step="1" class="editable"/>
             </li>
           </ul>
-          <div v-if="editBottle" class="input category">
-            <img v-for="category in categories"
-                 :class="{'selected': categorySelected===category}"
-                 @click="categorySelected = category"
-                 :src="'/src/assets/img/grape_'+category+'.png'"/>
+        </div>
+        <div class="input category">
+          <img v-for="category in categories"
+               :class="{'selected': categorySelected===category}"
+               @click="categorySelected = category"
+               :src="'/src/assets/img/grape_'+category+'.png'"/>
+        </div>
+        <div class="opinion">
+<!--          <p><strong>{{ $t('bottle_opinion') }}</strong></p>-->
+          <div class="stars">
+            <div v-for="i in 5" :key="i" @click="score = i">
+              <img src="@/assets/img/empty_star.png" alt="stars" v-if="score<i"/>
+              <img src="@/assets/img/star.png" alt="stars" v-else/>
+            </div>
           </div>
+          <textarea
+              rows="5"
+              cols="37"
+              v-model="notice"
+              :placeholder="$t('opinion')"></textarea>
         </div>
         <div class="bottom">
-          <button v-if="!editBottle" class="remove-bottle" @click="bottleDrunk">
+          <button class="remove-bottle" @click="bottleDrunk">
             <p>{{ $t('bottle_drunk') }}</p>
             <img src="@/assets/img/bottle_drunk.png" alt="remove bottle"/>
           </button>
-          <nav v-else>
-            <button @click="cancelEditBottle">{{ $t('cancel') }}</button>
-            <button @click="updateBottle">{{ $t('update') }}</button>
-          </nav>
+<!--          <nav v-else>-->
+<!--            <button @click="cancelEditBottle">{{ $t('cancel') }}</button>-->
+<!--            <button @click="updateBottle">{{ $t('update') }}</button>-->
+<!--          </nav>-->
         </div>
       </div>
     </div>
@@ -67,18 +80,22 @@ export default{
     return {
       loading: true,
       closeModal: false,
-      editBottle: false,
       nom: String,
       region: String,
       cepage: String,
       millesime: Number,
       categorySelected: "rouge",
       categories: ["rouge", "blanc", "rose"],
-      currentDate: new Date()
+      currentDate: new Date(),
+      score: 0,
+      notice: "",
     }
   },
   props: {
     bottle: Object
+  },
+  computed: {
+    user: () => store.getters['user/getUSer']
   },
   mounted() {
     this.loading = false
@@ -90,6 +107,7 @@ export default{
       setTimeout(() => {
         this.$emit('closeModale')
       }, 500)
+      this.updateBottle()
     },
     initBottleInfo() {
       this.nom = this.bottle.nom
@@ -97,16 +115,28 @@ export default{
       this.cepage = this.bottle.cepage
       this.millesime = this.bottle.millesime
       this.categorySelected = this.bottle.categorie
+      this.notice = this.bottle.notice
+      this.score = this.bottle.score
     },
     async bottleDrunk() {
-      this.initBottleInfo();
-      this.bottle['date_suppression'] = this.formatDateForMySQL(this.currentDate)
-      await store.dispatch("bottles/delete", this.bottle)
-      this.close()
-    },
-    cancelEditBottle() {
-      this.initBottleInfo()
-      this.editBottle = false
+      const bottle_updated = {
+        "id": this.bottle.id,
+        "cepage": this.cepage,
+        "millesime": this.millesime,
+        "region": this.region,
+        "nom": this.nom,
+        "categorie": this.categorySelected,
+        "id": this.bottle.id,
+        "cave_id": this.bottle.cave_id,
+        "score": this.score,
+        "notice": this.notice,
+        "date_suppression": this.formatDateForMySQL(this.currentDate)
+      }
+      await store.dispatch("bottles/delete", bottle_updated)
+      this.closeModal=true
+      setTimeout(() => {
+        this.$emit('closeModale')
+      }, 500)
     },
     async updateBottle() {
       const bottle_updated = {
@@ -116,10 +146,11 @@ export default{
         "nom": this.nom,
         "categorie": this.categorySelected,
         "id": this.bottle.id,
-        "cave_id": this.bottle.cave_id
+        "cave_id": this.bottle.cave_id,
+        "score": this.score,
+        "notice": this.notice,
       }
       await store.dispatch("bottles/update", bottle_updated)
-      this.editBottle = false
     },
     formatDateForMySQL(date) {
       const year = date.getFullYear();
@@ -130,7 +161,7 @@ export default{
       const seconds = String(date.getSeconds()).padStart(2, '0');
 
       return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
-    }
+    },
   }
 }
 </script>
@@ -193,6 +224,7 @@ h1 img.edit-bottle.valid {
   left: 0;
   width: 100%;
   height: 65vh;
+  overflow-y: auto;
   z-index: 10;
   display: flex;
   flex-direction: column;
@@ -202,8 +234,6 @@ h1 img.edit-bottle.valid {
   animation: form-appear .5s ease-out forwards;
   backdrop-filter: blur(6px);
   background-color: rgba(210, 210, 210, 0.04);
-  //border: #c76060 solid 1px;
-  //border: var(--background-dark) solid 1px;
 }
 
 .addbottle.close {
@@ -215,10 +245,10 @@ h1 img.edit-bottle.valid {
   display: flex;
   align-items: center;
   flex-direction: column;
-  justify-content: space-around;
-  gap: 10%;
-  height: 80%;
+  height: 100%;
   position : relative;
+  justify-content: space-around;
+  padding-bottom: 25px;
 }
 
 .info-bottle {
@@ -248,6 +278,7 @@ h1 img.edit-bottle.valid {
 ul {
   padding-left: 0;
   width: 65%;
+  margin: 0 0;
 }
 
 li {
@@ -276,11 +307,11 @@ li input {
 }
 
 li.editable input,
-input.editable{
-  border: solid 1px var(--font-pink);
+input.editable {
   border-radius: 25px 25px;
   pointer-events: all;
   z-index: 0;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 }
 
 
@@ -303,14 +334,12 @@ li strong {
 
 
 .category {
-  position: absolute;
-  bottom: -50px;
-  margin: 0 auto;
+  margin: 10px auto;
   display: flex;
   padding: 2px 2px;
   border-radius: 10px 10px;
   gap: 4px 10px;
-  background-color: #f3f3f3;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 }
 
 .category img{
@@ -323,46 +352,14 @@ li strong {
 
 .category img.selected{
   border-radius: 10px 10px;
-  border: solid 1px #bdbdbd;
-  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+  border: solid 1px var(--background-dark);
 }
 
 .bottom {
-  height: 10%;
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-.bottom nav {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  gap: 0 10px;
-  justify-content: center;
-}
-
-.bottom nav button {
-  position: relative;
-  border-radius: 5px 5px;
-  color: var(--background-color);
-  font-size: 1em;
-  font-weight: bold;
-  text-transform: uppercase;
-  padding: 10px 10px;
-}
-
-.bottom nav button:nth-child(2) {
-  background-color: var(--font-pink);
-}
-
-.bottom nav button:nth-child(1) {
-  background-color: var(--blue);
-}
-
-.bottom nav button:nth-child(1):focus {
-  background-color: #6889c2;
 }
 
 .remove-bottle {
@@ -396,6 +393,22 @@ li strong {
   margin: 0 0;
 }
 
+.opinion .stars {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
+.stars img {
+  width: 30px;
+}
+
+.opinion textarea {
+  margin-top: 3%;
+  background-color: var(--background-color);
+  border: solid 1px var(--background-dark);
+  border-radius: 5px 5px;
+  padding: 5px 5px;
+}
 
 </style>

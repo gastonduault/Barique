@@ -79,7 +79,6 @@ export default {
       }
       if(this.images) {
         this.imgSelected = this.images[0]
-        console.log(this.imgSelected)
       }
     },
     async close() {
@@ -176,16 +175,16 @@ export default {
   }
   100% {
     transform: translateY(0%);
-    width: 80%;
-    height: 55%;
+    width: 85%;
+    height: 50%;
   }
 }
 
 @keyframes modal-disappear {
   0% {
     transform: translateY(0%);
-    width: 80%;
-    height: 55%;
+    width: 85%;
+    height: 50%;
   }
   100% {
     transform: translateY(+100%);
@@ -230,6 +229,8 @@ input {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: space-around;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 }
 
 .images p{
@@ -240,18 +241,17 @@ input {
 .images div {
   display: flex;
   align-items: center;
-  justify-content: center;
-  background-color: #f3f3f3;
+  justify-content: space-around;
   padding: 4px 2px 2px 2px;
   border-radius: 10px 10px;
   flex-wrap: wrap;
-  gap: 4px 10px;
+  gap: 4px 0;
   max-height: 37vh;
   overflow-y: auto;
 }
 
 .images img {
-  width: 40%;
+  width: 20%;
   min-width: 110px;
   border-radius: 3px 3px;
 }

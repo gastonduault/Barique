@@ -44,6 +44,7 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: ${{ secrets.SSH_PORT }}
+          envs: MYSQL_ROOT_PASSWORD, MYSQL_DATABASE, MYSQL_USER, MYSQL_PASSWORD
           script: |
             echo "MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}" > ~/Ma_Cave/back/.env
             echo "MYSQL_DATABASE=${MYSQL_DATABASE}" >> ~/Ma_Cave/back/.env
@@ -63,4 +64,5 @@ jobs:
             git stash
             git pull origin production
             cd back
+            docker compose -f docker-compose-prod.yml down
             docker compose --env-file .env -f docker-compose-prod.yml up --build

@@ -8,5 +8,6 @@ class Config:
         f"{os.getenv('MYSQL_DATABASE', 'polywine')}"
     )
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+    SERVER_NAME = os.getenv("DOMAIN", "localhost")
 
 

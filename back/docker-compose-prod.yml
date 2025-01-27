@@ -30,8 +30,9 @@ services:
     volumes:
       - ./flask/app/:/usr/src/run/
       - ./flask/static/uploads:/usr/src/app/app/static/uploads
-    ports:
-      - "5001:5001"
+    expose:
+      - "5001"
+
 
   adminer:
     image: adminer

@@ -64,5 +64,5 @@ jobs:
             git stash
             git pull origin production
             cd back
-            docker compose -f docker-compose-prod.yml down
-            docker compose --env-file .env -f docker-compose-prod.yml up --build -d
+            docker compose --env-file .env -f docker-compose-prod.yml down --volumes
+            docker compose --env-file .env -f docker-compose-prod.yml up --build

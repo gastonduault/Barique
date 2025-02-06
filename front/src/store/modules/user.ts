@@ -29,7 +29,7 @@ const actions = {
   async login({ commit }: any, uid: any) {
     commit('setConnected', false);
     commit("setLoading", true)
-    await axios.post(`${API_URL}/utilisateurs/login`, { uid })
+    await axios.post(`https://www.barique.fr/utilisateurs/login`, { uid })
       .then((response) => {
         const user = {
           email: response.data.email,
@@ -49,7 +49,7 @@ const actions = {
 
   async authentification({ commit }: any, user: any) {
     commit("setLoading", true)
-    await axios.post(`http://localhost:5001/utilisateurs`, user)
+    await axios.post(`https://www.barique.fr/utilisateurs`, user)
       .then((response) => {
         const userData = {
           email: response.data.email,

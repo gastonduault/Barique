@@ -2,7 +2,7 @@
   <ion-page>
     <ion-header class="header">
       <img src="@/assets/img/back.png" alt="arrow back" class="back" @click="back"/>
-      <img :src="'/api' + cellar.profile_picture" alt="profil picture" class="pp"/>
+      <img :src="`${API_URL}${cellar.profile_picture}`" alt="profil picture" class="pp"/>
       <h3> {{ $t('history') }} </h3>
     </ion-header>
     <div class="content">
@@ -54,6 +54,7 @@ import Loader from "@/components/loader.vue";
 import AddBottle from "@/views/AddBottle.vue";
 import Bottle from "@/views/Bottle.vue"
 import EditOpinion from "@/components/editOpinion.vue";
+import config from "@/store/modules/config";
 
 export default {
   name: "Historique",
@@ -66,6 +67,7 @@ export default {
       storage: new Storage,
       addBottleOpen: false,
       bottleSelected: null,
+      API_URL: config.API_URL,
     }
   },
   async created() {

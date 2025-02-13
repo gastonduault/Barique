@@ -49,6 +49,7 @@
 <script lang="ts">
 import store from "@/store";
 import router from "@/router";
+import config from "@/store/modules/config"
 
 export default {
   name: "EditCellar",
@@ -57,7 +58,7 @@ export default {
       closeModal: false,
       nameCellar: "",
       remove: false,
-      API_URL: '/api',
+      API_URL: config.API_URL,
       imgSelected: '',
     }
   },

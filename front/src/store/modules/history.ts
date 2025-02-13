@@ -1,7 +1,8 @@
 import axios from "axios";
 import router from "@/router";
+import config from "@/store/modules/config";
 
-const API_URL = '/api'; // Utiliser le proxy
+const API_URL = config.API_URL;
 
 const state = {
   bottles: [],

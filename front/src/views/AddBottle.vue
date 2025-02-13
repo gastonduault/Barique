@@ -18,7 +18,7 @@
           <img v-for="category in categories"
                :class="{'selected': categorySelected===category}"
                @click="categorySelected = category"
-               :src="'/src/assets/img/grape_'+category+'.png'"/>
+               :src="'/img/grape_'+category+'.png'"/>
         </div>
       </div>
       <button class="create" :class="{'disable': name.length===0}" @click="create" type="submit">{{ $t('create') }}</button>

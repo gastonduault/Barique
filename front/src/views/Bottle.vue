@@ -15,7 +15,7 @@
                  alt=" image of bottle"/>
             <img class="bottle-img"
                  :class="{'rose': bottle.categorie === 'rose'}"
-                 v-else :src="'/src/assets/img/bouteille_'+bottle.categorie+'.png'"
+                 v-else :src="'/img/bouteille_'+bottle.categorie+'.png'"
                  alt="image of bottle"/>
           </div>
           <ul>
@@ -37,7 +37,7 @@
           <img v-for="category in categories"
                :class="{'selected': categorySelected===category}"
                @click="categorySelected = category"
-               :src="'/src/assets/img/grape_'+category+'.png'"/>
+               :src="'/img/grape_'+category+'.png'"/>
         </div>
         <div class="opinion">
 <!--          <p><strong>{{ $t('bottle_opinion') }}</strong></p>-->

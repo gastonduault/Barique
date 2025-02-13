@@ -2,7 +2,7 @@
   <ion-page v-if="showComponent && cellar.id">
     <ion-header class="header">
       <img src="@/assets/img/back.png" alt="arrow back" class="back" @click="back"/>
-      <img :src="'/api' + cellar.profile_picture" alt="profil picture" class="pp"/>
+      <img :src="`${API_URL}${cellar.profile_picture}`" alt="profil picture" class="pp"/>
       <h3>
         {{ cellar.nom }}
       </h3>
@@ -24,7 +24,7 @@
              :key="bottle.id"
              class="bottle">
           <img class="category"
-               :src="'/src/assets/img/grape_'+bottle.categorie+'.png'"
+               :src="'/img/grape_'+bottle.categorie+'.png'"
                alt="bunch of grapes"/>
           <img class="bottle-img"
                v-if="bottle.imaga && bottle.image.id"
@@ -32,7 +32,7 @@
                alt=" image of bottle"/>
           <img class="bottle-img"
                :class="{'rose': bottle.categorie === 'rose'}"
-               v-else :src="'/src/assets/img/bouteille_'+bottle.categorie+'.png'"
+               v-else :src="'/img/bouteille_'+bottle.categorie+'.png'"
                alt="image of bottle"/>
           <p>{{ bottle.nom }}</p>
         </div>
@@ -56,6 +56,7 @@
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/vue';
 import {Storage} from "@ionic/storage";
 import store from '@/store';
+import config from '@/store/modules/config'
 import router from "@/router";
 import Bottle from "@/views/Bottle.vue"
 import Loader from "@/components/loader.vue";
@@ -75,7 +76,8 @@ export default {
       bottleSelected: null,
       search: "",
       editCellar: false,
-      showComponent: true
+      showComponent: true,
+      API_URL: config.API_URL,
     }
   },
   async created() {

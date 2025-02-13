@@ -2,12 +2,12 @@
   <div :class="{'open': open}">
     <img src="@/assets/img/dropdown.png" class="dropdown" alt="dropdown"/>
     <img @click="changeLanguage(langSelected)"
-         :src="'/src/assets/img/'+langSelected+'.png'"
+         :src="'/img/'+langSelected+'.png'"
          :alt="langSelected" />
     <img v-for="lang in langs.filter(l => l !== langSelected)"
          :key="lang"
          @click="changeLanguage(lang)"
-         :src="'/src/assets/img/'+lang+'.png'"
+         :src="'/img/'+lang+'.png'"
          :alt="lang" />
   </div>
 </template>

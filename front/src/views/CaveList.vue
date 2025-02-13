@@ -13,7 +13,7 @@
     <div class="content">
       <p class="under-line">{{ $t('your_cellar') }}</p>
       <div class="cellars">
-        <p v-if="cellars.length === 0 && !creation" class="no-cave">
+        <p v-if="cellars && cellars.length === 0 && !creation" class="no-cave">
           {{ $t('no_cellar.msg_1') }} <strong class="add-link" @click="creation = true">{{ $t('no_cellar.msg_2') }}</strong> {{ $t('no_cellar.msg_3') }}.
         </p>
         <div class="cellar" v-for="cellar in cellars" @click="clickCellar(cellar)">
@@ -39,9 +39,11 @@ import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/vue
 import {Storage} from "@ionic/storage"
 import store from '@/store'
 import router from "@/router"
+import config from "@/store/modules/config"
 import Loader from "@/components/loader.vue"
 import EditCellar from "@/components/editCellar.vue"
 import SelectLang from "@/components/selectLang.vue"
+import { logout } from "@/firebase-config";
 
 export default {
   name: "CaveList",
@@ -54,7 +56,7 @@ export default {
       storage: new Storage,
       creation: false,
       nameCellar: "",
-      API_URL: '/api'
+      API_URL: config.API_URL,
     }
   },
   async created() {
@@ -80,12 +82,12 @@ export default {
   },
   methods: {
     async disconnect() {
+      await logout();
       await this.storage.clear()
       await store.dispatch('user/disconnect')
       router.push('/home')
     },
     async clickCellar(cellar: any) {
-      console.log(cellar)
       await store.dispatch('cellar/updtaeCellarSelected', cellar)
       await store.dispatch('bottles/bottles', cellar.id)
       await this.storage.set('cellar_selected_id', cellar.id)

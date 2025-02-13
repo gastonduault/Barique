@@ -1,6 +1,7 @@
-import { initializeApp } from "firebase/app";
-import { getAuth, GoogleAuthProvider, signInWithPopup, signInWithRedirect, signOut } from "firebase/auth";
-import { Capacitor } from "@capacitor/core";
+import {initializeApp} from "firebase/app";
+import {getAuth, GoogleAuthProvider, signInWithPopup, signOut} from "firebase/auth";
+import {Capacitor} from "@capacitor/core";
+import {GoogleAuth} from "@codetrix-studio/capacitor-google-auth";
 
 // Configuration Firebase
 const firebaseConfig = {
@@ -20,11 +21,29 @@ const provider = new GoogleAuthProvider();
 // Fonction d'authentification avec Google
 const signInWithGoogle = async () => {
   try {
+    // Android
     if (Capacitor.isNativePlatform()) {
-      await signInWithRedirect(auth, provider);  // Redirection pour mobile
+      await GoogleAuth.initialize({
+        clientId: "97526311048-tmiibfki5o5plfcjel513b0n4a5qan0e.apps.googleusercontent.com",
+        scopes: ["profile", "email"],
+        grantOfflineAccess: true,
+      });
+      const response = await GoogleAuth.signIn();
+      return {
+        email: response.email,
+        account_id: response.id,
+        nom: response.displayName,
+        profile_picture: response.imageUrl
+      };
     } else {
-      const result = await signInWithPopup(auth, provider);
-      return result.user;
+      //  web
+      const response = await signInWithPopup(auth, provider);
+      return {
+        email: response.user.email,
+        account_id: response.user.uid,
+        nom: response.user.displayName,
+        profile_picture: response.user.photoUrl
+      };
     }
   } catch (error) {
     console.error("Erreur de connexion Google :", error);
@@ -35,9 +54,12 @@ const signInWithGoogle = async () => {
 const logout = async () => {
   try {
     await signOut(auth);
+    if (Capacitor.isNativePlatform()) {
+      await GoogleAuth.signOut();
+    }
   } catch (error) {
     console.error("Erreur de déconnexion :", error);
   }
 };
 
-export { auth, signInWithGoogle, logout };
+export { auth, signInWithGoogle, logout, provider };

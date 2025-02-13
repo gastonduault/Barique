@@ -56,13 +56,8 @@ export default {
       await this.storage.set('uid', uid);
     },
     async logIn_() {
-      const response = await signInWithGoogle();
-      const user = {
-        email: response.email,
-        account_id: response.uid,
-        nom: response.displayName,
-        profile_picture: response.photoUrl
-      }
+      const user = await signInWithGoogle();
+      console.log(user)
       await store.dispatch('user/authentification', user);
       await this.saveUserData(store.getters['user/getUSer'].uid)
       if(this.connected) await router.push('/caveList');

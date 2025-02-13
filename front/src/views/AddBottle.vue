@@ -2,7 +2,7 @@
     <div class="top" @click="close"></div>
     <div class="addbottle" :class="{'close': closeModal}">
       <h1>
-        <img src="@/assets/img/close-red.png" alt="close add bottle" @click="close">
+        <img src="@/assets/img/close-red.webp" alt="close add bottle" @click="close">
         {{ $t('new_bottle') }}
       </h1>
       <div class="fields">
@@ -18,7 +18,7 @@
           <img v-for="category in categories"
                :class="{'selected': categorySelected===category}"
                @click="categorySelected = category"
-               :src="'/img/grape_'+category+'.png'"/>
+               :src="'/img/grape_'+category+'.webp'"/>
         </div>
       </div>
       <button class="create" :class="{'disable': name.length===0}" @click="create" type="submit">{{ $t('create') }}</button>

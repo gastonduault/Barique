@@ -2,7 +2,7 @@
     <div class="top" @click="close"></div>
     <div v-if="bottle" class="addbottle" :class="{'close': closeModal}">
       <h1>
-        <img src="@/assets/img/close-red.png" class="close-modale" alt="close add bottle" @click="close">
+        <img src="@/assets/img/close-red.webp" class="close-modale" alt="close add bottle" @click="close">
         <input v-model="nom" type="text" :placeholder="$t('name')" class="editable" />
 <!--        <img v-else src="@/assets/img/valid.png" class="edit-bottle valid" alt="edit" @click="updateBottle"/>-->
       </h1>
@@ -15,7 +15,7 @@
                  alt=" image of bottle"/>
             <img class="bottle-img"
                  :class="{'rose': bottle.categorie === 'rose'}"
-                 v-else :src="'/img/bouteille_'+bottle.categorie+'.png'"
+                 v-else :src="'/img/bouteille_'+bottle.categorie+'.webp'"
                  alt="image of bottle"/>
           </div>
           <ul>
@@ -37,14 +37,14 @@
           <img v-for="category in categories"
                :class="{'selected': categorySelected===category}"
                @click="categorySelected = category"
-               :src="'/img/grape_'+category+'.png'"/>
+               :src="'/img/grape_'+category+'.webp'"/>
         </div>
         <div class="opinion">
 <!--          <p><strong>{{ $t('bottle_opinion') }}</strong></p>-->
           <div class="stars">
             <div v-for="i in 5" :key="i" @click="score = i">
-              <img src="@/assets/img/empty_star.png" alt="stars" v-if="score<i"/>
-              <img src="@/assets/img/star.png" alt="stars" v-else/>
+              <img src="@/assets/img/empty_star.webp" alt="stars" v-if="score<i"/>
+              <img src="@/assets/img/star.webp" alt="stars" v-else/>
             </div>
           </div>
           <textarea
@@ -56,7 +56,7 @@
         <div class="bottom">
           <button class="remove-bottle" @click="bottleDrunk">
             <p>{{ $t('bottle_drunk') }}</p>
-            <img src="@/assets/img/bottle_drunk.png" alt="remove bottle"/>
+            <img src="@/assets/img/bottle_drunk.webp" alt="remove bottle"/>
           </button>
 <!--          <nav v-else>-->
 <!--            <button @click="cancelEditBottle">{{ $t('cancel') }}</button>-->

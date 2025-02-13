@@ -3,12 +3,12 @@
     <ion-header class="header">
       <SelectLang class="select-lang"/>
       <h1>{{ $t('welcome') }} 🤗</h1>
-      <img src="@/assets/img/Logo_PolyWine.png"  alt="logo polywine"/>
+      <img src="@/assets/img/Logo_PolyWine.webp"  alt="logo polywine"/>
     </ion-header>
 
     <div class="form">
       <div class="google">
-        <img class="google-logo" src="@/assets/img/Google_login.png"  alt="logo google"/>
+        <img class="google-logo" src="@/assets/img/Google_login.webp"  alt="logo google"/>
         <button class="google-login" @click="logIn_"> {{ $t('sign')}} 🗝️{{ $t('google')}}</button>
       </div>
     </div>
@@ -57,7 +57,6 @@ export default {
     },
     async logIn_() {
       const user = await signInWithGoogle();
-      console.log(user)
       await store.dispatch('user/authentification', user);
       await this.saveUserData(store.getters['user/getUSer'].uid)
       if(this.connected) await router.push('/caveList');

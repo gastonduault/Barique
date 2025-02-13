@@ -2,7 +2,7 @@
   <ion-page>
     <ion-header class="header">
       <button class="deconeciton" @click="disconnect">
-        <img src="@/assets/img/decconection.png" alt="deconnection image"/>
+        <img src="@/assets/img/decconection.webp" alt="deconnection image"/>
       </button>
       <SelectLang class="select-lang"/>
       <img v-if="utilisateur && utilisateur.profile_picture" :src="utilisateur.profile_picture" alt="profil picture" />
@@ -24,7 +24,7 @@
         </div>
         <div class="line-create">
           <button class="add-cellar" @click="creation = true">
-            <img src="@/assets/img/ajouter.png" alt="add cellar" />
+            <img src="@/assets/img/ajouter.webp" alt="add cellar" />
           </button>
         </div>
       </div>

@@ -1,7 +1,7 @@
 <template>
   <ion-page>
     <ion-header class="header">
-      <img src="@/assets/img/back.png" alt="arrow back" class="back" @click="back"/>
+      <img src="@/assets/img/back.webp" alt="arrow back" class="back" @click="back"/>
       <img :src="`${API_URL}${cellar.profile_picture}`" alt="profil picture" class="pp"/>
       <h3> {{ $t('history') }} </h3>
     </ion-header>
@@ -26,8 +26,8 @@
         <div class="opinion">
           <div v-if="bottle.score!==0 && bottle.score!==null" class="stars">
             <div v-for="i in 5" :key="i">
-              <img src="@/assets/img/empty_star.png" alt="stars" v-if="bottle.score<i"/>
-              <img src="@/assets/img/star.png" alt="stars" v-else/>
+              <img src="@/assets/img/empty_star.webp" alt="stars" v-if="bottle.score<i"/>
+              <img src="@/assets/img/star.webp" alt="stars" v-else/>
             </div>
           </div>
           <div v-else-if="bottle.notice!== '' && bottle.notice!==null" class="notice">

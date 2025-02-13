@@ -68,7 +68,7 @@ def get_available_images():
     upload_folder = os.path.join(current_app.root_path, 'static', 'uploads')
     images = []
     for filename in os.listdir(upload_folder):
-        if filename.endswith(('.png', '.jpg', '.jpeg', '.gif')):
+        if filename.endswith(('.png', '.jpg', '.jpeg', '.gif','.webp')):
             images.append(f'/static/uploads/{filename}')
 
     return jsonify({'available_images': images}), 200

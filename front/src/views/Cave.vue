@@ -1,7 +1,7 @@
 <template>
   <ion-page v-if="showComponent && cellar.id">
     <ion-header class="header">
-      <img src="@/assets/img/back.png" alt="arrow back" class="back" @click="back"/>
+      <img src="@/assets/img/back.webp" alt="arrow back" class="back" @click="back"/>
       <img :src="`${API_URL}${cellar.profile_picture}`" alt="profil picture" class="pp"/>
       <h3>
         {{ cellar.nom }}
@@ -24,7 +24,7 @@
              :key="bottle.id"
              class="bottle">
           <img class="category"
-               :src="'/img/grape_'+bottle.categorie+'.png'"
+               :src="'/img/grape_'+bottle.categorie+'.webp'"
                alt="bunch of grapes"/>
           <img class="bottle-img"
                v-if="bottle.imaga && bottle.image.id"
@@ -32,12 +32,12 @@
                alt=" image of bottle"/>
           <img class="bottle-img"
                :class="{'rose': bottle.categorie === 'rose'}"
-               v-else :src="'/img/bouteille_'+bottle.categorie+'.png'"
+               v-else :src="'/img/bouteille_'+bottle.categorie+'.webp'"
                alt="image of bottle"/>
           <p>{{ bottle.nom }}</p>
         </div>
       <button class="add-bottle" @click="addBottle">
-        <img src="@/assets/img/ajouter.png" alt="add bottle" />
+        <img src="@/assets/img/ajouter.webp" alt="add bottle" />
       </button>
       </div>
     </div>
@@ -184,7 +184,7 @@ button.update-cellar {
   top: 3px;
   right: 10px;
   background-color: transparent;
-  background-image: url("@/assets/img/parameter.png");
+  background-image: url("@/assets/img/parameter.webp");
   background-size: 17px;
   background-repeat: no-repeat;
   background-position: center;
@@ -234,7 +234,7 @@ div.search-bottle button {
   width: 17px;
   height: 17px;
   padding: 5px 5px;
-  background-image: url("@/assets/img/close.png");
+  background-image: url("@/assets/img/close.webp");
   background-size: 14px;
   background-position: center;
   background-repeat: no-repeat;
@@ -258,7 +258,7 @@ div.search-bottle button {
   right: 10px;
   top: 47px;
   background-color: var(--background-color);
-  background-image: url("@/assets/img/historique.png");
+  background-image: url("@/assets/img/historique.webp");
   background-position: center;
   background-size: 20px;
   background-repeat: no-repeat;

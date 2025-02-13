@@ -2,14 +2,14 @@
   <div class="background" @click.self="close">
     <div class="opinion" :class="{'close': closeModal}">
     <!--          <p><strong>{{ $t('bottle_opinion') }}</strong></p>-->
-      <img src="@/assets/img/cancel.png"
+      <img src="@/assets/img/cancel.webp"
            class="cancel-creation"
            alt="cancel creation"
            @click="close"/>
       <div class="stars">
       <div v-for="i in 5" :key="i" @click="score = i">
-        <img src="@/assets/img/empty_star.png" alt="stars" v-if="score<i"/>
-        <img src="@/assets/img/star.png" alt="stars" v-else/>
+        <img src="@/assets/img/empty_star.webp" alt="stars" v-if="score<i"/>
+        <img src="@/assets/img/star.webp" alt="stars" v-else/>
       </div>
     </div>
     <textarea

@@ -1,7 +1,7 @@
 <template>
   <div class="background" @click.self="close">
     <div class="content" :class="{'close': closeModal}">
-      <img src="@/assets/img/cancel.png"
+      <img src="@/assets/img/cancel.webp"
            class="cancel-creation"
            alt="cancel creation"
            @click="close"/>
@@ -20,7 +20,7 @@
                alt="image cellar" />
         </div>
       </div>
-      <img src="@/assets/img/delete.png"
+      <img src="@/assets/img/delete.webp"
            v-if="cellar"
            class="remove-cellar"
            alt="cancel creation"

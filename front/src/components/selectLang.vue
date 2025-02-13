@@ -1,13 +1,13 @@
 <template>
   <div :class="{'open': open}">
-    <img src="@/assets/img/dropdown.png" class="dropdown" alt="dropdown"/>
+    <img src="@/assets/img/dropdown.webp" class="dropdown" alt="dropdown"/>
     <img @click="changeLanguage(langSelected)"
-         :src="'/img/'+langSelected+'.png'"
+         :src="'/img/'+langSelected+'.webp'"
          :alt="langSelected" />
     <img v-for="lang in langs.filter(l => l !== langSelected)"
          :key="lang"
          @click="changeLanguage(lang)"
-         :src="'/img/'+lang+'.png'"
+         :src="'/img/'+lang+'.webp'"
          :alt="lang" />
   </div>
 </template>

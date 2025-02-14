@@ -15,13 +15,18 @@
           @click="bottleSelected = bottle"
           class="bottle"
           :class="bottle.categorie">
-        <div class="nom-millesime">
-          <p>
-            {{ bottle.nom }}
-          </p>
-          <p>
-            {{ bottle.millesime }}
-          </p>
+        <div class="left-side">
+          <img class="category"
+               :src="'/img/grape_'+bottle.categorie+'.webp'"
+               alt="bunch of grapes"/>
+          <div class="nom-millesime">
+            <p>
+              {{ bottle.nom }}
+            </p>
+            <p>
+              {{ bottle.millesime }}
+            </p>
+          </div>
         </div>
         <div class="opinion">
           <div v-if="bottle.score!==0 && bottle.score!==null" class="stars">
@@ -122,17 +127,17 @@ export default {
   flex-direction: row;
   justify-content: center;
   justify-items: center;
-  height: 40px !important;
+  height: 60px !important;
 }
 
 .header img.pp {
-  width: 30px;
+  width: 37px;
   border-radius: 5px 5px;
   margin-right: 10px;
 }
 
 .header img.back {
-  width: 20px;
+  width: 30px;
   position: absolute;
   left: 15px;
   border-radius: 50%;
@@ -150,7 +155,8 @@ export default {
 
 .header h3 {
   margin: 1px 0 0 0;
-  font-size: 1em;
+  font-size: 1.2em;
+  position: relative;
 }
 
 .content {
@@ -176,28 +182,24 @@ export default {
   padding: 5px 5px;
   border-radius: 5px 5px;
   height: 50px;
+  background-color: var(--background-grey);
 }
 
-.bottle.rouge {
-  background-color: #f5caca;
-}
-
-.bottle.blanc {
-  background-color: #d8e0c3;
-}
-
-.bottle.rose {
-  background-color: #efc2da;
+.left-side {
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  width: 40%;
 }
 
 .nom-millesime {
-  margin-left: 10px;
+  margin-left: 5px;
   display: flex;
   flex-direction: column;
   align-items: start;
   text-align: center;
   justify-content: center;
-  width: 130px;
+  width: 80%;
   overflow-x: hidden;
   text-wrap: nowrap;
   height: 40px;
@@ -213,7 +215,7 @@ export default {
 }
 
 .opinion {
-  width: 40%;
+  width: 28%;
   height: 100%;
 }
 
@@ -242,7 +244,7 @@ export default {
 }
 
 .stars img {
-  width: 20px;
+  width: 17px;
 }
 
 .date p:nth-child(1){

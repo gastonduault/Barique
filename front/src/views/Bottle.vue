@@ -18,20 +18,11 @@
                  v-else :src="'/img/bouteille_'+bottle.categorie+'.webp'"
                  alt="image of bottle"/>
           </div>
-          <ul>
-            <li class="editable">
-              <strong>{{ $t('region') }} : </strong>
-              <input v-model="region" type="text"/>
-            </li>
-            <li class="editable">
-              <strong>{{ $t('cepage') }} :</strong>
-              <input v-model="cepage" type="text" />
-            </li>
-            <li class="editable">
-              <strong>{{ $t('vintage') }} :</strong>
-              <input v-model="millesime" type="number" min="1900" max="2099" step="1" class="editable"/>
-            </li>
-          </ul>
+          <div class="inputs">
+            <input v-model="region" :placeholder="$t('region')" type="text"/>
+            <input v-model="cepage" :placeholder="$t('cepage')" type="text" />
+            <input v-model="millesime" :placeholder="$t('vintage')" type="number" min="1900" max="2099" step="1" class="editable"/>
+          </div>
         </div>
         <div class="input category">
           <img v-for="category in categories"
@@ -174,10 +165,11 @@ export default{
   top: 0;
   left: 0;
   z-index: 10;
+  background-color: rgba(0, 0, 0, 0.2);
 }
 
 h1 {
-  font-weight: bold;
+  font-weight: normal;
   color: var(--font-black);
   font-size: 1.2em;
   position: relative;
@@ -186,58 +178,39 @@ h1 {
 }
 
 h1 input {
-  background-color: transparent;
   border: transparent solid 1px;
-  pointer-events: none;
   padding: 2px 0;
   text-align: center;
+  background-color: var(--background-grey);
+  border-radius: 25px 25px;
 }
 
 h1 img.close-modale {
   position: absolute;
   left: -5%;
-  width: 23px;
+  width: 30px;
+  top: -2px;
   cursor: pointer;
 }
-
-h1 img.edit-bottle {
-  position: absolute;
-  right: 10%;
-  top: 25%;
-  width: 13px;
-  cursor: pointer;
-}
-
-h1 img.edit-bottle:focus{
-  box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
-  transform: rotateZ(30deg);
-}
-
-h1 img.edit-bottle.valid {
-  width: 20px;
-}
-
 
 .addbottle {
   position: absolute;
-  top: 35vh;
+  top: 25vh;
   left: 0;
   width: 100%;
-  height: 65vh;
+  height: 75vh;
   overflow-y: auto;
   z-index: 10;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
-  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-  animation: form-appear .5s ease-out forwards;
-  backdrop-filter: blur(6px);
-  background-color: rgba(210, 210, 210, 0.04);
+  animation: form-appear .2s ease-out forwards;
+  background-color: var(--background-color);
 }
 
 .addbottle.close {
-  animation: form-disappear .5s ease-out forwards;
+  animation: form-disappear .2s ease-out forwards;
 }
 
 .addbottle .fields {
@@ -260,7 +233,7 @@ h1 img.edit-bottle.valid {
 }
 
 .info-bottle div:nth-child(1){
-  width: 35%;
+  width: 25%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -275,71 +248,39 @@ h1 img.edit-bottle.valid {
   width: 35px;
 }
 
-ul {
+.inputs {
   padding-left: 0;
-  width: 65%;
+  width: 97%;
   margin: 0 0;
 }
 
-li {
-  list-style: none;
-  margin: 30px 0 0 0;
+.inputs input {
+  margin-top: 16%;
   color: var(--font-black);
   position: relative;
-  width: 80%;
-  padding: 3px 0 0 0 ;
-  font-size: 0.8em;
-}
-
-li.editable{
-  //background-color: #e7e7e7;
-}
-
-li input {
-  position: absolute;
-  width: 100%;
-  top: -3px;
-  left: 0;
-  background-color: transparent;
+  width: 95%;
+  font-size: 1em;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  height: 30px;
   border: transparent solid 1px;
-  pointer-events: none;
-  padding: 5px 0;
-}
-
-li.editable input,
-input.editable {
+  padding: 15px;
+  background-color: var(--background-grey);
   border-radius: 25px 25px;
-  pointer-events: all;
-  z-index: 0;
-  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 }
 
-
-li:nth-child(1) input {
-  padding-left: 62px;
+.inputs input:first-child{
+  margin-top: 10%;
 }
-
-li:nth-child(2) input {
-  padding-left: 65px;
-}
-
-li:nth-child(3) input {
-  padding-left: 78px;
-}
-
-li strong {
-  padding-left: 10px;
-  color: var(--background-dark);
-}
-
 
 .category {
-  margin: 10px auto;
+  margin: 10% auto;
   display: flex;
   padding: 2px 2px;
   border-radius: 10px 10px;
   gap: 4px 10px;
-  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  background-color: var(--background-grey);
 }
 
 .category img{
@@ -360,6 +301,7 @@ li strong {
   display: flex;
   align-items: center;
   justify-content: center;
+  margin: 7% auto;
 }
 
 .remove-bottle {
@@ -404,11 +346,13 @@ li strong {
 }
 
 .opinion textarea {
-  margin-top: 3%;
-  background-color: var(--background-color);
-  border: solid 1px var(--background-dark);
+  margin: 3% auto 0 auto;
+  display: block;
+  background-color: var(--background-grey);
+  border: none;
   border-radius: 5px 5px;
   padding: 5px 5px;
+  width: 90%;
 }
 
 </style>

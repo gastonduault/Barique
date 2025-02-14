@@ -137,7 +137,7 @@ export default {
 
 .deconeciton img{
   border-radius: 0;
-  width: 25px;
+  width: 31px;
 }
 
 .content {
@@ -150,14 +150,12 @@ export default {
 
 .under-line {
   width: 60%;
-  border-bottom: var(--font-black) solid 1px;
   display: block;
   margin: 0 auto;
 }
 
 .cellars {
   width: 95%;
-  background-color: var(--background-color);
   margin: 20px auto;
   height: 100%;
   display: flex;
@@ -166,6 +164,7 @@ export default {
   align-content: start;
   flex-wrap: wrap;
   border-radius: 5px;
+  gap: 15px;
 }
 
 .no-cave {
@@ -173,12 +172,12 @@ export default {
 }
 
 .cellar {
-  margin-right: 15px;
   cursor: pointer;
   border: solid 1px transparent;
-  transition: .2s;
+  transition: .1s;
   border-radius: 5px 5px;
   padding: 10px 10px;
+  background-color: var(--background-grey);
 }
 
 .cellar:hover,

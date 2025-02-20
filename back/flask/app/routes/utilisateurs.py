@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, request
-from ..models import Utilisateur, db
+from ..models import Cave, Bouteille, Historique, db
 
 bp = Blueprint('utilisateurs', __name__, url_prefix='/utilisateurs')
 
@@ -21,12 +21,15 @@ def add_or_update_utilisateur():
         db.session.add(utilisateur)
     try:
         db.session.commit()
+        caves = Cave.query.filter_by(proprietaire_uid=utilisateur.uid).all()
+        caves_list = [{'id': cave.id, 'nom': cave.nom, 'profile_picture': cave.profile_picture} for cave in caves]
         return jsonify({
             'message': 'Utilisateur ajouté/mis à jour avec succès!',
             'uid': utilisateur.uid,
             'nom': utilisateur.nom,
             'email': utilisateur.email,
-            'profile_picture': utilisateur.profile_picture
+            'profile_picture': utilisateur.profile_picture,
+            'caves': caves_list
         }), 201
     except Exception as e:
         db.session.rollback()
@@ -39,11 +42,14 @@ def login():
     data = request.get_json()
     utilisateur = Utilisateur.query.filter_by(uid=data.get('uid')).first()
     if utilisateur:
+        caves = Cave.query.filter_by(proprietaire_uid=utilisateur.uid).all()
+        caves_list = [{'id': cave.id, 'nom': cave.nom, 'profile_picture': cave.profile_picture} for cave in caves]
         return jsonify({
             'uid': utilisateur.uid,
             'nom': utilisateur.nom,
             'email': utilisateur.email,
-            'profile_picture': utilisateur.profile_picture
+            'profile_picture': utilisateur.profile_picture,
+            'caves': caves_list
         }), 200
     else:
         return jsonify({'message': 'Utilisateur non trouvé'}), 404

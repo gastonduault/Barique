@@ -91,7 +91,7 @@ export default{
 
 h1 {
   font-weight: normal;
-  color: var(--font-black);
+  color: var(--font-pink);
   font-size: 1.2em;
   position: relative;
   width: 100%;
@@ -117,8 +117,8 @@ h1 img {
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
-  backdrop-filter: blur(10px);
-  background-color: var(--background-color);
+  backdrop-filter: blur(3px);
+  background-color: rgba(255, 255, 255);
   animation: form-appear .2s ease-out forwards;
   border-bottom: 0;
 }

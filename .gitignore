@@ -4,3 +4,4 @@
 .env
 front/package-lock.json
 back/.env
+back/.logs

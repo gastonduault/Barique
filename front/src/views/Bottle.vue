@@ -170,7 +170,7 @@ export default{
 
 h1 {
   font-weight: normal;
-  color: var(--font-black);
+  color: var(--font-pink);
   font-size: 1.2em;
   position: relative;
   width: 80%;
@@ -179,7 +179,7 @@ h1 {
 
 h1 input {
   border: transparent solid 1px;
-  padding: 2px 0;
+  padding: 4px 0;
   text-align: center;
   background-color: var(--background-grey);
   border-radius: 25px 25px;
@@ -206,7 +206,8 @@ h1 img.close-modale {
   align-items: center;
   justify-content: space-around;
   animation: form-appear .2s ease-out forwards;
-  background-color: var(--background-color);
+  backdrop-filter: blur(3px);
+  background-color: rgba(255, 255, 255);
 }
 
 .addbottle.close {
@@ -255,7 +256,7 @@ h1 img.close-modale {
 }
 
 .inputs input {
-  margin-top: 16%;
+  margin-top: 10%;
   color: var(--font-black);
   position: relative;
   width: 95%;
@@ -265,17 +266,17 @@ h1 img.close-modale {
   justify-content: start;
   height: 30px;
   border: transparent solid 1px;
-  padding: 15px;
+  padding: 20px;
   background-color: var(--background-grey);
   border-radius: 25px 25px;
 }
 
 .inputs input:first-child{
-  margin-top: 10%;
+  margin-top: 8%;
 }
 
 .category {
-  margin: 10% auto;
+  margin: 8% auto;
   display: flex;
   padding: 2px 2px;
   border-radius: 10px 10px;

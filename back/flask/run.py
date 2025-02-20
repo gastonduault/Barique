@@ -1,6 +1,27 @@
+import os
+import logging
+from logging.handlers import TimedRotatingFileHandler
 from flask import Flask
-from werkzeug.middleware.proxy_fix import ProxyFix
 from app import create_app
+from werkzeug.middleware.proxy_fix import ProxyFix
+
+LOG_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'logs')
+os.makedirs(LOG_DIR, exist_ok=True)
+
+LOG_FILE = os.path.join(LOG_DIR, 'flask.log')
+
+# Loh each days backup of 7 days
+log_handler = TimedRotatingFileHandler(
+    LOG_FILE, when="midnight", interval=1, backupCount=7, encoding='utf-8'
+)
+log_handler.setLevel(logging.INFO)
+log_formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
+log_handler.setFormatter(log_formatter)
+
+logger = logging.getLogger()
+logger.setLevel(logging.INFO)
+logger.addHandler(log_handler)
+logger.addHandler(logging.StreamHandler())
 
 app = create_app()
 app.wsgi_app = ProxyFix(app.wsgi_app, x_proto=1, x_host=1)

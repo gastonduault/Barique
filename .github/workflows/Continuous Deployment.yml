@@ -6,9 +6,6 @@ on:
       - production
     types:
       - closed
-  push:
-    branches:
-      - production
 
 jobs:
   deploy-backend:
@@ -51,6 +48,7 @@ jobs:
             echo "MYSQL_USER=${MYSQL_USER}" >> ~/Ma_Cave/back/.env
             echo "MYSQL_PASSWORD=${MYSQL_PASSWORD}" >> ~/Ma_Cave/back/.env
             echo "FLASK_ENV=production" >> ~/Ma_Cave/back/.env
+            echo "DOMAIN=${DOMAIN}" >> ~/Ma_Cave/back/.env
 
       - name: Deploy backend with Docker Compose
         uses: appleboy/ssh-action@v1.2.0

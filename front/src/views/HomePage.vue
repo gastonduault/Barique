@@ -3,21 +3,14 @@
     <ion-header class="header">
       <SelectLang class="select-lang"/>
       <h1>{{ $t('welcome') }} 🤗</h1>
-      <img src="../assets/img/Logo_PolyWine.png"  alt="logo polywine"/>
+      <img src="@/assets/img/Logo_PolyWine.webp"  alt="logo polywine"/>
     </ion-header>
 
     <div class="form">
       <div class="google">
-        <img class="google-logo" src="@/assets/img/Google_login.png"  alt="logo google"/>
-        <button class="google-login" @click="logIn"> {{ $t('sign')}} 🗝️{{ $t('google')}}</button>
+        <img class="google-logo" src="@/assets/img/Google_login.webp"  alt="logo google"/>
+        <button class="google-login" @click="logIn_"> {{ $t('sign')}} 🗝️{{ $t('google')}}</button>
       </div>
-<!--      <p> - OR - </p>-->
-<!--      <div class="credentials">-->
-<!--        <input type="text" value="" placeholder="Name" />-->
-<!--        <input type="email" value="" placeholder="Email" />-->
-<!--        <input type="password" value="" placeholder="Password" />-->
-<!--        <button class="creds-login">Sign In / Login 🗝️</button>-->
-<!--      </div>-->
     </div>
     <loader v-if="loading"/>
   </ion-page>
@@ -25,14 +18,15 @@
 
 
 <script lang="ts">
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/vue'
-import { GoogleAuth } from '@codetrix-studio/capacitor-google-auth'
 import { Storage } from '@ionic/storage'
-import VueCookies from 'vue-cookies'
-import store from '@/store'
-import router from "@/router"
-import loader from "@/components/loader.vue"
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/vue'
+import { auth, signInWithGoogle, logout, provider} from "@/firebase-config";
 import SelectLang from "@/components/selectLang.vue"
+import loader from "@/components/loader.vue"
+import router from "@/router"
+import store from '@/store'
+
+
 
 export default {
   name: "HomePage",
@@ -53,29 +47,20 @@ export default {
         .then(() => { if(this.connected) router.push('./caveList') });
     }
   },
-  async mounted() {
-    GoogleAuth.initialize();
-  },
   computed: {
     connected: () => { return store.getters['user/getConnected'] },
     loading: () => { return store.getters['user/getLoading'] },
   },
   methods: {
-    async logIn() {
-      const response = await GoogleAuth.signIn();
-      const utilisateur = {
-        email: response.email,
-        account_id: response.id,
-        nom: response.name,
-        profile_picture: response.imageUrl
-      }
-      await store.dispatch('user/authentification', utilisateur);
-      await this.saveUserData(store.getters['user/getUSer'].uid)
-      if(this.connected) await router.push('/caveList');
-    },
     async saveUserData(uid: any) {
       await this.storage.set('uid', uid);
     },
+    async logIn_() {
+      const user = await signInWithGoogle();
+      await store.dispatch('user/authentification', user);
+      await this.saveUserData(store.getters['user/getUSer'].uid)
+      if(this.connected) await router.push('/caveList');
+    }
   }
 }
 

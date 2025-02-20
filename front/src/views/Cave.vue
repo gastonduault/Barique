@@ -1,8 +1,8 @@
 <template>
   <ion-page v-if="showComponent && cellar.id">
     <ion-header class="header">
-      <img src="@/assets/img/back.png" alt="arrow back" class="back" @click="back"/>
-      <img :src="'/api' + cellar.profile_picture" alt="profil picture" class="pp"/>
+      <img src="@/assets/img/back.webp" alt="arrow back" class="back" @click="back"/>
+      <img :src="`${API_URL}${cellar.profile_picture}`" alt="profil picture" class="pp"/>
       <h3>
         {{ cellar.nom }}
       </h3>
@@ -24,7 +24,7 @@
              :key="bottle.id"
              class="bottle">
           <img class="category"
-               :src="'/src/assets/img/grape_'+bottle.categorie+'.png'"
+               :src="'/img/grape_'+bottle.categorie+'.webp'"
                alt="bunch of grapes"/>
           <img class="bottle-img"
                v-if="bottle.imaga && bottle.image.id"
@@ -32,12 +32,12 @@
                alt=" image of bottle"/>
           <img class="bottle-img"
                :class="{'rose': bottle.categorie === 'rose'}"
-               v-else :src="'/src/assets/img/bouteille_'+bottle.categorie+'.png'"
+               v-else :src="'/img/bouteille_'+bottle.categorie+'.webp'"
                alt="image of bottle"/>
           <p>{{ bottle.nom }}</p>
         </div>
       <button class="add-bottle" @click="addBottle">
-        <img src="@/assets/img/ajouter.png" alt="add bottle" />
+        <img src="@/assets/img/ajouter.webp" alt="add bottle" />
       </button>
       </div>
     </div>
@@ -56,6 +56,7 @@
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/vue';
 import {Storage} from "@ionic/storage";
 import store from '@/store';
+import config from '@/store/modules/config'
 import router from "@/router";
 import Bottle from "@/views/Bottle.vue"
 import Loader from "@/components/loader.vue";
@@ -75,7 +76,8 @@ export default {
       bottleSelected: null,
       search: "",
       editCellar: false,
-      showComponent: true
+      showComponent: true,
+      API_URL: config.API_URL,
     }
   },
   async created() {
@@ -143,17 +145,17 @@ export default {
   flex-direction: row;
   justify-content: center;
   justify-items: center;
-  height: 40px !important;
+  height: 60px !important;
 }
 
 .header img.pp {
-  width: 30px;
+  width: 37px;
   border-radius: 5px 5px;
   margin-right: 10px;
 }
 
 .header img.back {
-  width: 20px;
+  width: 30px;
   position: absolute;
   left: 15px;
   border-radius: 50%;
@@ -171,19 +173,19 @@ export default {
 
 .header h3 {
   margin: 1px 0 0 0;
-  font-size: 1em;
+  font-size: 1.2em;
   position: relative;
 }
 
 button.update-cellar {
-  width: 25px;
-  height: 25px;
+  width: 33px;
+  height: 33px;
   position: absolute;
-  top: 3px;
+  top: 13px;
   right: 10px;
   background-color: transparent;
-  background-image: url("@/assets/img/parameter.png");
-  background-size: 17px;
+  background-image: url("@/assets/img/parameter.webp");
+  background-size: 22px;
   background-repeat: no-repeat;
   background-position: center;
   border-radius: 25px 25px;
@@ -201,7 +203,6 @@ button.update-cellar:focus {
   overflow-y: auto;
   text-align: center;
   padding: 10px 10px;
-  //margin-top: 20px;
 }
 
 .bottles {
@@ -215,32 +216,42 @@ button.update-cellar:focus {
 }
 
 div.search-bottle {
-  margin: 0 auto 10px auto;
+  margin: 5px auto 25px auto;
   position: relative;
-  width: 70%;
+  width: 90%;
 }
 
 div.search-bottle input{
-  background-color: var(--background-color);
+  background-color: var(--background-grey);
   border: solid 1px var(--background-grey);
   border-radius: 25px 25px;
-  padding: 5px 5px;
+  padding: 13px 15px;
   width: 100%;
 }
 
 div.search-bottle button {
-  width: 17px;
-  height: 17px;
+  width: 34px;
+  height: 34px;
   padding: 5px 5px;
-  background-image: url("@/assets/img/close.png");
-  background-size: 14px;
+  background-image: url("@/assets/img/close.webp");
+  background-size: 20px;
   background-position: center;
   background-repeat: no-repeat;
   background-color: var(--background-dark);
   border-radius: 25px 25px;
   position: absolute;
-  top: 7px;
-  right: 7px;
+  top: 6px;
+  right: 6px;
+  transition: 0.2s;
+  animation: btn-search 0.2s;
+}
+
+@keyframes btn-search {
+  0% {
+    transform: translateX(-20px);
+  } 100% {
+    transform: translateX(0px);
+  }
 }
 
 .no-bottle {
@@ -251,18 +262,16 @@ div.search-bottle button {
 .historique-btn {
   position: fixed;
   z-index: 2;
-  width: 30px;
-  height: 30px;
-  right: 10px;
-  top: 47px;
+  width: 42px;
+  height: 42px;
+  right: 3%;
+  top: 23%;
   background-color: var(--background-color);
-  background-image: url("@/assets/img/historique.png");
+  background-image: url("@/assets/img/historique.webp");
   background-position: center;
-  background-size: 20px;
+  background-size: 23px;
   background-repeat: no-repeat;
   border-radius: 25px 25px;
-  //box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
 }
 
 .historique-btn:focus {
@@ -280,6 +289,14 @@ div.search-bottle button {
   border-radius: 5px;
   width: 130px;
   height: 150px;
+  border: solid 1px transparent;
+  transition: .1s;
+}
+
+.bottle:hover,
+.bottle:active,
+.bottle:focus{
+  border-color: var(--font-black);
 }
 
 .bottle .category {
@@ -291,7 +308,6 @@ div.search-bottle button {
 .bottle .bottle-img {
   margin-top: 20px;
   width: 20%;
-  //height: 108.78px;
 }
 
 .bottle .bottle-img.rose {
@@ -314,7 +330,7 @@ div.search-bottle button {
 }
 
 .add-bottle img {
-  width: 17px;
+  width: 23px;
 }
 
 </style>

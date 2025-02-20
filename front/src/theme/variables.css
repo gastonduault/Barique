@@ -4,8 +4,8 @@
     --white: #ffffff;
     --black: #000000;
     --blue: #769dde;
-    --background-color: #fff7f7;
-    --background-grey: #efe1e1;
+    --background-color: #ffffff;
+    --background-grey: #FAF5F5;
     --background-dark: #9f5353;
     --font-pink: #c76060;
     --font-black: #3A3A3A;
@@ -66,14 +66,14 @@ h1 {
     }
     100% {
         transform: translateY(0%);
-        border-radius: 25px 25px 0 0;
+        border-radius: 10px 10px 0 0;
     }
 }
 
 @keyframes form-disappear {
     0% {
         transform: translateY(0%);
-        border-radius: 25px 25px 0 0;
+        border-radius: 10px 10px 0 0;
     }
     100% {
         transform: translateY(+100%);

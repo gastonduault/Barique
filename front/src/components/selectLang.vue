@@ -1,13 +1,13 @@
 <template>
   <div :class="{'open': open}">
-    <img src="@/assets/img/dropdown.png" class="dropdown" alt="dropdown"/>
+    <img src="@/assets/img/dropdown.webp" class="dropdown" alt="dropdown"/>
     <img @click="changeLanguage(langSelected)"
-         :src="'/src/assets/img/'+langSelected+'.png'"
+         :src="'/img/'+langSelected+'.webp'"
          :alt="langSelected" />
     <img v-for="lang in langs.filter(l => l !== langSelected)"
          :key="lang"
          @click="changeLanguage(lang)"
-         :src="'/src/assets/img/'+lang+'.png'"
+         :src="'/img/'+lang+'.webp'"
          :alt="lang" />
   </div>
 </template>
@@ -71,15 +71,15 @@ export default {
     gap: 4px 0;
     overflow-x: initial;
     overflow-y: clip;
-    height: 29px;
+    height: 33px;
     position: relative;
-    padding: 4px 4px;
-    transition: 0.3s;
+    transition: 0.2s;
     border-radius: 3px 3px;
+    padding: 4px 4px;
   }
 
   div.open {
-    height: 54px;
+    height: 74px;
     background-color: var(--background-grey);
   }
 
@@ -99,8 +99,8 @@ export default {
   div img {
     margin: 0 0;
     padding: 0 0;
-    width: 32px;
-    height: 32px;
+    width: 39px;
+    height: 30px;
     position: initial;
   }
 </style>

@@ -1,7 +1,7 @@
 <template>
   <div class="background" @click.self="close">
     <div class="content" :class="{'close': closeModal}">
-      <img src="@/assets/img/cancel.png"
+      <img src="@/assets/img/cancel.webp"
            class="cancel-creation"
            alt="cancel creation"
            @click="close"/>
@@ -10,7 +10,7 @@
              v-on:keydown="keydownCellarName($event)"
              v-model="nameCellar"/>
       <div class="images" v-if="!remove">
-        <p>{{ $t('image_cellar') }}</p>
+<!--        <p>{{ $t('image_cellar') }}</p>-->
         <div>
           <img v-for="img in images"
                key="img"
@@ -20,7 +20,7 @@
                alt="image cellar" />
         </div>
       </div>
-      <img src="@/assets/img/delete.png"
+      <img src="@/assets/img/delete.webp"
            v-if="cellar"
            class="remove-cellar"
            alt="cancel creation"
@@ -49,6 +49,7 @@
 <script lang="ts">
 import store from "@/store";
 import router from "@/router";
+import config from "@/store/modules/config"
 
 export default {
   name: "EditCellar",
@@ -57,7 +58,7 @@ export default {
       closeModal: false,
       nameCellar: "",
       remove: false,
-      API_URL: '/api',
+      API_URL: config.API_URL,
       imgSelected: '',
     }
   },
@@ -138,7 +139,7 @@ export default {
   background-color: rgba(210, 210, 210, 0.04);
   border-radius: 10px 10px;
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-  animation: modal-appear .5s ease-out forwards;
+  animation: modal-appear .2s ease-out forwards;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -149,7 +150,7 @@ export default {
 }
 
 .content.close {
-  animation: modal-disappear .5s ease-out forwards;
+  animation: modal-disappear .2s ease-out forwards;
 }
 
 .content img,
@@ -194,11 +195,11 @@ export default {
 }
 
 .cancel-creation {
-  width: 12px;
-  height: 12px;
+  width: 16px;
+  height: 16px;
   position: absolute;
-  top: 10px;
-  left: 10px;
+  top: 15px;
+  left: 13px;
   cursor: pointer;
 }
 
@@ -207,30 +208,32 @@ p.warning {
 }
 
 .remove-cellar {
-  width: 17px;
-  height: 17px;
+  width: 23px;
+  height: 23px;
   position: absolute;
-  top: 8px;
-  right: 8px;
+  top: 13px;
+  right: 13px;
   cursor: pointer;
 }
 
 input {
-  background-color: var(--background-color);
-  border: solid 1px var(--background-grey);
+  background-color: var(--background-grey);
+  border: none;
   border-radius: 25px 25px;
   padding: 10px 10px;
   width: 75%;
-  margin-bottom: 5%;
+  margin-bottom: 15%;
+  text-align: center;
 }
 
 .images {
   width: 90%;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-content: space-around;
   justify-content: space-around;
-  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  background-color: var(--background-grey);
+  padding: 15px 15px;
 }
 
 .images p{
@@ -245,25 +248,24 @@ input {
   padding: 4px 2px 2px 2px;
   border-radius: 10px 10px;
   flex-wrap: wrap;
-  gap: 4px 0;
+  gap: 5px 6px;
   max-height: 37vh;
   overflow-y: auto;
 }
 
 .images img {
-  width: 20%;
-  min-width: 110px;
+  width: 60px;
   border-radius: 3px 3px;
+  padding: 5px;
 }
 
 .images img.selected {
-  border: solid 2.5px var(--font-pink);
-  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+  border: solid 1px var(--font-pink);
 }
 
 button {
   position: absolute;
-  bottom: 10px;
+  bottom: 20px;
   border-radius: 5px 5px;
   font-size: 1em;
   font-weight: bold;

@@ -2,7 +2,7 @@
     <div class="top" @click="close"></div>
     <div class="addbottle" :class="{'close': closeModal}">
       <h1>
-        <img src="@/assets/img/close-red.png" alt="close add bottle" @click="close">
+        <img src="@/assets/img/close-red.webp" alt="close add bottle" @click="close">
         {{ $t('new_bottle') }}
       </h1>
       <div class="fields">
@@ -18,7 +18,7 @@
           <img v-for="category in categories"
                :class="{'selected': categorySelected===category}"
                @click="categorySelected = category"
-               :src="'/src/assets/img/grape_'+category+'.png'"/>
+               :src="'/img/grape_'+category+'.webp'"/>
         </div>
       </div>
       <button class="create" :class="{'disable': name.length===0}" @click="create" type="submit">{{ $t('create') }}</button>
@@ -86,11 +86,12 @@ export default{
   top: 0;
   left: 0;
   z-index: 10;
+  background-color: rgba(0, 0, 0, 0.4);
 }
 
 h1 {
-  font-weight: bold;
-  color: var(--font-black);
+  font-weight: normal;
+  color: var(--font-pink);
   font-size: 1.2em;
   position: relative;
   width: 100%;
@@ -100,30 +101,30 @@ h1 {
 h1 img {
   position: absolute;
   left: 10%;
-  width: 23px;
+  width: 30px;
   cursor: pointer;
+  top: -5px;
 }
 
 .addbottle {
   position: absolute;
-  top: 35vh;
+  top: 25vh;
   left: 0;
   width: 100%;
-  height: 65vh;
+  height: 75vh;
   z-index: 10;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
-  backdrop-filter: blur(10px);
-  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-  animation: form-appear .5s ease-out forwards;
-  //border: #c76060 solid 1px;
+  backdrop-filter: blur(3px);
+  background-color: rgba(255, 255, 255);
+  animation: form-appear .2s ease-out forwards;
   border-bottom: 0;
 }
 
 .addbottle.close {
-  animation: form-disappear .5s ease-out forwards;
+  animation: form-disappear .2s ease-out forwards;
 }
 
 .addbottle .fields {
@@ -132,8 +133,8 @@ h1 img {
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  gap: 10%;
-  height: 50%;
+  gap: 8%;
+  height: 65%;
 }
 
 
@@ -141,9 +142,13 @@ h1 img {
   width: 290px;
   padding: 10px 10px;
   border-radius: 25px 25px;
-  background-color: var(--background-color);
-  border: solid 1px var(--font-pink);
-  font-size: .9em;
+  background-color: var(--background-grey);
+  font-size: 1em;
+  border: solid 1px transparent;
+}
+
+.addbottle input:focus {
+  border-color: var(--font-pink);
 }
 
 .field {
@@ -158,17 +163,13 @@ h1 img {
   top: 6px;
 }
 
-.addbottle input:focus,
-.addbottle input:active {
-  border: solid 2px var(--font-pink);
-}
 .category {
   margin: 10px auto;
   display: flex;
   padding: 2px 2px;
   border-radius: 10px 10px;
   gap: 4px 10px;
-  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  background-color: var(--background-grey);
 }
 
 .category img{

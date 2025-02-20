@@ -10,6 +10,7 @@ services:
       - "3306:3306"
     volumes:
       - ./mysql:/docker-entrypoint-initdb.d
+      - ./logs/mysql:/var/log/mysql
     healthcheck:
       test: ["CMD-SHELL", "mysqladmin ping -h localhost"]
       interval: 30s
@@ -30,6 +31,7 @@ services:
     volumes:
       - ./flask/app/:/usr/src/run/
       - ./flask/static/uploads:/usr/src/app/app/static/uploads
+      - ./logs:/usr/src/app/logs
     ports:
       - "5001:5001"
 

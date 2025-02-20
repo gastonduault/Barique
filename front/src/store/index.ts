@@ -3,6 +3,7 @@ import user from './modules/user'
 import cellar from './modules/cellar'
 import bottles from './modules/bottles'
 import history from './modules/history'
+import config from './modules/config'
 
 export default createStore({
   state: {},
@@ -13,6 +14,7 @@ export default createStore({
     user,
     cellar,
     bottles,
-    history
+    history,
+    config
   },
 })

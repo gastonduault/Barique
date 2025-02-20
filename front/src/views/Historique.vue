@@ -1,8 +1,8 @@
 <template>
   <ion-page>
     <ion-header class="header">
-      <img src="@/assets/img/back.png" alt="arrow back" class="back" @click="back"/>
-      <img :src="'/api' + cellar.profile_picture" alt="profil picture" class="pp"/>
+      <img src="@/assets/img/back.webp" alt="arrow back" class="back" @click="back"/>
+      <img :src="`${API_URL}${cellar.profile_picture}`" alt="profil picture" class="pp"/>
       <h3> {{ $t('history') }} </h3>
     </ion-header>
     <div class="content">
@@ -15,19 +15,24 @@
           @click="bottleSelected = bottle"
           class="bottle"
           :class="bottle.categorie">
-        <div class="nom-millesime">
-          <p>
-            {{ bottle.nom }}
-          </p>
-          <p>
-            {{ bottle.millesime }}
-          </p>
+        <div class="left-side">
+          <img class="category"
+               :src="'/img/grape_'+bottle.categorie+'.webp'"
+               alt="bunch of grapes"/>
+          <div class="nom-millesime">
+            <p>
+              {{ bottle.nom }}
+            </p>
+            <p>
+              {{ bottle.millesime }}
+            </p>
+          </div>
         </div>
         <div class="opinion">
           <div v-if="bottle.score!==0 && bottle.score!==null" class="stars">
             <div v-for="i in 5" :key="i">
-              <img src="@/assets/img/empty_star.png" alt="stars" v-if="bottle.score<i"/>
-              <img src="@/assets/img/star.png" alt="stars" v-else/>
+              <img src="@/assets/img/empty_star.webp" alt="stars" v-if="bottle.score<i"/>
+              <img src="@/assets/img/star.webp" alt="stars" v-else/>
             </div>
           </div>
           <div v-else-if="bottle.notice!== '' && bottle.notice!==null" class="notice">
@@ -54,6 +59,7 @@ import Loader from "@/components/loader.vue";
 import AddBottle from "@/views/AddBottle.vue";
 import Bottle from "@/views/Bottle.vue"
 import EditOpinion from "@/components/editOpinion.vue";
+import config from "@/store/modules/config";
 
 export default {
   name: "Historique",
@@ -66,6 +72,7 @@ export default {
       storage: new Storage,
       addBottleOpen: false,
       bottleSelected: null,
+      API_URL: config.API_URL,
     }
   },
   async created() {
@@ -120,17 +127,17 @@ export default {
   flex-direction: row;
   justify-content: center;
   justify-items: center;
-  height: 40px !important;
+  height: 60px !important;
 }
 
 .header img.pp {
-  width: 30px;
+  width: 37px;
   border-radius: 5px 5px;
   margin-right: 10px;
 }
 
 .header img.back {
-  width: 20px;
+  width: 30px;
   position: absolute;
   left: 15px;
   border-radius: 50%;
@@ -148,7 +155,8 @@ export default {
 
 .header h3 {
   margin: 1px 0 0 0;
-  font-size: 1em;
+  font-size: 1.2em;
+  position: relative;
 }
 
 .content {
@@ -174,28 +182,24 @@ export default {
   padding: 5px 5px;
   border-radius: 5px 5px;
   height: 50px;
+  background-color: var(--background-grey);
 }
 
-.bottle.rouge {
-  background-color: #f5caca;
-}
-
-.bottle.blanc {
-  background-color: #d8e0c3;
-}
-
-.bottle.rose {
-  background-color: #efc2da;
+.left-side {
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  width: 40%;
 }
 
 .nom-millesime {
-  margin-left: 10px;
+  margin-left: 5px;
   display: flex;
   flex-direction: column;
   align-items: start;
   text-align: center;
   justify-content: center;
-  width: 130px;
+  width: 80%;
   overflow-x: hidden;
   text-wrap: nowrap;
   height: 40px;
@@ -211,7 +215,7 @@ export default {
 }
 
 .opinion {
-  width: 40%;
+  width: 28%;
   height: 100%;
 }
 
@@ -240,7 +244,7 @@ export default {
 }
 
 .stars img {
-  width: 20px;
+  width: 17px;
 }
 
 .date p:nth-child(1){

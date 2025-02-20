@@ -62,13 +62,12 @@ def get_caves_by_proprietaire(proprietaire_uid):
     caves_list = [{'id': cave.id, 'nom': cave.nom, 'profile_picture': cave.profile_picture} for cave in caves]
     return jsonify({'caves': caves_list})
 
-
 @bp.route('/images', methods=['GET'])
 def get_available_images():
     upload_folder = os.path.join(current_app.root_path, 'static', 'uploads')
     images = []
     for filename in os.listdir(upload_folder):
-        if filename.endswith(('.png', '.jpg', '.jpeg', '.gif')):
+        if filename.endswith(('.png', '.jpg', '.jpeg', '.gif','.webp')):
             images.append(f'/static/uploads/{filename}')
 
     return jsonify({'available_images': images}), 200

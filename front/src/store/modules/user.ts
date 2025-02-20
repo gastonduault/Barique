@@ -1,6 +1,8 @@
 import axios from "axios";
+import config from './config'
 
-const API_URL = '/api'; // Utiliser le proxy
+const API_URL = config.API_URL;
+
 
 const state = {
   user : {
@@ -49,7 +51,7 @@ const actions = {
 
   async authentification({ commit }: any, user: any) {
     commit("setLoading", true)
-    await axios.post(`http://localhost:5001/utilisateurs`, user)
+    await axios.post(`${API_URL}/utilisateurs`, user)
       .then((response) => {
         const userData = {
           email: response.data.email,

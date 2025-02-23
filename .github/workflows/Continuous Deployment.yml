@@ -62,6 +62,6 @@ jobs:
             git stash
             git pull origin production
             cd back
-            docker compose --env-file .env -f docker-compose-prod.yml down api-flask
+            docker compose --env-file .env -f docker-compose-prod.yml down 
             docker pull gastoooon/macave_backend:latest
-            docker compose --env-file .env -f docker-compose-prod.yml up -d --build api-flask
+            docker compose --env-file .env -f docker-compose-prod.yml up -d --build

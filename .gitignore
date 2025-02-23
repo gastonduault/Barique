@@ -5,3 +5,6 @@
 front/package-lock.json
 back/.env
 back/.logs
+firebase-adminsdk.json
+google-services.json
+back/logs/*

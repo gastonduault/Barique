@@ -3,3 +3,4 @@ Flask-SQLAlchemy
 SQLAlchemy
 mysqlclient
 flask-cors
+firebase_admin

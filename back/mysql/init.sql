@@ -1,5 +1,5 @@
 CREATE TABLE utilisateurs (
-    uid INTEGER NOT NULL AUTO_INCREMENT,
+    uid VARCHAR(500) NOT NULL,
     account_id VARCHAR(50),
     nom VARCHAR(50) NOT NULL,
     email VARCHAR(50) NOT NULL,
@@ -9,7 +9,7 @@ CREATE TABLE utilisateurs (
 
 CREATE TABLE caves (
     id integer not null AUTO_INCREMENT,
-    proprietaire_uid integer not null,
+    proprietaire_uid VARCHAR(500) NOT NULL,
     nom VARCHAR(50) NOT NULL unique,
     profile_picture VARCHAR(500),
     primary key (id),

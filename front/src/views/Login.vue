@@ -9,62 +9,38 @@
     <div class="form">
       <div class="google">
         <img class="google-logo" src="@/assets/img/Google_login.webp"  alt="logo google"/>
-        <button class="google-login" @click="logIn_"> {{ $t('sign')}} 🗝️{{ $t('google')}}</button>
+        <button class="google-login" @click="logIn"> {{ $t('sign')}} 🗝️{{ $t('google')}}</button>
       </div>
     </div>
     <loader v-if="loading"/>
   </ion-page>
 </template>
 
-
-<script lang="ts">
-import { Storage } from '@ionic/storage'
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/vue'
-import { auth, signInWithGoogle, logout, provider} from "@/firebase-config";
-import SelectLang from "@/components/selectLang.vue"
-import loader from "@/components/loader.vue"
-import router from "@/router"
+<script>
+import { mapActions, mapGetters } from "vuex";
 import store from '@/store'
-
+import router from "@/router"
+import SelectLang from "@/components/selectLang.vue"
 
 
 export default {
-  name: "HomePage",
-  data() {
-    return {
-      storage: new Storage,
-    }
-  },
   components: {
-    IonContent, IonHeader, IonPage, IonTitle, IonToolbar, loader, SelectLang
-  },
-  async created() {
-    this.storage = new Storage();
-    await this.storage.create();
-    const account_id_storage = await this.storage.get('uid');
-    if(account_id_storage) {
-      store.dispatch('user/login', account_id_storage)
-        .then(() => { if(this.connected) router.push('./caveList') });
-    }
+    SelectLang
   },
   computed: {
     connected: () => { return store.getters['user/getConnected'] },
-    loading: () => { return store.getters['user/getLoading'] },
+    user: () => { return store.getters['user/getUser'] }
   },
   methods: {
-    async saveUserData(uid: any) {
-      await this.storage.set('uid', uid);
+    ...mapActions("user", ["authentification", "disconnect"]),
+    async logIn() {
+      await store.dispatch('user/authentification')
+      if(this.connected) router.push('./caveList')
     },
-    async logIn_() {
-      const user = await signInWithGoogle();
-      await store.dispatch('user/authentification', user);
-      await this.saveUserData(store.getters['user/getUSer'].uid)
-      if(this.connected) await router.push('/caveList');
-    }
   }
-}
-
+};
 </script>
+
 
 <style scoped>
   .header {

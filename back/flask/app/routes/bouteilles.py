@@ -6,6 +6,9 @@ bp = Blueprint('bouteilles', __name__, url_prefix='/bouteilles')
 
 @bp.route('', methods=['POST'])
 def add_bouteille():
+    decoded_token, error_response = verify_token()
+    if error_response:
+        return error_response
     data = request.get_json()
     new_bouteille = Bouteille(
         nom=data.get('nom'),
@@ -27,8 +30,12 @@ def add_bouteille():
     finally:
         db.session.close()
 
+
 @bp.route('/<int:bouteille_id>', methods=['POST'])
 def update_bouteille(bouteille_id):
+    decoded_token, error_response = verify_token()
+    if error_response:
+        return error_response
     data = request.get_json()
     bouteille = Bouteille.query.get(bouteille_id)
     if not bouteille:
@@ -49,8 +56,12 @@ def update_bouteille(bouteille_id):
     finally:
         db.session.close()
 
+
 @bp.route('drunk/<int:bouteille_id>', methods=['POST'])
 def delete_bouteille(bouteille_id):
+    decoded_token, error_response = verify_token()
+    if error_response:
+        return error_response
     data = request.get_json()
     bouteille = Bouteille.query.get(bouteille_id)
     if not bouteille:
@@ -79,9 +90,11 @@ def delete_bouteille(bouteille_id):
         db.session.close()
 
 
-
 @bp.route('/cave/<int:cave_id>', methods=['GET'])
 def get_bouteilles_by_cave(cave_id):
+    decoded_token, error_response = verify_token()
+    if error_response:
+        return error_response
     bouteilles = Bouteille.query.filter_by(cave_id=cave_id).all()
     return jsonify([bouteille.to_dict() for bouteille in bouteilles]), 200
 

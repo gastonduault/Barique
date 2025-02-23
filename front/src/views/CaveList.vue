@@ -59,23 +59,23 @@ export default {
       API_URL: config.API_URL,
     }
   },
-  async created() {
-    this.storage = new Storage()
-    await this.storage.create()
-    const account_id = await this.storage.get('uid')
-    if(account_id && !this.connected) await store.dispatch('user/login', account_id)
-  },
-  updated() {
-    store.dispatch('cellar/listCellars', this.utilisateur.uid)
-  },
+  // async created() {
+  //   this.storage = new Storage()
+  //   await this.storage.create()
+  //   const token = await this.storage.get('token')
+  //   if(token && !this.connected) await store.dispatch('user/login')
+  // },
+  // updated() {
+  //   store.dispatch('cellar/listCellars', this.utilisateur.uid)
+  // },
   computed: {
     connected: () => { return store.getters['user/getConnected'] },
     utilisateur: () => {
-      const utilisateur = store.getters["user/getUSer"]
-      if(utilisateur.uid !== null) {
-        store.dispatch('cellar/listCellars', utilisateur.uid);
+      const user = store.getters["user/getUSer"]
+      if(user && user.uid !== null) {
+        store.dispatch('cellar/listCellars', user.uid);
       }
-      return utilisateur
+      return user
     },
     cellars: () => { return store.getters['cellar/getCellar'] },
     loading: () => { return store.getters['cellar/getLoading'] }

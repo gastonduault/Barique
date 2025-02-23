@@ -1,0 +1,41 @@
+2025-02-20 20:05:45,179 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://172.18.0.4:5001
+2025-02-20 20:05:45,180 - INFO - [33mPress CTRL+C to quit[0m
+2025-02-20 20:05:45,181 - INFO -  * Restarting with stat
+2025-02-20 20:05:45,445 - WARNING -  * Debugger is active!
+2025-02-20 20:05:45,446 - INFO -  * Debugger PIN: 964-974-808
+2025-02-20 20:05:58,190 - INFO - 172.18.0.1 - - [20/Feb/2025 20:05:58] "GET /test HTTP/1.1" 200 -
+2025-02-20 20:32:54,375 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://172.28.0.4:5001
+2025-02-20 20:32:54,376 - INFO - [33mPress CTRL+C to quit[0m
+2025-02-20 20:32:54,379 - INFO -  * Restarting with stat
+2025-02-20 20:32:54,679 - WARNING -  * Debugger is active!
+2025-02-20 20:32:54,681 - INFO -  * Debugger PIN: 380-383-179
+2025-02-20 20:35:55,176 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://172.29.0.4:5001
+2025-02-20 20:35:55,178 - INFO - [33mPress CTRL+C to quit[0m
+2025-02-20 20:35:55,181 - INFO -  * Restarting with stat
+2025-02-20 20:35:55,718 - WARNING -  * Debugger is active!
+2025-02-20 20:35:55,720 - INFO -  * Debugger PIN: 811-716-501
+2025-02-20 20:41:59,845 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://172.30.0.4:5001
+2025-02-20 20:41:59,846 - INFO - [33mPress CTRL+C to quit[0m
+2025-02-20 20:41:59,848 - INFO -  * Restarting with stat
+2025-02-20 20:42:00,473 - WARNING -  * Debugger is active!
+2025-02-20 20:42:00,475 - INFO -  * Debugger PIN: 920-831-059
+2025-02-20 21:55:34,547 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://172.30.0.4:5001
+2025-02-20 21:55:34,548 - INFO - [33mPress CTRL+C to quit[0m
+2025-02-20 21:55:34,551 - INFO -  * Restarting with stat
+2025-02-20 21:55:35,079 - WARNING -  * Debugger is active!
+2025-02-20 21:55:35,083 - INFO -  * Debugger PIN: 145-120-893

@@ -86,7 +86,7 @@ export default {
   },
   computed: {
     connected: () => store.getters['user/getConnected'],
-    utilisateur: () => store.getters["user/getUSer"],
+    utilisateur: () => store.getters["user/getUser"],
     cellar: () => store.getters['cellar/getCellarSelected'],
     bottles () {
       const allBottles = store.getters['bottles/getBottles']
@@ -105,17 +105,13 @@ export default {
   },
   methods: {
     async init() {
-      if(!this.cellar ) {
-        const cellar = {
-          id: await this.storage.get('cellar_selected_id'),
-          nom: await this.storage.get('cellar_selected_nom'),
-        }
-        await store.dispatch('cellar/updtaeCellarSelected', cellar)
+      console.log(this.cellar)
+      if (!this.cellar.id) {
+        const cellar = await this.storage.get('cellar');
+        await store.dispatch('cellar/updateCellarSelected', cellar);
       }
-      store.dispatch('bottles/bottles', this.cellar.id)
-      await this.storage.create();
-      const account_id = await this.storage.get('uid');
-      if(account_id && !this.connected) await store.dispatch('user/login', account_id)
+
+      await store.dispatch('bottles/bottles', store.getters["cellar/getCellarSelected"].id);
     },
     async back() {
       router.push('/caveList')

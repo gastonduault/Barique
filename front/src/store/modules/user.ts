@@ -32,7 +32,7 @@ const getters = {
 };
 
 const actions = {
-  async authentification({ commit }: any) {
+  async authentification({dispatch, commit }: any) {
     commit("setLoading", true);
 
     try {
@@ -59,7 +59,7 @@ const actions = {
       commit("setConnected", true);
 
       if (response.data.cave && response.data.cave.nom) {
-        commit('cellar/setCellarSelected', response.data.cave)
+        dispatch('cellar/updateCellarSelected', response.data.cave, {root: true})
         router.push("/cellar")
       } else {
         router.push("/create-cellar")
@@ -72,7 +72,7 @@ const actions = {
     }
   },
 
-  async logIn({ commit }: any) {
+  async logIn({ commit, dispatch }: any) {
     commit("setLoading", true);
 
     try {
@@ -115,13 +115,12 @@ const actions = {
       commit("setConnected", true);
 
       if (response.data.cave && response.data.cave.nom) {
-        commit("cellar/setCellarSelected", response.data.cave);
+        dispatch('cellar/updateCellarSelected', response.data.cave, {root: true})
         router.push("/cellar");
       } else {
         router.push("/create-cellar");
       }
     } catch (error) {
-      console.error("Login error:", error);
       commit("setConnected", false);
     } finally {
       commit("setLoading", false);
@@ -162,15 +161,15 @@ export default {
 };
 
 
-// axios.interceptors.request.use(async (config) => {
-//   await storage.create();
-//   const token = await storage.get("token");
-//
-//   if (token) {
-//     config.headers["Authorization"] = `Bearer ${token}`;
-//   }
-//
-//   return config;
-// }, (error) => {
-//   return Promise.reject(error);
-// });
+axios.interceptors.request.use(async (config) => {
+  await storage.create();
+  const token = await storage.get("token");
+
+  if (token) {
+    config.headers["Authorization"] = `Bearer ${token}`;
+  }
+
+  return config;
+}, (error) => {
+  return Promise.reject(error);
+});

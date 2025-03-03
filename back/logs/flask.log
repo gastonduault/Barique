@@ -194,3 +194,152 @@
 2025-03-03 16:42:45,198 - INFO -  * Debugger PIN: 565-327-327
 2025-03-03 16:42:49,511 - INFO - 172.24.0.1 - - [03/Mar/2025 16:42:49] "OPTIONS /utilisateurs HTTP/1.1" 200 -
 2025-03-03 16:42:49,634 - INFO - 172.24.0.1 - - [03/Mar/2025 16:42:49] "POST /utilisateurs HTTP/1.1" 200 -
+2025-03-03 16:44:57,616 - INFO - 172.24.0.1 - - [03/Mar/2025 16:44:57] "OPTIONS /utilisateurs HTTP/1.1" 200 -
+2025-03-03 16:44:57,644 - INFO - 172.24.0.1 - - [03/Mar/2025 16:44:57] "POST /utilisateurs HTTP/1.1" 200 -
+2025-03-03 16:48:13,401 - INFO - 172.24.0.1 - - [03/Mar/2025 16:48:13] "OPTIONS /utilisateurs HTTP/1.1" 200 -
+2025-03-03 16:48:13,443 - INFO - 172.24.0.1 - - [03/Mar/2025 16:48:13] "POST /utilisateurs HTTP/1.1" 200 -
+2025-03-03 16:48:48,652 - INFO - 172.24.0.1 - - [03/Mar/2025 16:48:48] "OPTIONS /utilisateurs HTTP/1.1" 200 -
+2025-03-03 16:48:48,666 - INFO - 172.24.0.1 - - [03/Mar/2025 16:48:48] "POST /utilisateurs HTTP/1.1" 200 -
+2025-03-03 17:00:40,400 - INFO -  * Detected change in '/usr/src/app/app/routes/caves.py', reloading
+2025-03-03 17:00:40,512 - INFO -  * Restarting with stat
+2025-03-03 17:00:41,291 - WARNING -  * Debugger is active!
+2025-03-03 17:00:41,306 - INFO -  * Debugger PIN: 565-327-327
+2025-03-03 17:01:00,099 - INFO -  * Detected change in '/usr/src/app/app/routes/caves.py', reloading
+2025-03-03 17:01:00,277 - INFO -  * Restarting with stat
+2025-03-03 17:01:01,412 - WARNING -  * Debugger is active!
+2025-03-03 17:01:01,413 - INFO -  * Debugger PIN: 565-327-327
+2025-03-03 17:01:13,949 - INFO -  * Detected change in '/usr/src/app/app/routes/caves.py', reloading
+2025-03-03 17:01:14,039 - INFO -  * Restarting with stat
+2025-03-03 17:01:14,806 - WARNING -  * Debugger is active!
+2025-03-03 17:01:14,807 - INFO -  * Debugger PIN: 565-327-327
+2025-03-03 17:01:25,648 - INFO -  * Detected change in '/usr/src/app/app/routes/caves.py', reloading
+2025-03-03 17:01:25,817 - INFO -  * Restarting with stat
+2025-03-03 17:01:26,722 - WARNING -  * Debugger is active!
+2025-03-03 17:01:26,725 - INFO -  * Debugger PIN: 565-327-327
+2025-03-03 17:01:47,394 - INFO - 172.24.0.1 - - [03/Mar/2025 17:01:47] "OPTIONS /caves HTTP/1.1" 200 -
+2025-03-03 17:01:47,516 - INFO - 172.24.0.1 - - [03/Mar/2025 17:01:47] "[35m[1mPOST /caves HTTP/1.1[0m" 500 -
+2025-03-03 17:04:25,656 - INFO -  * Detected change in '/usr/src/app/app/routes/caves.py', reloading
+2025-03-03 17:04:26,046 - INFO -  * Restarting with stat
+2025-03-03 17:04:27,407 - WARNING -  * Debugger is active!
+2025-03-03 17:04:27,408 - INFO -  * Debugger PIN: 565-327-327
+2025-03-03 17:04:30,264 - INFO -  * Detected change in '/usr/src/app/app/routes/caves.py', reloading
+2025-03-03 17:04:30,364 - INFO -  * Restarting with stat
+2025-03-03 17:04:31,099 - WARNING -  * Debugger is active!
+2025-03-03 17:04:31,100 - INFO -  * Debugger PIN: 565-327-327
+2025-03-03 17:05:06,053 - INFO -  * Detected change in '/usr/src/app/app/routes/caves.py', reloading
+2025-03-03 17:05:06,535 - INFO -  * Restarting with stat
+2025-03-03 17:05:07,632 - WARNING -  * Debugger is active!
+2025-03-03 17:05:07,633 - INFO -  * Debugger PIN: 565-327-327
+2025-03-03 17:05:12,457 - INFO - 172.24.0.1 - - [03/Mar/2025 17:05:12] "OPTIONS /caves HTTP/1.1" 200 -
+2025-03-03 17:05:12,510 - INFO - 172.24.0.1 - - [03/Mar/2025 17:05:12] "[35m[1mPOST /caves HTTP/1.1[0m" 500 -
+2025-03-03 17:07:41,972 - INFO -  * Detected change in '/usr/src/app/app/routes/caves.py', reloading
+2025-03-03 17:07:42,086 - INFO -  * Restarting with stat
+2025-03-03 17:07:44,405 - WARNING -  * Debugger is active!
+2025-03-03 17:07:44,406 - INFO -  * Debugger PIN: 565-327-327
+2025-03-03 17:07:50,077 - INFO - 172.24.0.1 - - [03/Mar/2025 17:07:50] "OPTIONS /caves HTTP/1.1" 200 -
+2025-03-03 17:07:50,126 - INFO - 172.24.0.1 - - [03/Mar/2025 17:07:50] "[35m[1mPOST /caves HTTP/1.1[0m" 500 -
+2025-03-03 17:08:04,275 - INFO -  * Detected change in '/usr/src/app/app/routes/caves.py', reloading
+2025-03-03 17:08:04,511 - INFO -  * Restarting with stat
+2025-03-03 17:08:05,304 - WARNING -  * Debugger is active!
+2025-03-03 17:08:05,305 - INFO -  * Debugger PIN: 565-327-327
+2025-03-03 17:08:06,726 - INFO -  * Detected change in '/usr/src/app/app/routes/caves.py', reloading
+2025-03-03 17:08:06,829 - INFO -  * Restarting with stat
+2025-03-03 17:08:07,481 - WARNING -  * Debugger is active!
+2025-03-03 17:08:07,498 - INFO -  * Debugger PIN: 565-327-327
+2025-03-03 17:08:12,582 - INFO - 172.24.0.1 - - [03/Mar/2025 17:08:12] "OPTIONS /caves HTTP/1.1" 200 -
+2025-03-03 17:08:12,636 - INFO - 172.24.0.1 - - [03/Mar/2025 17:08:12] "[35m[1mPOST /caves HTTP/1.1[0m" 500 -
+2025-03-03 17:08:15,751 - INFO - 172.24.0.1 - - [03/Mar/2025 17:08:15] "[35m[1mPOST /caves HTTP/1.1[0m" 500 -
+2025-03-03 17:09:35,393 - INFO - 172.24.0.1 - - [03/Mar/2025 17:09:35] "OPTIONS /caves HTTP/1.1" 200 -
+2025-03-03 17:09:35,537 - INFO - 172.24.0.1 - - [03/Mar/2025 17:09:35] "[35m[1mPOST /caves HTTP/1.1[0m" 201 -
+2025-03-03 17:09:35,547 - INFO - 172.24.0.1 - - [03/Mar/2025 17:09:35] "[33mOPTIONS /caves/owner HTTP/1.1[0m" 404 -
+2025-03-03 17:09:52,887 - INFO - 172.24.0.1 - - [03/Mar/2025 17:09:52] "OPTIONS /caves HTTP/1.1" 200 -
+2025-03-03 17:09:52,930 - INFO - 172.24.0.1 - - [03/Mar/2025 17:09:52] "[35m[1mPOST /caves HTTP/1.1[0m" 201 -
+2025-03-03 17:09:52,938 - INFO - 172.24.0.1 - - [03/Mar/2025 17:09:52] "[33mOPTIONS /caves/owner HTTP/1.1[0m" 404 -
+2025-03-03 17:10:59,063 - INFO -  * Detected change in '/usr/src/app/app/routes/caves.py', reloading
+2025-03-03 17:10:59,134 - INFO -  * Restarting with stat
+2025-03-03 17:11:00,134 - WARNING -  * Debugger is active!
+2025-03-03 17:11:00,135 - INFO -  * Debugger PIN: 565-327-327
+2025-03-03 17:11:22,500 - INFO -  * Detected change in '/usr/src/app/app/auth_middleware.py', reloading
+2025-03-03 17:11:22,576 - INFO -  * Restarting with stat
+2025-03-03 17:11:23,197 - WARNING -  * Debugger is active!
+2025-03-03 17:11:23,199 - INFO -  * Debugger PIN: 565-327-327
+2025-03-03 17:11:24,360 - INFO -  * Detected change in '/usr/src/app/app/auth_middleware.py', reloading
+2025-03-03 17:11:24,422 - INFO -  * Restarting with stat
+2025-03-03 17:11:25,086 - WARNING -  * Debugger is active!
+2025-03-03 17:11:25,087 - INFO -  * Debugger PIN: 565-327-327
+2025-03-03 17:11:35,859 - INFO -  * Detected change in '/usr/src/app/app/auth_middleware.py', reloading
+2025-03-03 17:11:35,975 - INFO -  * Restarting with stat
+2025-03-03 17:11:36,686 - WARNING -  * Debugger is active!
+2025-03-03 17:11:36,687 - INFO -  * Debugger PIN: 565-327-327
+2025-03-03 17:11:36,761 - INFO -  * Detected change in '/usr/src/app/app/auth_middleware.py', reloading
+2025-03-03 17:11:36,909 - INFO -  * Restarting with stat
+2025-03-03 17:11:37,618 - WARNING -  * Debugger is active!
+2025-03-03 17:11:37,619 - INFO -  * Debugger PIN: 565-327-327
+2025-03-03 17:11:41,376 - INFO - 172.24.0.1 - - [03/Mar/2025 17:11:41] "OPTIONS /utilisateurs HTTP/1.1" 200 -
+2025-03-03 17:11:41,444 - INFO - 172.24.0.1 - - [03/Mar/2025 17:11:41] "POST /utilisateurs HTTP/1.1" 200 -
+2025-03-03 17:11:41,644 - INFO - 172.24.0.1 - - [03/Mar/2025 17:11:41] "[33mOPTIONS /bouteilles/cave/null HTTP/1.1[0m" 404 -
+2025-03-03 17:11:57,149 - INFO - 172.24.0.1 - - [03/Mar/2025 17:11:57] "OPTIONS /utilisateurs HTTP/1.1" 200 -
+2025-03-03 17:11:57,168 - INFO - 172.24.0.1 - - [03/Mar/2025 17:11:57] "POST /utilisateurs HTTP/1.1" 200 -
+2025-03-03 17:11:57,224 - INFO - 172.24.0.1 - - [03/Mar/2025 17:11:57] "[33mOPTIONS /bouteilles/cave/null HTTP/1.1[0m" 404 -
+2025-03-03 17:12:34,095 - INFO -  * Detected change in '/usr/src/app/app/routes/caves.py', reloading
+2025-03-03 17:12:34,208 - INFO -  * Restarting with stat
+2025-03-03 17:12:35,291 - WARNING -  * Debugger is active!
+2025-03-03 17:12:35,292 - INFO -  * Debugger PIN: 565-327-327
+2025-03-03 17:12:38,762 - INFO -  * Detected change in '/usr/src/app/app/routes/caves.py', reloading
+2025-03-03 17:12:38,860 - INFO -  * Restarting with stat
+2025-03-03 17:12:39,685 - WARNING -  * Debugger is active!
+2025-03-03 17:12:39,686 - INFO -  * Debugger PIN: 565-327-327
+2025-03-03 17:13:03,221 - INFO -  * Detected change in '/usr/src/app/app/routes/caves.py', reloading
+2025-03-03 17:13:03,295 - INFO -  * Restarting with stat
+2025-03-03 17:13:04,070 - WARNING -  * Debugger is active!
+2025-03-03 17:13:04,071 - INFO -  * Debugger PIN: 565-327-327
+2025-03-03 17:13:19,778 - INFO -  * Detected change in '/usr/src/app/app/routes/caves.py', reloading
+2025-03-03 17:13:19,864 - INFO -  * Restarting with stat
+2025-03-03 17:13:20,617 - WARNING -  * Debugger is active!
+2025-03-03 17:13:20,618 - INFO -  * Debugger PIN: 565-327-327
+2025-03-03 17:13:24,211 - INFO -  * Detected change in '/usr/src/app/app/routes/caves.py', reloading
+2025-03-03 17:13:24,293 - INFO -  * Restarting with stat
+2025-03-03 17:13:25,028 - WARNING -  * Debugger is active!
+2025-03-03 17:13:25,029 - INFO -  * Debugger PIN: 565-327-327
+2025-03-03 17:13:33,010 - INFO -  * Detected change in '/usr/src/app/app/routes/caves.py', reloading
+2025-03-03 17:13:33,106 - INFO -  * Restarting with stat
+2025-03-03 17:13:33,965 - WARNING -  * Debugger is active!
+2025-03-03 17:13:33,966 - INFO -  * Debugger PIN: 565-327-327
+2025-03-03 17:13:58,820 - INFO -  * Detected change in '/usr/src/app/app/routes/caves.py', reloading
+2025-03-03 17:13:58,921 - INFO -  * Restarting with stat
+2025-03-03 17:13:59,782 - WARNING -  * Debugger is active!
+2025-03-03 17:13:59,783 - INFO -  * Debugger PIN: 565-327-327
+2025-03-03 17:14:37,959 - INFO -  * Detected change in '/usr/src/app/app/routes/caves.py', reloading
+2025-03-03 17:14:38,046 - INFO -  * Restarting with stat
+2025-03-03 17:14:38,913 - WARNING -  * Debugger is active!
+2025-03-03 17:14:38,914 - INFO -  * Debugger PIN: 565-327-327
+2025-03-03 17:22:51,889 - INFO - 172.24.0.1 - - [03/Mar/2025 17:22:51] "[33mOPTIONS /bouteilles/cave/null HTTP/1.1[0m" 404 -
+2025-03-03 17:23:09,725 - INFO - 172.24.0.1 - - [03/Mar/2025 17:23:09] "OPTIONS /utilisateurs HTTP/1.1" 200 -
+2025-03-03 17:23:09,805 - INFO - 172.24.0.1 - - [03/Mar/2025 17:23:09] "POST /utilisateurs HTTP/1.1" 200 -
+2025-03-03 17:23:09,861 - INFO - 172.24.0.1 - - [03/Mar/2025 17:23:09] "[33mOPTIONS /bouteilles/cave/null HTTP/1.1[0m" 404 -
+2025-03-03 17:25:22,173 - INFO - 172.24.0.1 - - [03/Mar/2025 17:25:22] "[33mOPTIONS /bouteilles/cave/null HTTP/1.1[0m" 404 -
+2025-03-03 17:28:31,005 - INFO - 172.24.0.1 - - [03/Mar/2025 17:28:31] "OPTIONS /utilisateurs HTTP/1.1" 200 -
+2025-03-03 17:28:31,017 - INFO - 172.24.0.1 - - [03/Mar/2025 17:28:31] "POST /utilisateurs HTTP/1.1" 200 -
+2025-03-03 17:28:31,076 - INFO - 172.24.0.1 - - [03/Mar/2025 17:28:31] "OPTIONS /bouteilles/cave/1 HTTP/1.1" 200 -
+2025-03-03 17:28:31,098 - INFO - 172.24.0.1 - - [03/Mar/2025 17:28:31] "[35m[1mGET /bouteilles/cave/1 HTTP/1.1[0m" 500 -
+2025-03-03 17:30:22,490 - INFO -  * Detected change in '/usr/src/app/app/routes/bouteilles.py', reloading
+2025-03-03 17:30:22,582 - INFO -  * Restarting with stat
+2025-03-03 17:30:23,346 - WARNING -  * Debugger is active!
+2025-03-03 17:30:23,347 - INFO -  * Debugger PIN: 565-327-327
+2025-03-03 17:30:24,597 - INFO -  * Detected change in '/usr/src/app/app/routes/caves.py', reloading
+2025-03-03 17:30:24,755 - INFO -  * Restarting with stat
+2025-03-03 17:30:25,532 - WARNING -  * Debugger is active!
+2025-03-03 17:30:25,534 - INFO -  * Debugger PIN: 565-327-327
+2025-03-03 17:30:25,581 - INFO - 172.24.0.1 - - [03/Mar/2025 17:30:25] "[33mOPTIONS /bouteilles/cave/null HTTP/1.1[0m" 404 -
+2025-03-03 17:32:12,741 - INFO - 172.24.0.1 - - [03/Mar/2025 17:32:12] "[33mOPTIONS /bouteilles/cave/null HTTP/1.1[0m" 404 -
+2025-03-03 17:32:37,315 - INFO - 172.24.0.1 - - [03/Mar/2025 17:32:37] "[33mOPTIONS /bouteilles/cave/null HTTP/1.1[0m" 404 -
+2025-03-03 17:36:29,699 - INFO - 172.24.0.1 - - [03/Mar/2025 17:36:29] "OPTIONS /utilisateurs HTTP/1.1" 200 -
+2025-03-03 17:36:29,777 - INFO - 172.24.0.1 - - [03/Mar/2025 17:36:29] "POST /utilisateurs HTTP/1.1" 200 -
+2025-03-03 17:36:29,851 - INFO - 172.24.0.1 - - [03/Mar/2025 17:36:29] "OPTIONS /bouteilles/cave/1 HTTP/1.1" 200 -
+2025-03-03 17:36:29,875 - INFO - 172.24.0.1 - - [03/Mar/2025 17:36:29] "GET /bouteilles/cave/1 HTTP/1.1" 200 -
+2025-03-03 17:37:10,937 - INFO - 172.24.0.1 - - [03/Mar/2025 17:37:10] "[33mOPTIONS /bouteilles/cave/null HTTP/1.1[0m" 404 -
+2025-03-03 17:38:37,313 - INFO - 172.24.0.1 - - [03/Mar/2025 17:38:37] "[33mOPTIONS /bouteilles/cave/null HTTP/1.1[0m" 404 -
+2025-03-03 17:38:46,923 - INFO - 172.24.0.1 - - [03/Mar/2025 17:38:46] "[33mOPTIONS /bouteilles/cave/null HTTP/1.1[0m" 404 -
+2025-03-03 17:41:17,541 - INFO - 172.24.0.1 - - [03/Mar/2025 17:41:17] "[33mOPTIONS /bouteilles/cave/undefined HTTP/1.1[0m" 404 -
+2025-03-03 17:41:44,195 - INFO - 172.24.0.1 - - [03/Mar/2025 17:41:44] "[33mOPTIONS /bouteilles/cave/undefined HTTP/1.1[0m" 404 -
+2025-03-03 17:43:06,960 - INFO - 172.24.0.1 - - [03/Mar/2025 17:43:06] "[33mOPTIONS /bouteilles/cave/undefined HTTP/1.1[0m" 404 -

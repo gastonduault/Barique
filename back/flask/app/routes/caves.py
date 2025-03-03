@@ -1,46 +1,37 @@
-from flask import Blueprint, jsonify, request, current_app
 import os
+import random
+from ..auth_middleware import verify_token
 from ..models import Cave, Bouteille, Historique, db
+from flask import Blueprint, jsonify, request, current_app
 
 bp = Blueprint('caves', __name__, url_prefix='/caves')
 
-import random
-from flask import Blueprint, jsonify, request, current_app
-import os
-from ..models import Cave, db
-from ..auth_middleware import verify_token
+
 
 bp = Blueprint('caves', __name__, url_prefix='/caves')
 
 @bp.route('', methods=['POST'])
 def add_cave():
-    """Créer une nouvelle cave avec une image de profil aléatoire si non spécifiée."""
-    verify_result = verify_token()
-
-    if isinstance(verify_result, tuple):
-        decoded_token, error_response = verify_result
-        if error_response:
-            return error_response
-    else:
-        return verify_result
+    decoded_token, error_response = verify_token()
+    if error_response:
+        return error_response
 
     uid = decoded_token.get('uid')
-
     data = request.get_json()
-    nom_cave = data.get("nom")
+    name_cave = data.get("name")
 
-    if not nom_cave:
+    if not name_cave:
         return jsonify({"message": "Le nom de la cave est requis"}), 400
 
     images = []
+    upload_folder = os.path.join(current_app.root_path, 'static', 'uploads')
     for filename in os.listdir(upload_folder):
         if filename.endswith(('.png', '.jpg', '.jpeg', '.gif','.webp')):
             images.append(f'/static/uploads/{filename}')
 
     profile_picture = random.choice(images)
-
     new_cave = Cave(
-        nom=nom_cave,
+        nom=name_cave,
         proprietaire_uid=uid,
         profile_picture=profile_picture
     )
@@ -49,7 +40,7 @@ def add_cave():
         db.session.add(new_cave)
         db.session.commit()
         return jsonify({
-            "message": "Cave ajoutée avec succès!",
+            "message": "Cave created !",
             "cave": {
                 "id": new_cave.id,
                 "nom": new_cave.nom,
@@ -59,13 +50,16 @@ def add_cave():
     except Exception as e:
         db.session.rollback()
         return jsonify({"message": "Erreur lors de l'ajout de la cave", "error": str(e)}), 500
-
+    finally:
+        if db.session:
+            db.session.close()
 
 @bp.route('/<int:cave_id>', methods=['POST'])
 def update_cave(cave_id):
     decoded_token, error_response = verify_token()
     if error_response:
         return error_response
+    uid = decoded_token.get('uid')
     data = request.get_json()
     cave = Cave.query.get(cave_id)
     if not cave:
@@ -101,12 +95,13 @@ def delete_bouteille(cave_id):
     finally:
         db.session.close()
 
-@bp.route('/owner/<int:proprietaire_uid>', methods=['GET'])
-def get_caves_by_proprietaire(proprietaire_uid):
+@bp.route('/owner', methods=['GET'])
+def get_caves_by_proprietaire():
     decoded_token, error_response = verify_token()
     if error_response:
         return error_response
-    caves = Cave.query.filter_by(proprietaire_uid=proprietaire_uid).all()
+    uid = decoded_token.get('uid')
+    caves = Cave.query.filter_by(proprietaire_uid=uid).all()
     caves_list = [{'id': cave.id, 'nom': cave.nom, 'profile_picture': cave.profile_picture} for cave in caves]
     return jsonify({'caves': caves_list})
 

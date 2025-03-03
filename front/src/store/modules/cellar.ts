@@ -1,14 +1,14 @@
 import axios from "axios";
 import config from "@/store/modules/config";
+import router from "@/router";
+import {Storage} from "@ionic/storage";
 
 const API_URL = config.API_URL;
+const storage = new Storage();
 
 const state = {
   cellars: [],
-  cellarSelected: {
-    id: null,
-    nom: null
-  },
+  cellarSelected: {},
   images: [],
   loading: false,
 };
@@ -41,9 +41,10 @@ const actions = {
   },
   async create({commit, dispatch}: any, name: string) {
     commit('setLoading', true)
-    axios.post(`${API_URL}/caves`, { nom: name } )
+    axios.post(`${API_URL}/caves`, { name: name } )
     .then((response) => {
-        dispatch('listCellars')
+      commit("cellar/setCellarSelected", response.data.cave);
+      router.push("/cellar");
     }).catch((error) => {
         console.log(error)
     }).finally(() => {
@@ -82,7 +83,7 @@ const actions = {
         commit('setLoading', false)
       })
   },
-  async updtaeCellarSelected({commit}: any, cellar:any) {
+  async updateCellarSelected({commit}: any, cellar: any) {
     await commit('setCellarSelected', cellar)
   }
 };
@@ -94,8 +95,10 @@ const mutations = {
   addCellar(state: any, value: any) {
     state.cellars.push(value)
   },
-  setCellarSelected(state: any, value: any) {
+  async setCellarSelected(state: any, value: any) {
     state.cellarSelected = value
+    await storage.create();
+    await storage.set('cellar', value)
   },
   setLoading(state: any, value: any) {
     state.loading = value

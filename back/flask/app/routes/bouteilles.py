@@ -1,6 +1,7 @@
 from flask import Blueprint, jsonify, request
 from ..models import Bouteille, Historique, db
 from datetime import datetime
+from ..auth_middleware import verify_token
 
 bp = Blueprint('bouteilles', __name__, url_prefix='/bouteilles')
 

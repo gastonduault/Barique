@@ -17,7 +17,7 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
 
-// Fonction d'authentification Google avec récupération du token Firebase
+// Google auth xith token firbase
 const signInWithGoogle = async () => {
   try {
     if (Capacitor.isNativePlatform()) {
@@ -33,7 +33,7 @@ const signInWithGoogle = async () => {
         uid: response.id,
         nom: response.displayName,
         profile_picture: response.imageUrl,
-        getIdToken: async () => response.authentication.idToken // Récupérer le token Firebase
+        getIdToken: async () => response.authentication.idToken  // get the firebase token
       };
     } else {
       const result = await signInWithPopup(auth, provider);
@@ -42,7 +42,7 @@ const signInWithGoogle = async () => {
         uid: result.user.uid,
         nom: result.user.displayName,
         profile_picture: result.user.photoURL,
-        getIdToken: () => result.user.getIdToken() // Fonction pour récupérer le token Firebase
+        getIdToken: () => result.user.getIdToken() // get the firebase token
       };
     }
   } catch (error) {
@@ -51,7 +51,6 @@ const signInWithGoogle = async () => {
   }
 };
 
-// Fonction de déconnexion
 const logout = async () => {
   try {
     await signOut(auth);

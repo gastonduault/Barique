@@ -18,12 +18,17 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import('@/views/Login.vue')
   },
   {
+    path: '/create-cellar',
+    name: 'CreateCellar',
+    component: () => import('@/views/createCellar.vue')
+  },
+  {
     path: '/cavelist',
     name: 'CaveList',
     component: () => import('@/views/CaveList.vue')
   },
   {
-    path: '/cave',
+    path: '/cellar',
     name: 'Cave',
     component: () => import('@/views/Cave.vue')
   },

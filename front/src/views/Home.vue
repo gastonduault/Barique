@@ -9,10 +9,12 @@ import store from '@/store'
 import router from "@/router"
 import {Storage} from "@ionic/storage";
 import loader from "@/components/loader.vue"
+import { IonPage } from '@ionic/vue';
 
 export default {
   components: {
     loader,
+    IonPage
   },
   computed: {
     user: () => { return store.getters['user/getUser'] },
@@ -24,8 +26,7 @@ export default {
     const token = await this.storage.get('token')
     console.log(token)
     if(token) {
-      await store.dispatch('user/login')
-      router.push("./caveList")
+      await store.dispatch('user/logIn')
     } else {
       router.push('./Login')
     }

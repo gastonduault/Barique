@@ -1,80 +1,196 @@
-2025-02-23 11:29:43,355 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+2025-03-03 14:51:51,250 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://172.18.0.4:5001
+2025-03-03 14:51:51,266 - INFO - [33mPress CTRL+C to quit[0m
+2025-03-03 14:51:51,268 - INFO -  * Restarting with stat
+2025-03-03 14:51:51,825 - WARNING -  * Debugger is active!
+2025-03-03 14:51:51,829 - INFO -  * Debugger PIN: 132-479-456
+2025-03-03 14:52:03,076 - INFO - 172.18.0.1 - - [03/Mar/2025 14:52:03] "OPTIONS /utilisateurs HTTP/1.1" 200 -
+2025-03-03 14:52:03,159 - INFO - 172.18.0.1 - - [03/Mar/2025 14:52:03] "[35m[1mPOST /utilisateurs HTTP/1.1[0m" 500 -
+2025-03-03 14:56:53,140 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://172.18.0.4:5001
+2025-03-03 14:56:53,140 - INFO - [33mPress CTRL+C to quit[0m
+2025-03-03 14:56:53,141 - INFO -  * Restarting with stat
+2025-03-03 14:56:53,649 - WARNING -  * Debugger is active!
+2025-03-03 14:56:53,650 - INFO -  * Debugger PIN: 132-479-456
+2025-03-03 14:58:43,346 - INFO - 172.18.0.1 - - [03/Mar/2025 14:58:43] "OPTIONS /utilisateurs HTTP/1.1" 200 -
+2025-03-03 14:58:43,406 - INFO - 172.18.0.1 - - [03/Mar/2025 14:58:43] "[35m[1mPOST /utilisateurs HTTP/1.1[0m" 500 -
+2025-03-03 15:07:29,615 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://172.18.0.3:5001
+2025-03-03 15:07:29,615 - INFO - [33mPress CTRL+C to quit[0m
+2025-03-03 15:07:29,616 - INFO -  * Restarting with stat
+2025-03-03 15:07:30,124 - WARNING -  * Debugger is active!
+2025-03-03 15:07:30,125 - INFO -  * Debugger PIN: 809-890-480
+2025-03-03 15:07:30,899 - INFO - 172.18.0.1 - - [03/Mar/2025 15:07:30] "OPTIONS /utilisateurs HTTP/1.1" 200 -
+2025-03-03 15:07:30,988 - INFO - 172.18.0.1 - - [03/Mar/2025 15:07:30] "[35m[1mPOST /utilisateurs HTTP/1.1[0m" 500 -
+2025-03-03 15:08:51,589 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://172.18.0.3:5001
+2025-03-03 15:08:51,590 - INFO - [33mPress CTRL+C to quit[0m
+2025-03-03 15:08:51,591 - INFO -  * Restarting with stat
+2025-03-03 15:08:52,069 - WARNING -  * Debugger is active!
+2025-03-03 15:08:52,070 - INFO -  * Debugger PIN: 658-166-609
+2025-03-03 15:09:06,212 - INFO - 172.18.0.1 - - [03/Mar/2025 15:09:06] "OPTIONS /utilisateurs HTTP/1.1" 200 -
+2025-03-03 15:09:06,272 - INFO - 172.18.0.1 - - [03/Mar/2025 15:09:06] "[35m[1mPOST /utilisateurs HTTP/1.1[0m" 500 -
+2025-03-03 15:09:31,388 - INFO - 172.18.0.1 - - [03/Mar/2025 15:09:31] "OPTIONS /utilisateurs HTTP/1.1" 200 -
+2025-03-03 15:09:31,401 - INFO - 172.18.0.1 - - [03/Mar/2025 15:09:31] "[35m[1mPOST /utilisateurs HTTP/1.1[0m" 500 -
+2025-03-03 15:18:54,159 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
  * Running on all addresses (0.0.0.0)
  * Running on http://127.0.0.1:5001
  * Running on http://172.19.0.4:5001
-2025-02-23 11:29:43,375 - INFO - [33mPress CTRL+C to quit[0m
-2025-02-23 11:29:43,377 - INFO -  * Restarting with stat
-2025-02-23 11:29:44,074 - WARNING -  * Debugger is active!
-2025-02-23 11:29:44,083 - INFO -  * Debugger PIN: 933-035-974
-2025-02-23 11:30:25,712 - INFO - 172.19.0.1 - - [23/Feb/2025 11:30:25] "OPTIONS /utilisateurs HTTP/1.1" 200 -
-2025-02-23 11:30:26,220 - INFO - 172.19.0.1 - - [23/Feb/2025 11:30:26] "[35m[1mPOST /utilisateurs HTTP/1.1[0m" 500 -
-2025-02-23 12:02:51,965 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+2025-03-03 15:18:54,159 - INFO - [33mPress CTRL+C to quit[0m
+2025-03-03 15:18:54,160 - INFO -  * Restarting with stat
+2025-03-03 15:18:54,524 - WARNING -  * Debugger is active!
+2025-03-03 15:18:54,525 - INFO -  * Debugger PIN: 491-396-497
+2025-03-03 15:18:59,089 - INFO - 172.19.0.1 - - [03/Mar/2025 15:18:59] "OPTIONS /utilisateurs HTTP/1.1" 200 -
+2025-03-03 15:18:59,167 - INFO - 172.19.0.1 - - [03/Mar/2025 15:18:59] "[35m[1mPOST /utilisateurs HTTP/1.1[0m" 500 -
+2025-03-03 15:19:43,117 - INFO - 172.19.0.1 - - [03/Mar/2025 15:19:43] "OPTIONS /utilisateurs HTTP/1.1" 200 -
+2025-03-03 15:19:43,130 - INFO - 172.19.0.1 - - [03/Mar/2025 15:19:43] "[35m[1mPOST /utilisateurs HTTP/1.1[0m" 500 -
+2025-03-03 15:19:45,304 - INFO - 172.19.0.1 - - [03/Mar/2025 15:19:45] "[35m[1mPOST /utilisateurs HTTP/1.1[0m" 500 -
+2025-03-03 15:19:46,830 - INFO - 172.19.0.1 - - [03/Mar/2025 15:19:46] "[35m[1mPOST /utilisateurs HTTP/1.1[0m" 500 -
+2025-03-03 15:19:54,024 - INFO - 172.19.0.1 - - [03/Mar/2025 15:19:54] "OPTIONS /utilisateurs HTTP/1.1" 200 -
+2025-03-03 15:19:54,037 - INFO - 172.19.0.1 - - [03/Mar/2025 15:19:54] "[35m[1mPOST /utilisateurs HTTP/1.1[0m" 500 -
+2025-03-03 15:35:55,936 - INFO - 172.19.0.1 - - [03/Mar/2025 15:35:55] "OPTIONS /utilisateurs HTTP/1.1" 200 -
+2025-03-03 15:35:55,949 - INFO - 172.19.0.1 - - [03/Mar/2025 15:35:55] "[35m[1mPOST /utilisateurs HTTP/1.1[0m" 500 -
+2025-03-03 15:41:22,974 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
  * Running on all addresses (0.0.0.0)
  * Running on http://127.0.0.1:5001
- * Running on http://172.28.0.4:5001
-2025-02-23 12:02:51,968 - INFO - [33mPress CTRL+C to quit[0m
-2025-02-23 12:02:51,969 - INFO -  * Restarting with stat
-2025-02-23 12:02:52,518 - WARNING -  * Debugger is active!
-2025-02-23 12:02:52,520 - INFO -  * Debugger PIN: 844-674-414
-2025-02-23 12:03:15,864 - INFO - 172.28.0.1 - - [23/Feb/2025 12:03:15] "OPTIONS /utilisateurs HTTP/1.1" 200 -
-2025-02-23 12:03:15,981 - INFO - 172.28.0.1 - - [23/Feb/2025 12:03:15] "POST /utilisateurs HTTP/1.1" 200 -
-2025-02-23 12:07:45,916 - INFO - 172.28.0.1 - - [23/Feb/2025 12:07:45] "OPTIONS /utilisateurs HTTP/1.1" 200 -
-2025-02-23 12:07:45,940 - INFO - 172.28.0.1 - - [23/Feb/2025 12:07:45] "POST /utilisateurs HTTP/1.1" 200 -
-2025-02-23 12:11:20,100 - INFO - 172.28.0.1 - - [23/Feb/2025 12:11:20] "OPTIONS /utilisateurs HTTP/1.1" 200 -
-2025-02-23 12:11:20,125 - INFO - 172.28.0.1 - - [23/Feb/2025 12:11:20] "POST /utilisateurs HTTP/1.1" 200 -
-2025-02-23 12:12:59,078 - INFO - 172.28.0.1 - - [23/Feb/2025 12:12:59] "OPTIONS /utilisateurs HTTP/1.1" 200 -
-2025-02-23 12:12:59,112 - INFO - 172.28.0.1 - - [23/Feb/2025 12:12:59] "POST /utilisateurs HTTP/1.1" 200 -
-2025-02-23 12:21:33,162 - INFO - 172.28.0.1 - - [23/Feb/2025 12:21:33] "OPTIONS /utilisateurs HTTP/1.1" 200 -
-2025-02-23 12:21:33,182 - INFO - 172.28.0.1 - - [23/Feb/2025 12:21:33] "[31m[1mPOST /utilisateurs HTTP/1.1[0m" 400 -
-2025-02-23 12:31:29,499 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://172.20.0.4:5001
+2025-03-03 15:41:22,975 - INFO - [33mPress CTRL+C to quit[0m
+2025-03-03 15:41:22,976 - INFO -  * Restarting with stat
+2025-03-03 15:41:23,361 - WARNING -  * Debugger is active!
+2025-03-03 15:41:23,362 - INFO -  * Debugger PIN: 131-416-159
+2025-03-03 15:41:47,441 - INFO - 172.20.0.1 - - [03/Mar/2025 15:41:47] "OPTIONS /utilisateurs HTTP/1.1" 200 -
+2025-03-03 15:41:47,524 - INFO - 172.20.0.1 - - [03/Mar/2025 15:41:47] "[35m[1mPOST /utilisateurs HTTP/1.1[0m" 500 -
+2025-03-03 15:41:48,958 - INFO - 172.20.0.1 - - [03/Mar/2025 15:41:48] "[35m[1mPOST /utilisateurs HTTP/1.1[0m" 500 -
+2025-03-03 15:43:22,513 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
  * Running on all addresses (0.0.0.0)
  * Running on http://127.0.0.1:5001
- * Running on http://172.29.0.4:5001
-2025-02-23 12:31:29,501 - INFO - [33mPress CTRL+C to quit[0m
-2025-02-23 12:31:29,502 - INFO -  * Restarting with stat
-2025-02-23 12:31:30,009 - WARNING -  * Debugger is active!
-2025-02-23 12:31:30,012 - INFO -  * Debugger PIN: 117-038-987
-2025-02-23 12:31:42,054 - INFO - 172.29.0.1 - - [23/Feb/2025 12:31:42] "OPTIONS /utilisateurs HTTP/1.1" 200 -
-2025-02-23 12:31:42,070 - INFO - 172.29.0.1 - - [23/Feb/2025 12:31:42] "[31m[1mPOST /utilisateurs HTTP/1.1[0m" 400 -
-2025-02-23 12:40:25,235 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://172.20.0.4:5001
+2025-03-03 15:43:22,517 - INFO - [33mPress CTRL+C to quit[0m
+2025-03-03 15:43:22,518 - INFO -  * Restarting with stat
+2025-03-03 15:43:22,905 - WARNING -  * Debugger is active!
+2025-03-03 15:43:22,906 - INFO -  * Debugger PIN: 376-027-096
+2025-03-03 15:45:47,747 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://172.20.0.4:5000
+2025-03-03 15:45:47,747 - INFO - [33mPress CTRL+C to quit[0m
+2025-03-03 15:45:47,748 - INFO -  * Restarting with stat
+2025-03-03 15:45:48,109 - WARNING -  * Debugger is active!
+2025-03-03 15:45:48,110 - INFO -  * Debugger PIN: 238-185-825
+2025-03-03 15:47:49,258 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-03-03 15:47:49,259 - INFO - [33mPress CTRL+C to quit[0m
+2025-03-03 15:47:49,259 - INFO -  * Restarting with stat
+2025-03-03 15:47:49,612 - WARNING -  * Debugger is active!
+2025-03-03 15:47:49,613 - INFO -  * Debugger PIN: 397-843-550
+2025-03-03 15:49:42,114 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-03-03 15:49:42,115 - INFO - [33mPress CTRL+C to quit[0m
+2025-03-03 15:49:42,116 - INFO -  * Restarting with stat
+2025-03-03 15:49:42,550 - WARNING -  * Debugger is active!
+2025-03-03 15:49:42,551 - INFO -  * Debugger PIN: 139-614-689
+2025-03-03 15:51:32,628 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-03-03 15:51:32,628 - INFO - [33mPress CTRL+C to quit[0m
+2025-03-03 15:51:32,629 - INFO -  * Restarting with stat
+2025-03-03 15:51:32,994 - WARNING -  * Debugger is active!
+2025-03-03 15:51:32,995 - INFO -  * Debugger PIN: 811-125-444
+2025-03-03 15:54:46,214 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-03-03 15:54:46,214 - INFO - [33mPress CTRL+C to quit[0m
+2025-03-03 15:54:46,216 - INFO -  * Restarting with stat
+2025-03-03 15:54:46,583 - WARNING -  * Debugger is active!
+2025-03-03 15:54:46,583 - INFO -  * Debugger PIN: 116-998-154
+2025-03-03 15:57:36,441 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
  * Running on all addresses (0.0.0.0)
  * Running on http://127.0.0.1:5001
- * Running on http://192.168.0.4:5001
-2025-02-23 12:40:25,236 - INFO - [33mPress CTRL+C to quit[0m
-2025-02-23 12:40:25,237 - INFO -  * Restarting with stat
-2025-02-23 12:40:25,611 - WARNING -  * Debugger is active!
-2025-02-23 12:40:25,613 - INFO -  * Debugger PIN: 143-746-838
-2025-02-23 12:40:50,535 - INFO - 192.168.0.1 - - [23/Feb/2025 12:40:50] "OPTIONS /utilisateurs HTTP/1.1" 200 -
-2025-02-23 12:40:50,660 - INFO - 192.168.0.1 - - [23/Feb/2025 12:40:50] "[35m[1mPOST /utilisateurs HTTP/1.1[0m" 500 -
-2025-02-23 12:46:09,101 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://172.22.0.4:5001
+2025-03-03 15:57:36,441 - INFO - [33mPress CTRL+C to quit[0m
+2025-03-03 15:57:36,443 - INFO -  * Restarting with stat
+2025-03-03 15:57:36,821 - WARNING -  * Debugger is active!
+2025-03-03 15:57:36,822 - INFO -  * Debugger PIN: 490-669-015
+2025-03-03 15:57:54,503 - INFO - 172.22.0.1 - - [03/Mar/2025 15:57:54] "GET /test HTTP/1.1" 200 -
+2025-03-03 15:57:54,715 - INFO - 172.22.0.1 - - [03/Mar/2025 15:57:54] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-03-03 15:57:59,966 - INFO - 172.22.0.1 - - [03/Mar/2025 15:57:59] "OPTIONS /utilisateurs HTTP/1.1" 200 -
+2025-03-03 15:58:00,176 - INFO - 172.22.0.1 - - [03/Mar/2025 15:58:00] "[35m[1mPOST /utilisateurs HTTP/1.1[0m" 500 -
+2025-03-03 16:03:18,458 - INFO - 172.22.0.1 - - [03/Mar/2025 16:03:18] "OPTIONS /utilisateurs HTTP/1.1" 200 -
+2025-03-03 16:03:18,469 - INFO - 172.22.0.1 - - [03/Mar/2025 16:03:18] "[35m[1mPOST /utilisateurs HTTP/1.1[0m" 500 -
+2025-03-03 16:03:56,817 - INFO - 172.22.0.1 - - [03/Mar/2025 16:03:56] "OPTIONS /utilisateurs HTTP/1.1" 200 -
+2025-03-03 16:03:56,845 - INFO - 172.22.0.1 - - [03/Mar/2025 16:03:56] "[35m[1mPOST /utilisateurs HTTP/1.1[0m" 500 -
+2025-03-03 16:11:04,503 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
  * Running on all addresses (0.0.0.0)
  * Running on http://127.0.0.1:5001
- * Running on http://192.168.0.4:5001
-2025-02-23 12:46:09,102 - INFO - [33mPress CTRL+C to quit[0m
-2025-02-23 12:46:09,103 - INFO -  * Restarting with stat
-2025-02-23 12:46:09,521 - WARNING -  * Debugger is active!
-2025-02-23 12:46:09,522 - INFO -  * Debugger PIN: 276-467-002
-2025-02-23 12:46:18,590 - INFO - 192.168.0.1 - - [23/Feb/2025 12:46:18] "OPTIONS /utilisateurs HTTP/1.1" 200 -
-2025-02-23 12:46:18,686 - INFO - 192.168.0.1 - - [23/Feb/2025 12:46:18] "POST /utilisateurs HTTP/1.1" 200 -
-2025-02-23 17:13:59,657 - INFO - 192.168.0.1 - - [23/Feb/2025 17:13:59] "OPTIONS /utilisateurs HTTP/1.1" 200 -
-2025-02-23 17:13:59,777 - INFO - 192.168.0.1 - - [23/Feb/2025 17:13:59] "POST /utilisateurs HTTP/1.1" 200 -
-2025-02-23 17:42:46,921 - INFO - 192.168.0.1 - - [23/Feb/2025 17:42:46] "OPTIONS /utilisateurs HTTP/1.1" 200 -
-2025-02-23 17:42:46,960 - INFO - 192.168.0.1 - - [23/Feb/2025 17:42:46] "POST /utilisateurs HTTP/1.1" 200 -
-2025-02-23 17:43:08,456 - INFO - 192.168.0.1 - - [23/Feb/2025 17:43:08] "OPTIONS /utilisateurs HTTP/1.1" 200 -
-2025-02-23 17:43:08,534 - INFO - 192.168.0.1 - - [23/Feb/2025 17:43:08] "POST /utilisateurs HTTP/1.1" 200 -
-2025-02-23 17:51:16,495 - INFO - 192.168.0.1 - - [23/Feb/2025 17:51:16] "OPTIONS /utilisateurs HTTP/1.1" 200 -
-2025-02-23 17:51:16,588 - INFO - 192.168.0.1 - - [23/Feb/2025 17:51:16] "POST /utilisateurs HTTP/1.1" 200 -
-2025-02-23 18:17:38,323 - INFO - 192.168.0.1 - - [23/Feb/2025 18:17:38] "OPTIONS /utilisateurs HTTP/1.1" 200 -
-2025-02-23 18:17:38,605 - INFO - 192.168.0.1 - - [23/Feb/2025 18:17:38] "POST /utilisateurs HTTP/1.1" 200 -
-2025-02-23 18:30:02,252 - INFO - 192.168.0.1 - - [23/Feb/2025 18:30:02] "OPTIONS /utilisateurs HTTP/1.1" 200 -
-2025-02-23 18:30:02,298 - INFO - 192.168.0.1 - - [23/Feb/2025 18:30:02] "POST /utilisateurs HTTP/1.1" 200 -
-2025-02-23 18:40:38,629 - INFO - 192.168.0.1 - - [23/Feb/2025 18:40:38] "OPTIONS /utilisateurs HTTP/1.1" 200 -
-2025-02-23 18:40:38,654 - INFO - 192.168.0.1 - - [23/Feb/2025 18:40:38] "POST /utilisateurs HTTP/1.1" 200 -
-2025-02-23 18:50:10,307 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://172.23.0.4:5001
+2025-03-03 16:11:04,504 - INFO - [33mPress CTRL+C to quit[0m
+2025-03-03 16:11:04,504 - INFO -  * Restarting with stat
+2025-03-03 16:11:04,927 - WARNING -  * Debugger is active!
+2025-03-03 16:11:04,928 - INFO -  * Debugger PIN: 110-458-773
+2025-03-03 16:11:24,744 - INFO - 172.23.0.1 - - [03/Mar/2025 16:11:24] "GET /test HTTP/1.1" 200 -
+2025-03-03 16:11:30,448 - INFO - 172.23.0.1 - - [03/Mar/2025 16:11:30] "OPTIONS /utilisateurs HTTP/1.1" 200 -
+2025-03-03 16:11:30,660 - INFO - 172.23.0.1 - - [03/Mar/2025 16:11:30] "[35m[1mPOST /utilisateurs HTTP/1.1[0m" 500 -
+2025-03-03 16:11:58,521 - INFO - 172.23.0.1 - - [03/Mar/2025 16:11:58] "OPTIONS /utilisateurs HTTP/1.1" 200 -
+2025-03-03 16:12:00,774 - INFO - 172.23.0.1 - - [03/Mar/2025 16:12:00] "[35m[1mPOST /utilisateurs HTTP/1.1[0m" 500 -
+2025-03-03 16:12:02,886 - INFO - 172.23.0.1 - - [03/Mar/2025 16:12:02] "[35m[1mPOST /utilisateurs HTTP/1.1[0m" 500 -
+2025-03-03 16:13:21,708 - INFO - 172.23.0.1 - - [03/Mar/2025 16:13:21] "OPTIONS /utilisateurs HTTP/1.1" 200 -
+2025-03-03 16:13:21,812 - INFO - 172.23.0.1 - - [03/Mar/2025 16:13:21] "[35m[1mPOST /utilisateurs HTTP/1.1[0m" 500 -
+2025-03-03 16:17:22,253 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
  * Running on all addresses (0.0.0.0)
  * Running on http://127.0.0.1:5001
- * Running on http://192.168.16.4:5001
-2025-02-23 18:50:10,309 - INFO - [33mPress CTRL+C to quit[0m
-2025-02-23 18:50:10,310 - INFO -  * Restarting with stat
-2025-02-23 18:50:11,019 - WARNING -  * Debugger is active!
-2025-02-23 18:50:11,021 - INFO -  * Debugger PIN: 104-519-665
+ * Running on http://172.23.0.4:5001
+2025-03-03 16:17:22,254 - INFO - [33mPress CTRL+C to quit[0m
+2025-03-03 16:17:22,255 - INFO -  * Restarting with stat
+2025-03-03 16:17:22,668 - WARNING -  * Debugger is active!
+2025-03-03 16:17:22,669 - INFO -  * Debugger PIN: 130-370-667
+2025-03-03 16:17:53,885 - INFO - 172.23.0.1 - - [03/Mar/2025 16:17:53] "OPTIONS /utilisateurs HTTP/1.1" 200 -
+2025-03-03 16:17:54,099 - INFO - 172.23.0.1 - - [03/Mar/2025 16:17:54] "[31m[1mPOST /utilisateurs HTTP/1.1[0m" 401 -
+2025-03-03 16:18:10,742 - INFO - 172.23.0.1 - - [03/Mar/2025 16:18:10] "OPTIONS /utilisateurs HTTP/1.1" 200 -
+2025-03-03 16:18:10,824 - INFO - 172.23.0.1 - - [03/Mar/2025 16:18:10] "[31m[1mPOST /utilisateurs HTTP/1.1[0m" 401 -
+2025-03-03 16:27:31,266 - INFO - 172.23.0.1 - - [03/Mar/2025 16:27:31] "OPTIONS /utilisateurs HTTP/1.1" 200 -
+2025-03-03 16:27:31,276 - INFO - 172.23.0.1 - - [03/Mar/2025 16:27:31] "[31m[1mPOST /utilisateurs HTTP/1.1[0m" 401 -
+2025-03-03 16:27:34,317 - INFO - 172.23.0.1 - - [03/Mar/2025 16:27:34] "[31m[1mPOST /utilisateurs HTTP/1.1[0m" 401 -
+2025-03-03 16:28:43,145 - INFO - 172.23.0.1 - - [03/Mar/2025 16:28:43] "OPTIONS /utilisateurs HTTP/1.1" 200 -
+2025-03-03 16:28:43,172 - INFO - 172.23.0.1 - - [03/Mar/2025 16:28:43] "[31m[1mPOST /utilisateurs HTTP/1.1[0m" 401 -
+2025-03-03 16:28:49,503 - INFO - 172.23.0.1 - - [03/Mar/2025 16:28:49] "OPTIONS /utilisateurs HTTP/1.1" 200 -
+2025-03-03 16:28:49,526 - INFO - 172.23.0.1 - - [03/Mar/2025 16:28:49] "[31m[1mPOST /utilisateurs HTTP/1.1[0m" 401 -
+2025-03-03 16:30:10,883 - INFO - 172.23.0.1 - - [03/Mar/2025 16:30:10] "OPTIONS /utilisateurs HTTP/1.1" 200 -
+2025-03-03 16:30:10,892 - INFO - 172.23.0.1 - - [03/Mar/2025 16:30:10] "[31m[1mPOST /utilisateurs HTTP/1.1[0m" 401 -
+2025-03-03 16:31:31,757 - INFO - 172.23.0.1 - - [03/Mar/2025 16:31:31] "OPTIONS /utilisateurs HTTP/1.1" 200 -
+2025-03-03 16:31:31,815 - INFO - 172.23.0.1 - - [03/Mar/2025 16:31:31] "[31m[1mPOST /utilisateurs HTTP/1.1[0m" 401 -
+2025-03-03 16:35:18,987 - INFO - 172.23.0.1 - - [03/Mar/2025 16:35:18] "OPTIONS /utilisateurs HTTP/1.1" 200 -
+2025-03-03 16:35:19,042 - INFO - 172.23.0.1 - - [03/Mar/2025 16:35:19] "POST /utilisateurs HTTP/1.1" 200 -
+2025-03-03 16:40:01,352 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://172.24.0.4:5001
+2025-03-03 16:40:01,353 - INFO - [33mPress CTRL+C to quit[0m
+2025-03-03 16:40:01,355 - INFO -  * Restarting with stat
+2025-03-03 16:40:02,195 - WARNING -  * Debugger is active!
+2025-03-03 16:40:02,203 - INFO -  * Debugger PIN: 565-327-327
+2025-03-03 16:40:22,388 - INFO -  * Detected change in '/usr/src/app/app/auth_middleware.py', reloading
+2025-03-03 16:40:22,505 - INFO -  * Restarting with stat
+2025-03-03 16:40:23,508 - WARNING -  * Debugger is active!
+2025-03-03 16:40:23,509 - INFO -  * Debugger PIN: 565-327-327
+2025-03-03 16:40:40,902 - INFO -  * Detected change in '/usr/src/app/app/routes/utilisateurs.py', reloading
+2025-03-03 16:40:41,004 - INFO -  * Restarting with stat
+2025-03-03 16:40:42,314 - WARNING -  * Debugger is active!
+2025-03-03 16:40:42,317 - INFO -  * Debugger PIN: 825-467-262
+2025-03-03 16:40:43,696 - INFO -  * Detected change in '/usr/src/app/app/auth_middleware.py', reloading
+2025-03-03 16:40:43,911 - INFO -  * Restarting with stat
+2025-03-03 16:40:44,733 - WARNING -  * Debugger is active!
+2025-03-03 16:40:44,734 - INFO -  * Debugger PIN: 825-467-262
+2025-03-03 16:40:50,384 - INFO - 172.24.0.1 - - [03/Mar/2025 16:40:50] "[35m[1mOPTIONS /utilisateurs HTTP/1.1[0m" 500 -
+2025-03-03 16:41:42,413 - INFO - 172.24.0.1 - - [03/Mar/2025 16:41:42] "[35m[1mOPTIONS /utilisateurs HTTP/1.1[0m" 500 -
+2025-03-03 16:42:44,132 - INFO -  * Detected change in '/usr/src/app/app/routes/utilisateurs.py', reloading
+2025-03-03 16:42:44,261 - INFO -  * Restarting with stat
+2025-03-03 16:42:45,197 - WARNING -  * Debugger is active!
+2025-03-03 16:42:45,198 - INFO -  * Debugger PIN: 565-327-327
+2025-03-03 16:42:49,511 - INFO - 172.24.0.1 - - [03/Mar/2025 16:42:49] "OPTIONS /utilisateurs HTTP/1.1" 200 -
+2025-03-03 16:42:49,634 - INFO - 172.24.0.1 - - [03/Mar/2025 16:42:49] "POST /utilisateurs HTTP/1.1" 200 -

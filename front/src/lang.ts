@@ -15,6 +15,8 @@ const i18n = createI18n({
         msg_2: "créer",
         msg_3: "une"
       },
+      create_cellar: "Création d'une cave",
+      cellar_name: "Nom de la cave",
       delete_cellar: {
         warn_1: 'Êtes-vous sûr de vouloir',
         warn_2: 'cette',
@@ -59,6 +61,8 @@ const i18n = createI18n({
         msg_2: "create",
         msg_3: "one"
       },
+      create_cellar: "Creation of a cellar",
+      cellar_name: "Nom de la cave",
       delete_cellar: {
         warn_1: 'Are you sure you want to',
         warn_2: 'this',

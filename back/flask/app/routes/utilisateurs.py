@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, request
 from firebase_admin import auth
-from ..models import Utilisateur, db
+from ..models import Utilisateur, Cave, db
 from ..auth_middleware import verify_token
 
 bp = Blueprint('utilisateurs', __name__, url_prefix='/utilisateurs')
@@ -35,10 +35,16 @@ def authentifier_utilisateur():
 
     db.session.commit()
 
+    cave = Cave.query.filter_by(proprietaire_uid=utilisateur.uid).first()
+    cave_infos = {}
+    if cave:
+        cave_infos = {'id': cave.id, 'nom': cave.nom, 'profile_picture': cave.profile_picture}
+
     return jsonify({
         'message': 'Authentication succeeded!',
         'uid': utilisateur.uid,
         'nom': utilisateur.nom,
         'email': utilisateur.email,
-        'profile_picture': utilisateur.profile_picture
+        'profile_picture': utilisateur.profile_picture,
+        'cave': cave_infos
     }), 200

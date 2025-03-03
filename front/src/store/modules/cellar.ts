@@ -28,9 +28,9 @@ const getters = {
   }
 };
 const actions = {
-  async listCellars({commit}: any, uid: any) {
+  async listCellars({commit}: any) {
     commit('setLoading', true)
-    axios.get(`${API_URL}/caves/owner/`+uid)
+    axios.get(`${API_URL}/caves/owner`)
     .then((response) => {
         commit('setCellars', response.data.caves)
     }).catch((error) => {
@@ -39,11 +39,11 @@ const actions = {
       commit('setLoading', false)
     })
   },
-  async create({commit, dispatch}: any, cellar: any) {
+  async create({commit, dispatch}: any, name: string) {
     commit('setLoading', true)
-    axios.post(`${API_URL}/caves`, cellar)
+    axios.post(`${API_URL}/caves`, { nom: name } )
     .then((response) => {
-        dispatch('listCellars', cellar.proprietaire_uid)
+        dispatch('listCellars')
     }).catch((error) => {
         console.log(error)
     }).finally(() => {

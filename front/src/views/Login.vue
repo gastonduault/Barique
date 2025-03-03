@@ -17,6 +17,7 @@
 </template>
 
 <script>
+import { IonPage } from '@ionic/vue';
 import { mapActions, mapGetters } from "vuex";
 import store from '@/store'
 import router from "@/router"
@@ -25,7 +26,8 @@ import SelectLang from "@/components/selectLang.vue"
 
 export default {
   components: {
-    SelectLang
+    SelectLang,
+    IonPage
   },
   computed: {
     connected: () => { return store.getters['user/getConnected'] },
@@ -35,7 +37,6 @@ export default {
     ...mapActions("user", ["authentification", "disconnect"]),
     async logIn() {
       await store.dispatch('user/authentification')
-      if(this.connected) router.push('./caveList')
     },
   }
 };

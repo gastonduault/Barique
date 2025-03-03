@@ -1,7 +1,8 @@
 import axios from "axios";
 import config from './config';
 import {Storage} from "@ionic/storage";
-import { signInWithGoogle, logout } from '@/firebase-config';
+import { signInWithGoogle, logout, auth } from '@/firebase-config';
+import router from "@/router";
 
 const API_URL = config.API_URL;
 
@@ -54,10 +55,73 @@ const actions = {
 
       await storage.create();
       await storage.set('token', idToken)
+      commit("setUser", userData);
+      commit("setConnected", true);
+
+      if (response.data.cave && response.data.cave.nom) {
+        commit('cellar/setCellarSelected', response.data.cave)
+        router.push("/cellar")
+      } else {
+        router.push("/create-cellar")
+      }
+
+    } catch (error) {
+      commit("setConnected", false);
+    } finally {
+      commit("setLoading", false);
+    }
+  },
+
+  async logIn({ commit }: any) {
+    commit("setLoading", true);
+
+    try {
+      await storage.create();
+      let idToken = await storage.get("token");
+
+      if (!idToken) {
+        throw new Error("No token found");
+      }
+
+      // wait firbase charge the user
+      await new Promise((resolve) => {
+        const unsubscribe = auth.onAuthStateChanged((user) => {
+          if (user) {
+            resolve(user);
+          }
+          unsubscribe();
+        });
+      });
+
+      const user = auth.currentUser;
+
+      if (user) {
+        idToken = await user.getIdToken(true); // force the refreshing of the token
+        await storage.set("token", idToken);
+      }
+
+      const response = await axios.post(`${API_URL}/utilisateurs`, {}, {
+        headers: { Authorization: `Bearer ${idToken}` },
+      });
+
+      const userData = {
+        email: response.data.email,
+        uid: response.data.uid,
+        nom: response.data.nom,
+        profile_picture: response.data.profile_picture,
+      };
 
       commit("setUser", userData);
       commit("setConnected", true);
+
+      if (response.data.cave && response.data.cave.nom) {
+        commit("cellar/setCellarSelected", response.data.cave);
+        router.push("/cellar");
+      } else {
+        router.push("/create-cellar");
+      }
     } catch (error) {
+      console.error("Login error:", error);
       commit("setConnected", false);
     } finally {
       commit("setLoading", false);
@@ -75,6 +139,7 @@ const actions = {
     }
   }
 };
+
 
 const mutations = {
   setUser(state: any, value: any) {
@@ -97,15 +162,15 @@ export default {
 };
 
 
-axios.interceptors.request.use(
-  (config) => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      config.headers["Authorization"] = `Bearer ${token}`;
-    }
-    return config;
-  },
-  (error) => {
-    return Promise.reject(error);
-  }
-);
+// axios.interceptors.request.use(async (config) => {
+//   await storage.create();
+//   const token = await storage.get("token");
+//
+//   if (token) {
+//     config.headers["Authorization"] = `Bearer ${token}`;
+//   }
+//
+//   return config;
+// }, (error) => {
+//   return Promise.reject(error);
+// });

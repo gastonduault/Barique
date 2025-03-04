@@ -19,9 +19,9 @@ const getters = {
 };
 
 const actions = {
-  async bottles({commit}: any, id: any) {
+  async bottles({commit}: any) {
     commit('setLoading', true)
-    axios.get(`${API_URL}/historique/${id}`)
+    axios.get(`${API_URL}/historique`)
       .then((response) => {
         if(response.status == 200) // bottle in the cellar
           commit('setBottles', response.data)

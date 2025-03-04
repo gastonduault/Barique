@@ -29,6 +29,11 @@ const app = createApp(App)
     .use(IonicVue)
     .use(router);
 
+
+import store from './store';
+
+store.dispatch("user/initializeAuth");
+
 router.isReady().then(() => {
   app.mount('#app');
 });

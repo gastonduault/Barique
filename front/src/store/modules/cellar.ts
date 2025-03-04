@@ -43,7 +43,7 @@ const actions = {
     commit('setLoading', true)
     axios.post(`${API_URL}/caves`, { name: name } )
     .then((response) => {
-      commit("cellar/setCellarSelected", response.data.cave);
+      dispatch("updateCellarSelected", response.data.cave);
       router.push("/cellar");
     }).catch((error) => {
         console.log(error)
@@ -55,7 +55,8 @@ const actions = {
     commit('setLoading', true)
     axios.post(`${API_URL}/caves/${cellar.id}`, cellar)
     .then((response) => {
-        commit('setCellarSelected', cellar)
+      commit('setCellarSelected', cellar);
+      router.push("/cellar")
     }).catch((error) => {
       console.log(error)
     }).finally(() => {
@@ -65,8 +66,9 @@ const actions = {
   async delete({commit, dispatch}: any, cellar: any) {
     commit('setLoading', true)
     axios.delete(`${API_URL}/caves/${cellar.id}`)
-      .then((response) => {
-        commit('setCellarSelected', {})
+      .then(async (response) => {
+        dispatch('updateCellarSelected', {});
+        await router.push('/cellarList')
       }).catch((error) => {
       console.log(error)
     }).finally(() => {

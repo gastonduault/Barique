@@ -1,17 +1,12 @@
 <template>
   <ion-page>
-    <ion-header class="header">
-      <button class="deconeciton" @click="disconnect">
-        <img src="@/assets/img/decconection.webp" alt="deconnection image"/>
-      </button>
-      <SelectLang class="select-lang"/>
-      <img v-if="utilisateur && utilisateur.profile_picture" :src="utilisateur.profile_picture" alt="profil picture" />
-      <h1>{{ $t('hello') }}
-        <span>{{ utilisateur.nom }}</span>
-      </h1>
-    </ion-header>
+    <img src="@/assets/img/back.webp"
+         v-if="cellarSelected !== {} && cellarSelected.nom"
+         alt="arrow back"
+         class="back"
+         @click="clickBack"/>
     <div class="content">
-      <p class="under-line">{{ $t('your_cellar') }}</p>
+      <h3>{{ $t('your_cellar') }} </h3>
       <div class="cellars">
         <p v-if="cellars && cellars.length === 0 && !creation" class="no-cave">
           {{ $t('no_cellar.msg_1') }} <strong class="add-link" @click="creation = true">{{ $t('no_cellar.msg_2') }}</strong> {{ $t('no_cellar.msg_3') }}.
@@ -23,135 +18,91 @@
           <p>{{cellar.nom}}</p>
         </div>
         <div class="line-create">
-          <button class="add-cellar" @click="creation = true">
-            <img src="@/assets/img/ajouter.webp" alt="add cellar" />
+          <button class="add-cellar" @click="createCellar">
+            {{ $t('newCellar') }}
           </button>
         </div>
       </div>
     </div>
-    <EditCellar v-if="creation"  @close-modal="creation = false" />
     <Loader v-if="loading" />
   </ion-page>
 </template>
 
 <script lang="ts">
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/vue'
-import {Storage} from "@ionic/storage"
 import store from '@/store'
 import router from "@/router"
 import config from "@/store/modules/config"
 import Loader from "@/components/loader.vue"
 import EditCellar from "@/components/editCellar.vue"
-import SelectLang from "@/components/selectLang.vue"
-import { logout } from "@/firebase-config";
 
 export default {
   name: "CaveList",
   components: {
-    SelectLang,
     IonContent, IonHeader, IonPage, IonTitle, IonToolbar, Loader, EditCellar
   },
   data() {
     return {
-      storage: new Storage,
-      creation: false,
-      nameCellar: "",
       API_URL: config.API_URL,
     }
   },
-  // async created() {
-  //   this.storage = new Storage()
-  //   await this.storage.create()
-  //   const token = await this.storage.get('token')
-  //   if(token && !this.connected) await store.dispatch('user/login')
-  // },
-  // updated() {
-  //   store.dispatch('cellar/listCellars', this.utilisateur.uid)
-  // },
+  mounted() {
+    store.dispatch('cellar/listCellars');
+  },
   computed: {
-    connected: () => { return store.getters['user/getConnected'] },
-    utilisateur: () => {
-      const user = store.getters["user/getUSer"]
-      if(user && user.uid !== null) {
-        store.dispatch('cellar/listCellars', user.uid);
-      }
-      return user
-    },
+    cellarSelected: () => { return store.getters['cellar/getCellarSelected'] },
     cellars: () => { return store.getters['cellar/getCellar'] },
     loading: () => { return store.getters['cellar/getLoading'] }
   },
   methods: {
-    async disconnect() {
-      await logout();
-      await this.storage.clear()
-      await store.dispatch('user/disconnect')
-      router.push('/home')
-    },
     async clickCellar(cellar: any) {
-      await store.dispatch('cellar/updtaeCellarSelected', cellar)
+      await store.dispatch('cellar/updateCellarSelected', cellar)
       await store.dispatch('bottles/bottles', cellar.id)
-      await this.storage.set('cellar_selected_id', cellar.id)
-      await this.storage.set('cellar_selected_nom', cellar.nom)
-      router.push('/Cave')
+      router.push('/cellar')
     },
+    createCellar() {
+      router.push({
+        name: "CreateCellar",
+        query: {
+          back: true,
+          mode: 'create'
+        }
+      })
+    },
+    clickBack () {
+      router.push('/cellar')
+    }
   }
 }
 
 </script>
 
 <style scoped>
-.header {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  height: 30vh;
-  justify-content: center;
-}
-
-.header img {
-  width: 70px;
+img.back {
+  width: 30px;
+  position: absolute;
+  left: 15px;
+  top: 15px;
   border-radius: 50%;
+  padding: 3px 3px;
+  cursor: pointer;
+  transition: .3s;
 }
 
-.header h1 {
-  color: var(--font-black);
+img.back:focus,
+img.back:active,
+img.back:hover{
+  background-color: #fce5e5;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 }
-
-.header h1 span {
-  font-weight: bold;
-  color: var(--font-pink);
-}
-
-.deconeciton {
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  background: none;
-}
-
-.select-lang {
-  position: absolute;
-  top: 10px;
-  right: 20px;
-}
-
-.deconeciton img{
-  border-radius: 0;
-  width: 31px;
-}
-
 .content {
-  height: 70vh;
+  height: 100vh;
   width: 100%;
   text-align: center;
-  justify-content: space-around;
-  align-content: space-around;
-}
-
-.under-line {
-  width: 60%;
-  display: block;
-  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
 }
 
 .cellars {
@@ -160,8 +111,8 @@ export default {
   height: 100%;
   display: flex;
   justify-content: center;
-  align-items: start;
-  align-content: start;
+  align-items: center;
+  align-content: center;
   flex-wrap: wrap;
   border-radius: 5px;
   gap: 15px;
@@ -206,19 +157,19 @@ export default {
 }
 
 .add-cellar {
-  margin: 0 auto;
-  padding: 8px 8px;
-  border-radius: 50%;
+  border-radius: 5px 5px;
+  font-size: 1em;
+  font-weight: bold;
   background-color: var(--font-pink);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  bottom: 15px;
+  text-transform: uppercase;
+  padding: 10px 10px;
+  color: var(--background-color);
 }
 
-.add-cellar img{
-  width: 17px;
+.add-cellar:focus {
+  background-color: #ba5b5b;
 }
+
 
 
 </style>

@@ -9,12 +9,7 @@ const API_URL = config.API_URL;
 const storage = new Storage();
 
 const state = {
-  user: {
-    email: null,
-    uid: null,
-    nom: null,
-    profile_picture: null
-  },
+  user: {},
   connected: false,
   loading: false,
 };
@@ -124,6 +119,59 @@ const actions = {
       commit("setConnected", false);
     } finally {
       commit("setLoading", false);
+    }
+  },
+
+  async initializeAuth({ dispatch }: any) {
+    await storage.create();
+    const token = await storage.get("token");
+
+    if (token) {
+      await dispatch("me");
+    }
+  },
+
+  async me({ commit, dispatch }: any) {
+
+    try {
+      await storage.create();
+      let idToken = await storage.get("token");
+
+      if (!idToken) {
+        throw new Error("No token found");
+      }
+
+      await new Promise((resolve) => {
+        const unsubscribe = auth.onAuthStateChanged((user) => {
+          if (user) {
+            resolve(user);
+          }
+          unsubscribe();
+        });
+      });
+
+      const user = auth.currentUser;
+
+      if (user) {
+        idToken = await user.getIdToken(true); // force the refreshing of the token
+        await storage.set("token", idToken);
+      }
+
+      const response = await axios.post(`${API_URL}/utilisateurs`, {}, {
+        headers: { Authorization: `Bearer ${idToken}` },
+      });
+
+      const userData = {
+        email: response.data.email,
+        uid: response.data.uid,
+        nom: response.data.nom,
+        profile_picture: response.data.profile_picture,
+      };
+
+      commit("setUser", userData);
+      commit("setConnected", true);
+    } catch (error) {
+      commit("setConnected", false);
     }
   },
 

@@ -1,19 +1,11 @@
 <template>
-  <ion-page v-if="showComponent && cellar.id">
-    <ion-header class="header">
-      <img src="@/assets/img/back.webp" alt="arrow back" class="back" @click="back"/>
-      <img :src="`${API_URL}${cellar.profile_picture}`" alt="profil picture" class="pp"/>
-      <h3>
-        {{ cellar.nom }}
-      </h3>
-      <button class="update-cellar" @click="editCellar = true"></button>
-    </ion-header>
+  <ion-page>
+    <Header :title="cellar.nom"/>
     <div class="content">
       <div class="search-bottle">
         <input v-model="search" :placeholder="$t('search')"/>
         <button v-if="search !== ''" @click="search = ''"></button>
       </div>
-      <button class="historique-btn" @click="historique"></button>
       <p v-if="bottles && bottles.length === 0" class="no-bottle">
         {{ $t('no_bottle.msg_1')}} <br /> {{ $t('no_bottle.msg_2')}}
         <span class="add-link" @click="addBottle">{{ $t('no_bottle.msg_3')}}</span>.
@@ -54,20 +46,21 @@
 
 <script lang="ts">
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/vue';
+import EditCellar from "@/components/editCellar.vue";
+import AddBottle from "@/views/AddBottle.vue";
+import Header from "@/components/Header.vue";
+import Loader from "@/components/loader.vue";
+import config from '@/store/modules/config';
+import Bottle from "@/views/Bottle.vue";
 import {Storage} from "@ionic/storage";
 import store from '@/store';
-import config from '@/store/modules/config'
-import router from "@/router";
-import Bottle from "@/views/Bottle.vue"
-import Loader from "@/components/loader.vue";
-import AddBottle from "@/views/AddBottle.vue";
-import EditCellar from "@/components/editCellar.vue";
 
 export default {
   name: "CaveList",
   components: {
     IonContent, IonHeader, IonPage, IonTitle,
-    IonToolbar, Loader, AddBottle, Bottle, EditCellar
+    IonToolbar, Loader, AddBottle, Bottle, EditCellar,
+    Header
   },
   data() {
     return {
@@ -79,10 +72,6 @@ export default {
       showComponent: true,
       API_URL: config.API_URL,
     }
-  },
-  async created() {
-    this.storage = new Storage();
-    await this.storage.create();
   },
   computed: {
     connected: () => store.getters['user/getConnected'],
@@ -100,99 +89,17 @@ export default {
     },
     loading: () => store.getters['bottles/getLoading']
   },
-  async mounted() {
-    await this.init()
+  mounted() {
+    console.log(this.cellar)
   },
   methods: {
-    async init() {
-      console.log(this.cellar)
-      if (!this.cellar.id) {
-        const cellar = await this.storage.get('cellar');
-        await store.dispatch('cellar/updateCellarSelected', cellar);
-      }
-
-      await store.dispatch('bottles/bottles', store.getters["cellar/getCellarSelected"].id);
-    },
-    async back() {
-      router.push('/caveList')
-      await this.storage.remove("cave_selected_id")
-      await this.storage.remove("cave_selected_nom");
-    },
     addBottle() { this.addBottleOpen = true },
-    historique() {
-      store.dispatch('history/bottles', this.cellar.id)
-      router.push("/Historique")
-    },
-    async deleteCellar() {
-      this.showComponent = false
-
-      this.showComponent = true
-    }
   }
 }
 
 </script>
 
 <style scoped>
-.header {
-  align-items: center;
-  padding: 5px;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  justify-items: center;
-  height: 60px !important;
-}
-
-.header img.pp {
-  width: 37px;
-  border-radius: 5px 5px;
-  margin-right: 10px;
-}
-
-.header img.back {
-  width: 30px;
-  position: absolute;
-  left: 15px;
-  border-radius: 50%;
-  padding: 3px 3px;
-  cursor: pointer;
-  transition: .3s;
-}
-
-.header img.back:focus,
-.header img.back:active,
-.header img.back:hover{
-  background-color: #fce5e5;
-  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
-}
-
-.header h3 {
-  margin: 1px 0 0 0;
-  font-size: 1.2em;
-  position: relative;
-}
-
-button.update-cellar {
-  width: 33px;
-  height: 33px;
-  position: absolute;
-  top: 13px;
-  right: 10px;
-  background-color: transparent;
-  background-image: url("@/assets/img/parameter.webp");
-  background-size: 22px;
-  background-repeat: no-repeat;
-  background-position: center;
-  border-radius: 25px 25px;
-  transition: 0.2s;
-}
-
-button.update-cellar:focus {
-  box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
-  transform: rotateZ(30deg);
-}
-
 .content {
   width: 100%;
   height: calc(100% - 30px);
@@ -253,25 +160,6 @@ div.search-bottle button {
 .no-bottle {
   margin-top: 35vh;
   line-height: 70px;
-}
-
-.historique-btn {
-  position: fixed;
-  z-index: 2;
-  width: 42px;
-  height: 42px;
-  right: 3%;
-  top: 23%;
-  background-color: var(--background-color);
-  background-image: url("@/assets/img/historique.webp");
-  background-position: center;
-  background-size: 23px;
-  background-repeat: no-repeat;
-  border-radius: 25px 25px;
-}
-
-.historique-btn:focus {
-  background-color: #e5cdcd;
 }
 
 .bottle {

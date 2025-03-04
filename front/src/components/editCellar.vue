@@ -112,9 +112,8 @@ export default {
     },
     async deleteCellar() {
       this.closeModal = true
-      await this.$emit('closeModal')
-      await router.push('/cavelist')
       await store.dispatch("cellar/delete", this.cellar)
+      await router.push('/cavelist')
     }
   }
 }

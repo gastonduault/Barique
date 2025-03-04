@@ -20,10 +20,14 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/create-cellar',
     name: 'CreateCellar',
-    component: () => import('@/views/createCellar.vue')
+    component: () => import('@/views/createCellar.vue'),
+    props: route => ({
+      back: route.query.back === 'true',
+      mode: route.query.mode || 'create',
+    })
   },
   {
-    path: '/cavelist',
+    path: '/cellarList',
     name: 'CaveList',
     component: () => import('@/views/CaveList.vue')
   },

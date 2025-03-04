@@ -1,10 +1,11 @@
 <template>
   <ion-page>
-    <ion-header class="header">
-      <img src="@/assets/img/back.webp" alt="arrow back" class="back" @click="back"/>
-      <img :src="`${API_URL}${cellar.profile_picture}`" alt="profil picture" class="pp"/>
-      <h3> {{ $t('history') }} </h3>
-    </ion-header>
+    <Header :title="$t('history')" :back-btn="true" @back="back"/>
+<!--    <ion-header class="header">-->
+<!--      <img src="@/assets/img/back.webp" alt="arrow back" class="back" @click="back"/>-->
+<!--      <img :src="`${API_URL}${cellar.profile_picture}`" alt="profil picture" class="pp"/>-->
+<!--      <h3> {{ $t('history') }} </h3>-->
+<!--    </ion-header>-->
     <div class="content">
       <p v-if="bottles && bottles.length === 0" class="no-bottle">
         {{ $t('no_history.msg_1') }}<br />{{ $t('no_history.msg_2') }}
@@ -60,10 +61,12 @@ import AddBottle from "@/views/AddBottle.vue";
 import Bottle from "@/views/Bottle.vue"
 import EditOpinion from "@/components/editOpinion.vue";
 import config from "@/store/modules/config";
+import Header from "@/components/Header.vue";
 
 export default {
   name: "Historique",
   components: {
+    Header,
     IonContent, IonHeader, IonPage, IonTitle, IonToolbar,
     Loader, AddBottle, Bottle, EditOpinion
   },
@@ -101,7 +104,7 @@ export default {
   },
   methods: {
     async back() {
-      router.push('/Cave')
+      router.push('/cellar')
     },
     getDay(dateString) {
       const date = new Date(dateString)

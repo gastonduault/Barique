@@ -5,6 +5,10 @@ const i18n = createI18n({
   fallbackLocale: 'en',
   messages: {
     fr: {
+      editCellar: 'Modifier la Cave',
+      newCellar: 'Créer une Cave',
+      disconnect: 'Déconnexion',
+      changeCellar: 'Changer de cave',
       welcome: 'Bienvenue',
       sign: 'Inscris-toi/ Connecte-toi',
       google: 'avec Google',
@@ -51,6 +55,10 @@ const i18n = createI18n({
       add: "Ajouter",
     },
     en: {
+      editCellar: 'Edit this cellar',
+      newCellar: 'New cellar',
+      disconnect: 'Disconnect',
+      changeCellar: 'Change of cellar',
       welcome: 'welcome here',
       sign: 'Sign In/ Login',
       google: 'with Google',

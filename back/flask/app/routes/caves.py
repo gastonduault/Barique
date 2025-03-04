@@ -59,6 +59,7 @@ def update_cave(cave_id):
     decoded_token, error_response = verify_token()
     if error_response:
         return error_response
+
     uid = decoded_token.get('uid')
     data = request.get_json()
     cave = Cave.query.get(cave_id)

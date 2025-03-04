@@ -46,7 +46,6 @@
 
 <script lang="ts">
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/vue';
-import EditCellar from "@/components/editCellar.vue";
 import AddBottle from "@/views/AddBottle.vue";
 import Header from "@/components/Header.vue";
 import Loader from "@/components/loader.vue";
@@ -59,7 +58,7 @@ export default {
   name: "CaveList",
   components: {
     IonContent, IonHeader, IonPage, IonTitle,
-    IonToolbar, Loader, AddBottle, Bottle, EditCellar,
+    IonToolbar, Loader, AddBottle, Bottle,
     Header
   },
   data() {

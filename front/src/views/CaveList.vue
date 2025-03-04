@@ -34,12 +34,11 @@ import store from '@/store'
 import router from "@/router"
 import config from "@/store/modules/config"
 import Loader from "@/components/loader.vue"
-import EditCellar from "@/components/editCellar.vue"
 
 export default {
   name: "CaveList",
   components: {
-    IonContent, IonHeader, IonPage, IonTitle, IonToolbar, Loader, EditCellar
+    IonContent, IonHeader, IonPage, IonTitle, IonToolbar, Loader
   },
   data() {
     return {

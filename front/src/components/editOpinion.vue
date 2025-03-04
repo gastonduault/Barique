@@ -1,7 +1,6 @@
 <template>
   <div class="background" @click.self="close">
     <div class="opinion" :class="{'close': closeModal}">
-    <!--          <p><strong>{{ $t('bottle_opinion') }}</strong></p>-->
       <img src="@/assets/img/close-red.webp"
            class="cancel-creation"
            alt="cancel creation"

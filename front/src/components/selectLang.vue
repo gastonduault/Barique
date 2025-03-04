@@ -1,6 +1,6 @@
 <template>
   <div :class="{'open': open}">
-    <img src="@/assets/img/dropdown.webp" class="dropdown" alt="dropdown"/>
+    <img src="@/assets/img/dropdown.webp"  :class="{'open': open}" class="dropdown" alt="dropdown"/>
     <img @click="changeLanguage(langSelected)"
          :src="'/img/'+langSelected+'.webp'"
          :alt="langSelected" />
@@ -72,28 +72,30 @@ export default {
     overflow-x: initial;
     overflow-y: clip;
     height: 33px;
-    position: relative;
+    position: absolute;
+    right: 20px;
+    top: 17px;
     transition: 0.2s;
     border-radius: 3px 3px;
     padding: 4px 4px;
   }
 
   div.open {
-    height: 74px;
+    height: 64px;
     background-color: var(--background-grey);
   }
 
-  div.open img.dropdown{
-    transform: rotateZ(180deg);
-  }
-
-  img.dropdown {
+  div img.dropdown {
     transition: transform 0.2s;
     position: absolute;
     right: -10px;
     top: 3px;
     width: 11px;
     height: 11px;
+  }
+
+  img.dropdown.open {
+    transform: rotateZ(180deg);
   }
 
   div img {

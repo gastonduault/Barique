@@ -6,6 +6,7 @@
       <span></span>
     </button>
     <nav>
+      <SelectLang />
       <div class="account">
         <img v-if="user.profile_picture" :src="user.profile_picture"  alt=""/> <h4>{{ user.nom }}</h4>
       </div>
@@ -32,6 +33,7 @@
 <script lang="ts">
 import store from "@/store";
 import router from "@/router";
+import SelectLang from "@/components/selectLang.vue";
 
 export default {
   name: 'Menu',
@@ -39,6 +41,9 @@ export default {
     return {
       isOpen: false,
     }
+  },
+  components: {
+    SelectLang
   },
   computed: {
     user: () => store.getters['user/getUser'],

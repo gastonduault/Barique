@@ -1,11 +1,6 @@
 <template>
   <ion-page>
     <Header :title="$t('history')" :back-btn="true" @back="back"/>
-<!--    <ion-header class="header">-->
-<!--      <img src="@/assets/img/back.webp" alt="arrow back" class="back" @click="back"/>-->
-<!--      <img :src="`${API_URL}${cellar.profile_picture}`" alt="profil picture" class="pp"/>-->
-<!--      <h3> {{ $t('history') }} </h3>-->
-<!--    </ion-header>-->
     <div class="content">
       <p v-if="bottles && bottles.length === 0" class="no-bottle">
         {{ $t('no_history.msg_1') }}<br />{{ $t('no_history.msg_2') }}

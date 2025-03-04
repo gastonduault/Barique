@@ -97,7 +97,7 @@ export default{
       this.closeModal=true
       setTimeout(() => {
         this.$emit('closeModale')
-      }, 500)
+      }, 200)
       this.updateBottle()
     },
     initBottleInfo() {
@@ -170,7 +170,7 @@ export default{
 
 h1 {
   font-weight: normal;
-  color: var(--font-pink);
+  color: var(--font-black);
   font-size: 1.2em;
   position: relative;
   width: 80%;
@@ -195,18 +195,15 @@ h1 img.close-modale {
 
 .addbottle {
   position: absolute;
-  top: 25vh;
+  bottom: 0;
   left: 0;
   width: 100%;
-  height: 75vh;
-  overflow-y: auto;
   z-index: 10;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
   animation: form-appear .2s ease-out forwards;
-  backdrop-filter: blur(3px);
   background-color: rgba(255, 255, 255);
 }
 

@@ -18,7 +18,7 @@
         {{ $t('editCellar') }}
       </button>
       <button @click="changeCellar">
-        <img src="@/assets/img/ajouter.webp" alt/>
+        <img src="@/assets/img/change.webp" alt/>
         {{ $t('changeCellar') }}
       </button>
       <button @click="disconnection">
@@ -160,15 +160,15 @@ export default {
 button {
   background-color: var(--background-grey);
   padding: 15px;
-  width: 200px;
+  width: 250px;
   text-align: center;
   border-radius: 5px;
-  font-size: 1.2em;
+  font-size: 1.1em;
   font-weight: bold;
   color: var(--font-black);
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-around;
   gap: 10px;
 }
 

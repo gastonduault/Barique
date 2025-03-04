@@ -78,16 +78,28 @@ export default {
   }
 
   .form {
+    overflow: hidden;
     width: 100%;
     background-color: var(--background-dark);
-    height: 35vh;
-    animation: form-appear .5s ease-out;
-    border-radius: 25px 25px 0 0;
+    animation: form-appear-login .5s ease forwards;
     display: flex;
     flex-direction: column;
     align-content: center;
     align-items: center;
     justify-content: space-around;
+  }
+
+  @keyframes form-appear-login {
+    0% {
+      height: 0;
+      opacity: 0;
+      border-radius: 0 0 0 0;
+    }
+    100% {
+      height: 35vh;
+      opacity: 1;
+      border-radius: 10px 10px 0 0;
+    }
   }
 
   .form .google-logo {

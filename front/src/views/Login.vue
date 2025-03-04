@@ -66,7 +66,7 @@ export default {
 
   h1 {
     font-weight: bold;
-    margin: 30% 0 0 0;
+    margin: 30vh 0 0 0;
   }
 
   .header img {

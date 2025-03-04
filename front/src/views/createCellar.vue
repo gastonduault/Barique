@@ -122,6 +122,7 @@ export default {
       router.push('/cellar');
     },
     async deleteCellar() {
+      this.remove = false
       await store.dispatch("cellar/delete", this.cellar)
     }
   },

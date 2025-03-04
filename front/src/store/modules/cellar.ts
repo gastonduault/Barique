@@ -67,7 +67,7 @@ const actions = {
     commit('setLoading', true)
     axios.delete(`${API_URL}/caves/${cellar.id}`)
       .then(async (response) => {
-        dispatch('updateCellarSelected', {});
+        await dispatch('updateCellarSelected', {});
         await router.push('/cellarList')
       }).catch((error) => {
       console.log(error)

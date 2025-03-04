@@ -175,12 +175,16 @@ const actions = {
     }
   },
 
-  async disconnect({ commit }: any) {
+  async disconnect({ dispatch, commit }: any) {
     try {
       await logout();
-      localStorage.removeItem("token");
-      commit("setUser", { email: null, uid: null, nom: null, profile_picture: null });
+      await storage.create();
+      await storage.remove("token");
+      await storage.remove("cellar");
+      dispatch('cellar/updateCellarSelected', {}, {root: true})
+      commit("setUser", {});
       commit("setConnected", false);
+      router.push('/login')
     } catch (error) {
       console.error("Error disconnection :", error);
     }

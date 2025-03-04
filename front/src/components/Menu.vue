@@ -21,8 +21,8 @@
         <img src="@/assets/img/ajouter.webp" alt/>
         {{ $t('changeCellar') }}
       </button>
-      <button>
-        <img src="@/assets/img/decconection.webp" alt/>
+      <button @click="disconnection">
+        <img src="@/assets/img/decconection.webp"  alt/>
         {{ $t('disconnect') }}
       </button>
     </nav>
@@ -63,6 +63,10 @@ export default {
       router.push({
         path: "/cellarList"
       })
+      this.isOpen = false
+    },
+    disconnection() {
+      store.dispatch('user/disconnect')
       this.isOpen = false
     }
   }

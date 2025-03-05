@@ -115,7 +115,7 @@ export default {
 }
 
 .content.open .burger span:nth-child(3) {
-  transform: rotate(-45deg) translateX(6px) translateY(-6px);
+  transform: rotate(-45deg) translateX(7px) translateY(-6px);
 }
 
 .content {

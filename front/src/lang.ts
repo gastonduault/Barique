@@ -5,6 +5,8 @@ const i18n = createI18n({
   fallbackLocale: 'en',
   messages: {
     fr: {
+      connectionError: 'Erreur de connexion',
+      addToHisotry: 'ajoutée à l\'historique',
       editCellar: 'Modifier la Cave',
       newCellar: 'Créer une Cave',
       disconnect: 'Déconnexion',
@@ -55,6 +57,8 @@ const i18n = createI18n({
       add: "Ajouter",
     },
     en: {
+      connectionError: 'Error of connection',
+      addToHisotry: 'added to the history',
       editCellar: 'Edit this cellar',
       newCellar: 'New cellar',
       disconnect: 'Disconnect',

@@ -38,9 +38,6 @@
     <Bottle v-if="bottleSelected !== null"
             @close-modale="bottleSelected = null"
             :bottle="bottleSelected"/>
-    <EditCellar v-if="editCellar"
-                :cellar="cellar"
-                @close-modal="editCellar = false" />
   </ion-page>
 </template>
 
@@ -87,9 +84,6 @@ export default {
       }
     },
     loading: () => store.getters['bottles/getLoading']
-  },
-  mounted() {
-    console.log(this.cellar)
   },
   methods: {
     addBottle() { this.addBottleOpen = true },

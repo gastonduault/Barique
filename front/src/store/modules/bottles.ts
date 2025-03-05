@@ -1,6 +1,7 @@
 import axios from "axios";
 import router from "@/router";
 import config from "@/store/modules/config";
+import i18n from "@/lang";
 
 const API_URL = config.API_URL;
 
@@ -76,6 +77,14 @@ const actions = {
         if(response.status == 200) {// bottle in the cellar
           await commit('setBottleDeleted', true)
           dispatch('bottles', bottle.cave_id)
+          dispatch(
+            'notifications/newNotification',
+            {
+              message: bottle.nom + " " + i18n.global.t('addToHisotry'),
+              good: true,
+            },
+            { root: true },
+          )
           dispatch('history/bottles', bottle.cave_id, {root: true})
         }
       }).catch((error) => {

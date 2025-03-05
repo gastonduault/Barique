@@ -4,6 +4,7 @@ import cellar from './modules/cellar'
 import bottles from './modules/bottles'
 import history from './modules/history'
 import config from './modules/config'
+import notifications from './modules/notifications'
 
 export default createStore({
   state: {},
@@ -15,6 +16,7 @@ export default createStore({
     cellar,
     bottles,
     history,
-    config
+    config,
+    notifications
   },
 })

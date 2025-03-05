@@ -24,7 +24,6 @@ export default {
     this.storage = new Storage()
     await this.storage.create()
     const token = await this.storage.get('token')
-    console.log(token)
     if(token) {
       await store.dispatch('user/logIn')
     } else {

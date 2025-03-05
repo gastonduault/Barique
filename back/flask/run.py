@@ -4,6 +4,18 @@ from logging.handlers import TimedRotatingFileHandler
 from flask import Flask
 from app import create_app
 from werkzeug.middleware.proxy_fix import ProxyFix
+import firebase_admin
+from firebase_admin import credentials
+
+# Obtenir le chemin absolu du fichier de clé
+firebase_key_path = "/usr/src/app/firebase-adminsdk.json"
+
+# Vérifier si le fichier existe avant d'initialiser Firebase
+if not os.path.exists(firebase_key_path):
+    raise FileNotFoundError(f"Le fichier Firebase Admin SDK est introuvable : {firebase_key_path}")
+
+cred = credentials.Certificate(firebase_key_path)
+firebase_admin.initialize_app(cred)
 
 LOG_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'logs')
 os.makedirs(LOG_DIR, exist_ok=True)

@@ -9,7 +9,8 @@ services:
     ports:
       - "3306:3306"
     volumes:
-      - ./mysql-data:/docker-entrypoint-initdb.d
+      - mysql-data:/var/lib/mysql
+      - ./mysql:/docker-entrypoint-initdb.d
       - ./logs/mysql:/var/log/mysql
     healthcheck:
       test: ["CMD-SHELL", "mysqladmin ping -h localhost"]
@@ -28,13 +29,15 @@ services:
       - MYSQL_DATABASE=${MYSQL_DATABASE}
       - MYSQL_USER=${MYSQL_USER}
       - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - FLASK_APP=run.py
     volumes:
-      - ./flask/app/:/usr/src/run/
+      - ./flask/:/usr/src/app/
       - ./flask/static/uploads:/usr/src/app/app/static/uploads
       - ./logs:/usr/src/app/logs
+      - ./firebase-adminsdk.json:/usr/src/app/firebase-adminsdk.json
     ports:
       - "5001:5001"
-
+    command: flask run --host=0.0.0.0 --port=5001 --reload
 
   adminer:
     image: adminer

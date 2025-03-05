@@ -4,7 +4,6 @@
       <h1>
         <img src="@/assets/img/close-red.webp" class="close-modale" alt="close add bottle" @click="close">
         <input v-model="nom" type="text" :placeholder="$t('name')" class="editable" />
-<!--        <img v-else src="@/assets/img/valid.png" class="edit-bottle valid" alt="edit" @click="updateBottle"/>-->
       </h1>
       <div class="fields">
         <div class="info-bottle">
@@ -31,7 +30,6 @@
                :src="'/img/grape_'+category+'.webp'"/>
         </div>
         <div class="opinion">
-<!--          <p><strong>{{ $t('bottle_opinion') }}</strong></p>-->
           <div class="stars">
             <div v-for="i in 5" :key="i" @click="score = i">
               <img src="@/assets/img/empty_star.webp" alt="stars" v-if="score<i"/>
@@ -49,10 +47,6 @@
             <p>{{ $t('bottle_drunk') }}</p>
             <img src="@/assets/img/bottle_drunk.webp" alt="remove bottle"/>
           </button>
-<!--          <nav v-else>-->
-<!--            <button @click="cancelEditBottle">{{ $t('cancel') }}</button>-->
-<!--            <button @click="updateBottle">{{ $t('update') }}</button>-->
-<!--          </nav>-->
         </div>
       </div>
     </div>
@@ -97,7 +91,7 @@ export default{
       this.closeModal=true
       setTimeout(() => {
         this.$emit('closeModale')
-      }, 500)
+      }, 200)
       this.updateBottle()
     },
     initBottleInfo() {
@@ -145,7 +139,7 @@ export default{
     },
     formatDateForMySQL(date) {
       const year = date.getFullYear();
-      const month = String(date.getMonth() + 1).padStart(2, '0'); // Mois de 0 à 11
+      const month = String(date.getMonth() + 1).padStart(2, '0'); // month de 0 à 11
       const day = String(date.getDate()).padStart(2, '0');
       const hours = String(date.getHours()).padStart(2, '0');
       const minutes = String(date.getMinutes()).padStart(2, '0');
@@ -170,7 +164,7 @@ export default{
 
 h1 {
   font-weight: normal;
-  color: var(--font-pink);
+  color: var(--font-black);
   font-size: 1.2em;
   position: relative;
   width: 80%;
@@ -195,18 +189,15 @@ h1 img.close-modale {
 
 .addbottle {
   position: absolute;
-  top: 25vh;
+  bottom: 0;
   left: 0;
   width: 100%;
-  height: 75vh;
-  overflow-y: auto;
   z-index: 10;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
   animation: form-appear .2s ease-out forwards;
-  backdrop-filter: blur(3px);
   background-color: rgba(255, 255, 255);
 }
 
@@ -222,7 +213,7 @@ h1 img.close-modale {
   height: 100%;
   position : relative;
   justify-content: space-around;
-  padding-bottom: 25px;
+  padding-bottom: 8%;
 }
 
 .info-bottle {
@@ -256,7 +247,7 @@ h1 img.close-modale {
 }
 
 .inputs input {
-  margin-top: 10%;
+  margin-top: 8%;
   color: var(--font-black);
   position: relative;
   width: 95%;

@@ -1,9 +1,8 @@
-import {initializeApp} from "firebase/app";
-import {getAuth, GoogleAuthProvider, signInWithPopup, signOut} from "firebase/auth";
-import {Capacitor} from "@capacitor/core";
-import {GoogleAuth} from "@codetrix-studio/capacitor-google-auth";
+import { initializeApp } from "firebase/app";
+import { getAuth, GoogleAuthProvider, signInWithPopup, signOut } from "firebase/auth";
+import { Capacitor } from "@capacitor/core";
+import { GoogleAuth } from "@codetrix-studio/capacitor-google-auth";
 
-// Configuration Firebase
 const firebaseConfig = {
   apiKey: "AIzaSyCpl7d07qzmKBqZjt8ZMMwgAG1c8bL8koQ",
   authDomain: "barique-c0e3a.firebaseapp.com",
@@ -18,39 +17,40 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
 
-// Fonction d'authentification avec Google
+// Google auth xith token firbase
 const signInWithGoogle = async () => {
   try {
-    // Android
     if (Capacitor.isNativePlatform()) {
       await GoogleAuth.initialize({
         clientId: "97526311048-tmiibfki5o5plfcjel513b0n4a5qan0e.apps.googleusercontent.com",
         scopes: ["profile", "email"],
         grantOfflineAccess: true,
       });
+
       const response = await GoogleAuth.signIn();
       return {
         email: response.email,
-        account_id: response.id,
+        uid: response.id,
         nom: response.displayName,
-        profile_picture: response.imageUrl
+        profile_picture: response.imageUrl,
+        getIdToken: async () => response.authentication.idToken  // get the firebase token
       };
     } else {
-      //  web
-      const response = await signInWithPopup(auth, provider);
+      const result = await signInWithPopup(auth, provider);
       return {
-        email: response.user.email,
-        account_id: response.user.uid,
-        nom: response.user.displayName,
-        profile_picture: response.user.photoUrl
+        email: result.user.email,
+        uid: result.user.uid,
+        nom: result.user.displayName,
+        profile_picture: result.user.photoURL,
+        getIdToken: () => result.user.getIdToken() // get the firebase token
       };
     }
   } catch (error) {
     console.error("Erreur de connexion Google :", error);
+    return null;
   }
 };
 
-// Fonction de déconnexion
 const logout = async () => {
   try {
     await signOut(auth);

@@ -1,6 +1,7 @@
 import axios from "axios";
 import router from "@/router";
 import config from "@/store/modules/config";
+import i18n from "@/lang";
 
 const API_URL = config.API_URL;
 
@@ -27,14 +28,21 @@ const getters = {
 };
 
 const actions = {
-  async bottles({commit}: any, id: any) {
+  async bottles({dispatch, commit}: any, id: any) {
     commit('setLoading', true)
     axios.get(`${API_URL}/bouteilles/cave/` + id)
       .then((response) => {
         if(response.status == 200) // bottle in the cellar
           commit('setBottles', response.data)
       }).catch((error) => {
-        console.log(error)
+        dispatch(
+          'notifications/newNotification',
+          {
+            message: i18n.global.t('errorLoadBottles'),
+            good: false,
+          },
+          { root: true },
+        )
       }).finally(() => {
         commit('setLoading', false)
       })
@@ -50,7 +58,14 @@ const actions = {
         }
       }).catch((error) => {
       commit('setBottleAdded', false)
-      console.log(error)
+      dispatch(
+        'notifications/newNotification',
+        {
+          message: i18n.global.t('errorCreateBottle'),
+          good: false,
+        },
+        { root: true },
+      )
     }).finally(() => {
       commit('setLoading', false)
     })
@@ -63,7 +78,14 @@ const actions = {
           dispatch('bottles', bottle.cave_id)
         }
       }).catch((error) => {
-      console.log(error)
+      dispatch(
+        'notifications/newNotification',
+        {
+          message: i18n.global.t('errorUpdateBottle'),
+          good: false,
+        },
+        { root: true },
+      )
     }).finally(() => {
       commit('setLoading', false)
     })
@@ -76,11 +98,26 @@ const actions = {
         if(response.status == 200) {// bottle in the cellar
           await commit('setBottleDeleted', true)
           dispatch('bottles', bottle.cave_id)
+          dispatch(
+            'notifications/newNotification',
+            {
+              message: bottle.nom + " " + i18n.global.t('addToHisotry'),
+              good: true,
+            },
+            { root: true },
+          )
           dispatch('history/bottles', bottle.cave_id, {root: true})
         }
       }).catch((error) => {
       commit('setBottleDeleted', false)
-      console.log(error)
+      dispatch(
+        'notifications/newNotification',
+        {
+          message: i18n.global.t('deleteBottle'),
+          good: false,
+        },
+        { root: true },
+      )
     }).finally(() => {
       commit('setLoading', false)
     })

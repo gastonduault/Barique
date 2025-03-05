@@ -1,70 +1,38 @@
 <template>
   <ion-page>
-    <ion-header class="header">
-      <SelectLang class="select-lang"/>
-      <h1>{{ $t('welcome') }} 🤗</h1>
-      <img src="@/assets/img/Logo_PolyWine.webp"  alt="logo polywine"/>
-    </ion-header>
-
-    <div class="form">
-      <div class="google">
-        <img class="google-logo" src="@/assets/img/Google_login.webp"  alt="logo google"/>
-        <button class="google-login" @click="logIn_"> {{ $t('sign')}} 🗝️{{ $t('google')}}</button>
-      </div>
-    </div>
-    <loader v-if="loading"/>
+    <loader/>
   </ion-page>
 </template>
 
-
-<script lang="ts">
-import { Storage } from '@ionic/storage'
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/vue'
-import { auth, signInWithGoogle, logout, provider} from "@/firebase-config";
-import SelectLang from "@/components/selectLang.vue"
-import loader from "@/components/loader.vue"
-import router from "@/router"
+<script>
 import store from '@/store'
-
-
+import router from "@/router"
+import {Storage} from "@ionic/storage";
+import loader from "@/components/loader.vue"
+import { IonPage } from '@ionic/vue';
 
 export default {
-  name: "HomePage",
-  data() {
-    return {
-      storage: new Storage,
-    }
-  },
   components: {
-    IonContent, IonHeader, IonPage, IonTitle, IonToolbar, loader, SelectLang
-  },
-  async created() {
-    this.storage = new Storage();
-    await this.storage.create();
-    const account_id_storage = await this.storage.get('uid');
-    if(account_id_storage) {
-      store.dispatch('user/login', account_id_storage)
-        .then(() => { if(this.connected) router.push('./caveList') });
-    }
+    loader,
+    IonPage
   },
   computed: {
+    user: () => { return store.getters['user/getUser'] },
     connected: () => { return store.getters['user/getConnected'] },
-    loading: () => { return store.getters['user/getLoading'] },
   },
-  methods: {
-    async saveUserData(uid: any) {
-      await this.storage.set('uid', uid);
-    },
-    async logIn_() {
-      const user = await signInWithGoogle();
-      await store.dispatch('user/authentification', user);
-      await this.saveUserData(store.getters['user/getUSer'].uid)
-      if(this.connected) await router.push('/caveList');
+  async mounted() {
+    this.storage = new Storage()
+    await this.storage.create()
+    const token = await this.storage.get('token')
+    if(token) {
+      await store.dispatch('user/logIn')
+    } else {
+      router.push('./Login')
     }
   }
-}
-
+};
 </script>
+
 
 <style scoped>
   .header {

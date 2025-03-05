@@ -1,14 +1,15 @@
 import axios from "axios";
 import config from "@/store/modules/config";
+import router from "@/router";
+import {Storage} from "@ionic/storage";
+import i18n from "@/lang";
 
 const API_URL = config.API_URL;
+const storage = new Storage();
 
 const state = {
   cellars: [],
-  cellarSelected: {
-    id: null,
-    nom: null
-  },
+  cellarSelected: {},
   images: [],
   loading: false,
 };
@@ -28,24 +29,39 @@ const getters = {
   }
 };
 const actions = {
-  async listCellars({commit}: any, uid: any) {
+  async listCellars({dispatch, commit}: any) {
     commit('setLoading', true)
-    axios.get(`${API_URL}/caves/owner/`+uid)
+    axios.get(`${API_URL}/caves/owner`)
     .then((response) => {
         commit('setCellars', response.data.caves)
     }).catch((error) => {
-      console.log(error)
+      dispatch(
+        'notifications/newNotification',
+        {
+          message: i18n.global.t('errorLoadCellar'),
+          good: false,
+        },
+        { root: true },
+      )
     }).finally(() => {
       commit('setLoading', false)
     })
   },
-  async create({commit, dispatch}: any, cellar: any) {
+  async create({commit, dispatch}: any, name: string) {
     commit('setLoading', true)
-    axios.post(`${API_URL}/caves`, cellar)
+    axios.post(`${API_URL}/caves`, { name: name } )
     .then((response) => {
-        dispatch('listCellars', cellar.proprietaire_uid)
+      dispatch("updateCellarSelected", response.data.cave);
+      router.push("/cellar");
     }).catch((error) => {
-        console.log(error)
+      dispatch(
+        'notifications/newNotification',
+        {
+          message: i18n.global.t('errorCreateCellar'),
+          good: false,
+        },
+        { root: true },
+      )
     }).finally(() => {
         commit('setLoading', false)
     })
@@ -54,9 +70,17 @@ const actions = {
     commit('setLoading', true)
     axios.post(`${API_URL}/caves/${cellar.id}`, cellar)
     .then((response) => {
-        commit('setCellarSelected', cellar)
+      commit('setCellarSelected', cellar);
+      router.push("/cellar")
     }).catch((error) => {
-      console.log(error)
+      dispatch(
+        'notifications/newNotification',
+        {
+          message: i18n.global.t('errorUpdateCellar'),
+          good: false,
+        },
+        { root: true },
+      )
     }).finally(() => {
       commit('setLoading', false)
     })
@@ -64,10 +88,18 @@ const actions = {
   async delete({commit, dispatch}: any, cellar: any) {
     commit('setLoading', true)
     axios.delete(`${API_URL}/caves/${cellar.id}`)
-      .then((response) => {
-        commit('setCellarSelected', {})
+      .then(async (response) => {
+        await dispatch('updateCellarSelected', {});
+        await router.push('/cellarList')
       }).catch((error) => {
-      console.log(error)
+      dispatch(
+        'notifications/newNotification',
+        {
+          message: i18n.global.t('errorDeleteCellar'),
+          good: false,
+        },
+        { root: true },
+      )
     }).finally(() => {
       commit('setLoading', false)
     })
@@ -82,7 +114,7 @@ const actions = {
         commit('setLoading', false)
       })
   },
-  async updtaeCellarSelected({commit}: any, cellar:any) {
+  async updateCellarSelected({commit}: any, cellar: any) {
     await commit('setCellarSelected', cellar)
   }
 };
@@ -94,8 +126,10 @@ const mutations = {
   addCellar(state: any, value: any) {
     state.cellars.push(value)
   },
-  setCellarSelected(state: any, value: any) {
+  async setCellarSelected(state: any, value: any) {
     state.cellarSelected = value
+    await storage.create();
+    await storage.set('cellar', value)
   },
   setLoading(state: any, value: any) {
     state.loading = value

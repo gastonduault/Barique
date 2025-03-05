@@ -1,6 +1,7 @@
 import axios from "axios";
 import router from "@/router";
 import config from "@/store/modules/config";
+import i18n from "@/lang";
 
 const API_URL = config.API_URL;
 
@@ -19,9 +20,9 @@ const getters = {
 };
 
 const actions = {
-  async bottles({commit}: any, id: any) {
+  async bottles({dispatch, commit}: any) {
     commit('setLoading', true)
-    axios.get(`${API_URL}/historique/${id}`)
+    axios.get(`${API_URL}/historique`)
       .then((response) => {
         if(response.status == 200) // bottle in the cellar
           commit('setBottles', response.data)

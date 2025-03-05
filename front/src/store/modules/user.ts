@@ -29,6 +29,7 @@ const getters = {
 
 const actions = {
   async authentification({dispatch, commit }: any) {
+    console.log("authentification")
     commit("setLoading", true);
     try {
       const googleUser = await signInWithGoogle();
@@ -166,17 +167,19 @@ const actions = {
     }
   },
   async navigation({dispatch, commit}, response) {
+    console.log("passage navigation")
     const userData = {
       email: response.data.email,
       uid: response.data.uid,
       nom: response.data.nom,
       profile_picture: response.data.profile_picture,
     };
-    const position = router.currentRoute.value.fullPath
     commit("setUser", userData);
     commit("setConnected", true);
-    if (position === "/login" || position === "/home"){
+    const position = router.currentRoute.value.fullPath
+    if (position === "/Login" || position === "/home"){
       if (response.data.cave && response.data.cave.nom) {
+        console.log("push /cellar")
         dispatch('cellar/updateCellarSelected', response.data.cave, {root: true})
         router.push("/cellar");
       } else {

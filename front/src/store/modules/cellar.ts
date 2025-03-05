@@ -2,6 +2,7 @@ import axios from "axios";
 import config from "@/store/modules/config";
 import router from "@/router";
 import {Storage} from "@ionic/storage";
+import i18n from "@/lang";
 
 const API_URL = config.API_URL;
 const storage = new Storage();
@@ -28,13 +29,20 @@ const getters = {
   }
 };
 const actions = {
-  async listCellars({commit}: any) {
+  async listCellars({dispatch, commit}: any) {
     commit('setLoading', true)
     axios.get(`${API_URL}/caves/owner`)
     .then((response) => {
         commit('setCellars', response.data.caves)
     }).catch((error) => {
-      console.log(error)
+      dispatch(
+        'notifications/newNotification',
+        {
+          message: i18n.global.t('errorLoadCellar'),
+          good: false,
+        },
+        { root: true },
+      )
     }).finally(() => {
       commit('setLoading', false)
     })
@@ -46,7 +54,14 @@ const actions = {
       dispatch("updateCellarSelected", response.data.cave);
       router.push("/cellar");
     }).catch((error) => {
-        console.log(error)
+      dispatch(
+        'notifications/newNotification',
+        {
+          message: i18n.global.t('errorCreateCellar'),
+          good: false,
+        },
+        { root: true },
+      )
     }).finally(() => {
         commit('setLoading', false)
     })
@@ -58,7 +73,14 @@ const actions = {
       commit('setCellarSelected', cellar);
       router.push("/cellar")
     }).catch((error) => {
-      console.log(error)
+      dispatch(
+        'notifications/newNotification',
+        {
+          message: i18n.global.t('errorUpdateCellar'),
+          good: false,
+        },
+        { root: true },
+      )
     }).finally(() => {
       commit('setLoading', false)
     })
@@ -70,7 +92,14 @@ const actions = {
         await dispatch('updateCellarSelected', {});
         await router.push('/cellarList')
       }).catch((error) => {
-      console.log(error)
+      dispatch(
+        'notifications/newNotification',
+        {
+          message: i18n.global.t('errorDeleteCellar'),
+          good: false,
+        },
+        { root: true },
+      )
     }).finally(() => {
       commit('setLoading', false)
     })

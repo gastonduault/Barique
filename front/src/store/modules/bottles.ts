@@ -28,14 +28,21 @@ const getters = {
 };
 
 const actions = {
-  async bottles({commit}: any, id: any) {
+  async bottles({dispatch, commit}: any, id: any) {
     commit('setLoading', true)
     axios.get(`${API_URL}/bouteilles/cave/` + id)
       .then((response) => {
         if(response.status == 200) // bottle in the cellar
           commit('setBottles', response.data)
       }).catch((error) => {
-        console.log(error)
+        dispatch(
+          'notifications/newNotification',
+          {
+            message: i18n.global.t('errorLoadBottles'),
+            good: false,
+          },
+          { root: true },
+        )
       }).finally(() => {
         commit('setLoading', false)
       })
@@ -51,7 +58,14 @@ const actions = {
         }
       }).catch((error) => {
       commit('setBottleAdded', false)
-      console.log(error)
+      dispatch(
+        'notifications/newNotification',
+        {
+          message: i18n.global.t('errorCreateBottle'),
+          good: false,
+        },
+        { root: true },
+      )
     }).finally(() => {
       commit('setLoading', false)
     })
@@ -64,7 +78,14 @@ const actions = {
           dispatch('bottles', bottle.cave_id)
         }
       }).catch((error) => {
-      console.log(error)
+      dispatch(
+        'notifications/newNotification',
+        {
+          message: i18n.global.t('errorUpdateBottle'),
+          good: false,
+        },
+        { root: true },
+      )
     }).finally(() => {
       commit('setLoading', false)
     })
@@ -89,7 +110,14 @@ const actions = {
         }
       }).catch((error) => {
       commit('setBottleDeleted', false)
-      console.log(error)
+      dispatch(
+        'notifications/newNotification',
+        {
+          message: i18n.global.t('deleteBottle'),
+          good: false,
+        },
+        { root: true },
+      )
     }).finally(() => {
       commit('setLoading', false)
     })

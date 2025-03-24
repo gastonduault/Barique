@@ -60,6 +60,7 @@ jobs:
           script: |
             cd  ~/Ma_Cave
             git stash
+            git checkout production
             git pull origin production
             cd back
             docker compose --env-file .env -f docker-compose-prod.yml down 

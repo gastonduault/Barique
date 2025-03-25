@@ -3,8 +3,14 @@
 .vscode
 .env
 front/package-lock.json
-back/.env
-back/.logs
 firebase-adminsdk.json
 google-services.json
+
+
+#Back
+back/.env
+back/.logs
 back/logs/*
+back/certbot/*
+back/letsencrypt/*
+**/__pycache__/*

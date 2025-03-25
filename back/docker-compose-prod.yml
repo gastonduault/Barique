@@ -34,7 +34,7 @@ services:
       - ./flask/:/usr/src/app/
       - ./flask/static/uploads:/usr/src/app/app/static/uploads
       - ./logs:/usr/src/app/logs
-      - ./firebase-adminsdk.json:/usr/src/app/firebase-adminsdk.json
+      - ./flask/firebase-adminsdk.json:/usr/src/app/firebase-adminsdk.json
     ports:
       - "5001:5001"
     command: flask run --host=0.0.0.0 --port=5001 --reload
@@ -53,6 +53,7 @@ services:
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf:ro
       - /etc/letsencrypt:/etc/letsencrypt:ro
+      - ./certbot/www:/var/www/certbot:ro
     depends_on:
       - api-flask
       - adminer
@@ -62,11 +63,7 @@ services:
     volumes:
       - ./certbot/www:/var/www/certbot
       - ./letsencrypt:/etc/letsencrypt
-    entrypoint: >
-      sh -c "certbot certonly --webroot --webroot-path=/var/www/certbot
-      --email gas.duault@gmail.com --agree-tos --no-eff-email
-      -d barique.fr -d www.barique.fr"
-
+    entrypoint: "/bin/sh -c 'echo Certbot ready. run manually for renewing.'"
 
 volumes:
   mysql-data:

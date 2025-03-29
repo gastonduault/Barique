@@ -1,9 +1,13 @@
 ## CMD ionic
-créer un projet <br /> 
-`ionic start front  blank --type=vue --capacitor`
+créer un projet 
+```bash
+ionic start front  blank --type=vue --capacitor
+```
 
-lancer le projet (web) <br />
-`ionic serve`
+lancer le projet (web) 
+```bash
+ionic serve
+```
 
 Init capacitor and build project<br />
 `ionic build`

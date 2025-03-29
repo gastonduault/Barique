@@ -5,8 +5,8 @@ A mobile application designed to help you manage your wine cellar efficiently. W
 ## Features
 
 ### Version 1.0
-The first release is focused on **Android** with the following functionalities:
-- **Authentication**: Login with Google.
+The first release is focused on **Android** and **Web** with the following functionalities:
+- **Authentication**: Login with Google (firebase).
 - **Language Support**: Available in English and French.
 - **Cellar Management**:
     - Create, edit, and delete your wine cellar(s).
@@ -42,51 +42,26 @@ docker-compose -f docker-compose-dev.yml up
 ## Branch Management
 
 The project follows a Git-based branching strategy:
-- **`main`**: Used for development.
-- **`production`**: Used for production-ready releases.
+- **`dev`**: Used for development.
+- **`main`**: Used for production-ready releases.
 
 ### GitHub Actions
 1. **CI Pipeline** (`CI pipeline.yml`):
-    - Runs on every push to the `main` branch.
+    - Runs on every push to the `dev` branch.
     - Updates the Docker image (`:dev`) for development.
 
 2. **Deployment Workflow** (`deploy-backend.yml`):
-    - Triggers on pull requests to the `production` branch.
+    - Triggers on pull requests to the `main` branch.
     - Updates the production Docker image (`:latest`) by building from the `:dev` image.
 
-
-## Future Roadmap
-Planned features for upcoming releases:
-- Deployement Android
-  - add certificat openSSL (HTTPS)
-  - CI for deploy on the Playstore
-- Web version of the app
-  - responsive for all devices
-- IOS
-- Follow friends and see cellar of other user
-- AI who can give advise to the user
-  - chatbot
-  - model trained
-
 ## Screenshot
-[//]: # (![img.png]&#40;images/login.png&#41;)
-
-[//]: # (![img.png]&#40;images/yourcellar.png&#41;)
-
-[//]: # (![img.png]&#40;images/cellar.png&#41;)
-
-[//]: # (![img.png]&#40;images/bottledetails.png&#41;)
-
-[//]: # (![img.png]&#40;images/history.png&#41;)
-
-[//]: # (![img.png]&#40;images/editreviewnInHisoty.png&#41;)
 
 <div style="display: flex; flex-wrap: wrap; gap: 10px;">
 
   <img src="images/login.png" alt="Login Screen" width="45%">
-  <img src="images/yourcellar.png" alt="Your Cellar Screen" width="45%">
-
   <img src="images/cellar.png" alt="Cellar Screen" width="45%">
+
+  <img src="images/menu.png" alt="Your Cellar Screen" width="45%">
   <img src="images/bottledetails.png" alt="Bottle Details Screen" width="45%">
 
   <img src="images/history.png" alt="History Screen" width="45%">
@@ -94,4 +69,3 @@ Planned features for upcoming releases:
 
 </div>
 
-> _By **Vladou** and **Gastoune**_ 🤪

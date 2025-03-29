@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">front</string>
-    <string name="title_activity_main">front</string>
+    <string name="app_name">Barique</string>
+    <string name="title_activity_main">Barique</string>
     <string name="package_name">io.ionic.starter</string>
     <string name="custom_url_scheme">io.ionic.starter</string>
     <string name="server_client_id">97526311048-tmiibfki5o5plfcjel513b0n4a5qan0e.apps.googleusercontent.com</string>

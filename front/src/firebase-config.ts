@@ -1,7 +1,8 @@
 import { initializeApp } from "firebase/app";
-import { getAuth, GoogleAuthProvider, signInWithPopup, signOut } from "firebase/auth";
 import { Capacitor } from "@capacitor/core";
 import { GoogleAuth } from "@codetrix-studio/capacitor-google-auth";
+import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, signInWithCredential } from "firebase/auth";
+
 
 const firebaseConfig = {
   apiKey: "AIzaSyCpl7d07qzmKBqZjt8ZMMwgAG1c8bL8koQ",
@@ -17,7 +18,7 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
 
-// Google auth xith token firbase
+// Google auth with token firebase
 const signInWithGoogle = async () => {
   try {
     if (Capacitor.isNativePlatform()) {
@@ -28,12 +29,24 @@ const signInWithGoogle = async () => {
       });
 
       const response = await GoogleAuth.signIn();
+
+      const idTokenGoogle = response.authentication.idToken;
+
+      // 💥 Nouvelle étape ici : on crée un credential Firebase avec le token Google
+      const credential = GoogleAuthProvider.credential(idTokenGoogle);
+
+      // 💥 On se connecte à Firebase avec ce credential
+      const result = await signInWithCredential(auth, credential);
+
+      // ✅ On récupère le vrai token Firebase (compatible avec auth.verify_id_token())
+      const firebaseIdToken = await result.user.getIdToken();
+
       return {
-        email: response.email,
-        uid: response.id,
-        nom: response.displayName,
-        profile_picture: response.imageUrl,
-        getIdToken: async () => response.authentication.idToken  // get the firebase token
+        email: result.user.email,
+        uid: result.user.uid,
+        nom: result.user.displayName,
+        profile_picture: result.user.photoURL,
+        getIdToken: async () => firebaseIdToken
       };
     } else {
       const result = await signInWithPopup(auth, provider);
@@ -42,7 +55,7 @@ const signInWithGoogle = async () => {
         uid: result.user.uid,
         nom: result.user.displayName,
         profile_picture: result.user.photoURL,
-        getIdToken: () => result.user.getIdToken() // get the firebase token
+        getIdToken: () => result.user.getIdToken()
       };
     }
   } catch (error) {

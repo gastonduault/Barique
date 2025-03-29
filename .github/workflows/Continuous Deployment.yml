@@ -3,7 +3,7 @@ name: Deploy Backend
 on:
   pull_request:
     branches:
-      - production
+      - main
     types:
       - closed
 
@@ -43,12 +43,12 @@ jobs:
           port: ${{ secrets.SSH_PORT }}
           envs: MYSQL_ROOT_PASSWORD, MYSQL_DATABASE, MYSQL_USER, MYSQL_PASSWORD
           script: |
-            echo "MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}" > ~/Ma_Cave/back/.env
-            echo "MYSQL_DATABASE=${MYSQL_DATABASE}" >> ~/Ma_Cave/back/.env
-            echo "MYSQL_USER=${MYSQL_USER}" >> ~/Ma_Cave/back/.env
-            echo "MYSQL_PASSWORD=${MYSQL_PASSWORD}" >> ~/Ma_Cave/back/.env
-            echo "FLASK_ENV=production" >> ~/Ma_Cave/back/.env
-            echo "DOMAIN=${DOMAIN}" >> ~/Ma_Cave/back/.env
+            echo "MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}" > ~/Barique/back/.env
+            echo "MYSQL_DATABASE=${MYSQL_DATABASE}" >> ~/Barique/back/.env
+            echo "MYSQL_USER=${MYSQL_USER}" >> ~/Barique/back/.env
+            echo "MYSQL_PASSWORD=${MYSQL_PASSWORD}" >> ~/Barique/back/.env
+            echo "FLASK_ENV=production" >> ~/Barique/back/.env
+            echo "DOMAIN=${DOMAIN}" >> ~/Barique/back/.env
 
       - name: Deploy backend with Docker Compose
         uses: appleboy/ssh-action@v1.2.0
@@ -58,11 +58,11 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: ${{ secrets.SSH_PORT }}
           script: |
-            cd  ~/Ma_Cave
+            cd  ~/Barique
             git stash
             git checkout production
             git pull origin production
             cd back
             docker compose --env-file .env -f docker-compose-prod.yml down 
             docker pull gastoooon/macave_backend:latest
-            docker compose --env-file .env -f docker-compose-prod.yml up -d --build
+            docker compose -f docker-compose-prod.yml up -d --build

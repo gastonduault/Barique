@@ -102,15 +102,3 @@ jobs:
           port: ${{ secrets.SSH_PORT }}
           source: "./front/dist/*"
           target: "/var/www/html"
-
-      - name: Restart Nginx container
-        uses: appleboy/ssh-action@v1.2.0
-        with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USER }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          port: ${{ secrets.SSH_PORT }}
-          script: |
-            cd ~/Barique
-            cd back
-            docker compose -f docker-compose-prod.yml restart nginx

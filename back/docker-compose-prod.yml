@@ -54,6 +54,7 @@ services:
       - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf:ro
       - /etc/letsencrypt:/etc/letsencrypt:ro
       - ./certbot/www:/var/www/certbot:ro
+      - /var/www/html:/usr/share/nginx/html:ro
     depends_on:
       - api-flask
       - adminer

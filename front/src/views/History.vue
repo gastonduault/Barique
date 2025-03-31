@@ -260,4 +260,10 @@ export default {
   line-height: 70px;
 }
 
+@media screen and (min-width: 580px) {
+  .stars {
+    width: 170px;
+  }
+}
+
 </style>

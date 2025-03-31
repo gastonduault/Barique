@@ -22,7 +22,7 @@ const getters = {
 const actions = {
   async bottles({dispatch, commit}: any) {
     commit('setLoading', true)
-    axios.get(`${API_URL}/historique`)
+    axios.get(`${API_URL}/history`)
       .then((response) => {
         if(response.status == 200) // bottle in the cellar
           commit('setBottles', response.data)
@@ -34,7 +34,7 @@ const actions = {
   },
   async update({commit, dispatch}: any, bottle) {
     commit('setLoading', true)
-    axios.post(`${API_URL}/historique/${bottle.id}`, bottle)
+    axios.post(`${API_URL}/history/${bottle.id}`, bottle)
       .then(async (response) => {
         if(response.status == 200) {// bottle in the cellar
           dispatch('bottles', bottle.cave_id)

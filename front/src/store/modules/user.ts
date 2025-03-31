@@ -29,7 +29,6 @@ const getters = {
 
 const actions = {
   async authentification({dispatch, commit }: any) {
-    console.log("authentification")
     commit("setLoading", true);
     try {
       const googleUser = await signInWithGoogle();
@@ -38,7 +37,7 @@ const actions = {
       }
       const idToken = await googleUser.getIdToken();
 
-      const response = await axios.post(`${API_URL}/utilisateurs`, {}, {
+      const response = await axios.post(`${API_URL}/login`, {}, {
         headers: { Authorization: `Bearer ${idToken}` }
       });
 
@@ -88,7 +87,7 @@ const actions = {
         await storage.set("token", idToken);
       }
 
-      const response = await axios.post(`${API_URL}/utilisateurs`, {}, {
+      const response = await axios.post(`${API_URL}/login`, {}, {
         headers: { Authorization: `Bearer ${idToken}` },
       });
 
@@ -128,7 +127,7 @@ const actions = {
         await storage.set("token", idToken);
       }
 
-      const response = await axios.post(`${API_URL}/utilisateurs`, {}, {
+      const response = await axios.post(`${API_URL}/login`, {}, {
         headers: { Authorization: `Bearer ${idToken}` },
       });
 

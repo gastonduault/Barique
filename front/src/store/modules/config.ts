@@ -1,4 +1,4 @@
 export default {
-  API_URL: 'https://www.barique.fr',
-  // API_URL: 'http://localhost:5001',
+  // API_URL: 'https://www.barique.fr/api',
+  API_URL: 'http://localhost:5001/api',
 } 

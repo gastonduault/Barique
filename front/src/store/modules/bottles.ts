@@ -30,7 +30,7 @@ const getters = {
 const actions = {
   async bottles({dispatch, commit}: any, id: any) {
     commit('setLoading', true)
-    axios.get(`${API_URL}/bouteilles/cave/` + id)
+    axios.get(`${API_URL}/bottles/cellars/` + id)
       .then((response) => {
         if(response.status == 200) // bottle in the cellar
           commit('setBottles', response.data)
@@ -50,7 +50,7 @@ const actions = {
   async create({commit, dispatch}: any, bottle) {
     commit('setLoading', true)
     commit('setBottleAdded', false)
-    axios.post(`${API_URL}/bouteilles`, bottle)
+    axios.post(`${API_URL}/bottles`, bottle)
       .then(async (response) => {
         if(response.status == 200) {// bottle in the cellar
           await commit('setBottleAdded', true)
@@ -72,7 +72,7 @@ const actions = {
   },
   async update({commit, dispatch}: any, bottle) {
     commit('setLoading', true)
-    axios.post(`${API_URL}/bouteilles/${bottle.id}`, bottle)
+    axios.post(`${API_URL}/bottles/${bottle.id}`, bottle)
       .then(async (response) => {
         if(response.status == 200) {// bottle in the cellar
           dispatch('bottles', bottle.cave_id)
@@ -93,7 +93,7 @@ const actions = {
   async delete({commit, dispatch}: any, bottle) {
     commit('setLoading', true)
     commit('setBottleDeleted', false)
-    axios.post(`${API_URL}/bouteilles/drunk/${bottle.id}`, bottle)
+    axios.post(`${API_URL}/bottles/drunk/${bottle.id}`, bottle)
       .then(async (response) => {
         if(response.status == 200) {// bottle in the cellar
           await commit('setBottleDeleted', true)

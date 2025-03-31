@@ -1,8 +1,8 @@
 <template>
     <div class="top" @click="close"></div>
     <div v-if="bottle" class="addbottle" :class="{'close': closeModal}">
-      <h1>
         <img src="@/assets/img/close-red.webp" class="close-modale" alt="close add bottle" @click="close">
+      <h1>
         <input v-model="nom" type="text" :placeholder="$t('name')" class="editable" />
       </h1>
       <div class="fields">
@@ -167,7 +167,7 @@ h1 {
   color: var(--font-black);
   font-size: 1.2em;
   position: relative;
-  width: 80%;
+  width: 70%;
   text-align: center;
 }
 
@@ -177,13 +177,14 @@ h1 input {
   text-align: center;
   background-color: var(--background-grey);
   border-radius: 10px 10px;
+  width: 100%;
 }
 
-h1 img.close-modale {
+img.close-modale {
   position: absolute;
-  left: -5%;
+  left: 20px;
   width: 30px;
-  top: -2px;
+  top: 20px;
   cursor: pointer;
 }
 
@@ -345,6 +346,17 @@ h1 img.close-modale {
   border-radius: 5px 5px;
   padding: 5px 5px;
   width: 90%;
+}
+
+@media screen and (min-width: 580px) {
+  .inputs input,
+  .opinion textarea {
+    margin-top: 30px !important;
+  }
+  .category,
+  .bottom{
+    margin: 30px;
+  }
 }
 
 </style>

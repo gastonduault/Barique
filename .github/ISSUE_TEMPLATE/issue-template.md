@@ -1,6 +1,8 @@
 ---
 name: 'Issue Template'
 title: "[Feature|Refactor|Fix] Brief description of the feature"
+labels: ''
+assignees: ''
 ---
 
 ## 📌 **Description**

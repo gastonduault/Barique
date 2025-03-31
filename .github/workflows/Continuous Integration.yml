@@ -10,7 +10,7 @@ on:
 
 jobs:
   front-pipeline:
-    name: Frontend Tests
+    name: Frontend build
     runs-on: ubuntu-latest
 
     steps:
@@ -33,8 +33,9 @@ jobs:
         working-directory: ./front
         run: ionic build
 
-  backend-build:
-    name: Build Backend
+
+  backend-pipeline:
+    name: Backend build and push
     runs-on: ubuntu-latest
 
     steps:
@@ -70,30 +71,16 @@ jobs:
           export MYSQL_PASSWORD=${{ secrets.MYSQL_PASSWORD }}
           docker compose -f docker-compose-dev.yml up -d
 
-      - name: Build development image
-        id: build-image
+      - name: Login to DockerHub
+        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+
+      - name: Build and push development image
         working-directory: ./back
         run: |
           docker compose -f docker-compose-dev.yml build api-flask
           docker tag back-api-flask gastoooon/macave_backend:dev
+          docker push gastoooon/macave_backend:dev
 
       - name: Stop Docker Compose
         working-directory: ./back
         run: docker compose -f docker-compose-dev.yml down
-
-  backend-push:
-    name: Push Backend Image
-    runs-on: ubuntu-latest
-    needs: backend-build
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Login to DockerHub
-        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
-
-      - name: Push development image
-        working-directory: ./back
-        run: |
-          docker push gastoooon/macave_backend:dev

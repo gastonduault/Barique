@@ -112,5 +112,5 @@ jobs:
           port: ${{ secrets.SSH_PORT }}
           script: |
             cd ~/Barique
-            
+            cd back
             docker compose -f docker-compose-prod.yml restart nginx

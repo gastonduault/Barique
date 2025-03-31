@@ -1,16 +1,26 @@
+# Environments and IDE settings
 .idea
 .DS_Store
 .vscode
 .env
+
+# Frontend
 front/package-lock.json
 firebase-adminsdk.json
 google-services.json
+front/.env
 
-
-#Back
+# Backend
 back/.env
 back/.logs
 back/logs/*
 back/certbot/*
 back/letsencrypt/*
+
+# Python compiled files
 **/__pycache__/*
+*.pyc
+*.pyo
+
+# OS-generated files
+Thumbs.db

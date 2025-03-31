@@ -100,5 +100,5 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: ${{ secrets.SSH_PORT }}
-          source: "./front/dist/*"
+          source: "front/dist/**"
           target: "/var/www/html"

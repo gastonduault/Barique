@@ -20,7 +20,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/create-cellar',
     name: 'CreateCellar',
-    component: () => import('@/views/createCellar.vue'),
+    component: () => import('@/views/CreateCellar.vue'),
     props: route => ({
       back: route.query.back === 'true',
       mode: route.query.mode || 'create',
@@ -28,12 +28,12 @@ const routes: Array<RouteRecordRaw> = [
   },
   {
     path: '/cellarList',
-    name: 'CaveList',
-    component: () => import('@/views/CaveList.vue')
+    name: 'CellarList',
+    component: () => import('@/views/CellarList.vue')
   },
   {
     path: '/cellar',
-    name: 'Cave',
+    name: 'Cellar',
     component: () => import('@/views/Cave.vue')
   },
   {
@@ -44,7 +44,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/historique',
     name: 'Historique',
-    component: () => import('@/views/Historique.vue')
+    component: () => import('@/views/History.vue')
   }
 ];
 

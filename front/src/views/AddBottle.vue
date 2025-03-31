@@ -139,7 +139,7 @@ h1 img {
 .addbottle input {
   width: 290px;
   padding: 10px 10px;
-  border-radius: 25px 25px;
+  border-radius: 5px 5px;
   background-color: var(--background-grey);
   font-size: 1em;
   border: solid 1px transparent;

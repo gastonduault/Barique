@@ -1,7 +1,7 @@
 import axios from "axios";
 import config from './config';
 import {Storage} from "@ionic/storage";
-import { signInWithGoogle, logout, auth } from '@/firebase-config';
+import { signInWithGoogle, logout, auth } from '@/Helper/firebase-config';
 import router from "@/router";
 import i18n from "@/lang";
 
@@ -167,7 +167,6 @@ const actions = {
     }
   },
   async navigation({dispatch, commit}, response) {
-    console.log("passage navigation")
     const userData = {
       email: response.data.email,
       uid: response.data.uid,
@@ -177,7 +176,7 @@ const actions = {
     commit("setUser", userData);
     commit("setConnected", true);
     const position = router.currentRoute.value.fullPath
-    if (position === "/Login" || position === "/home"){
+    if (position === "/login" || position === "/home"){
       if (response.data.cave && response.data.cave.nom) {
         console.log("push /cellar")
         dispatch('cellar/updateCellarSelected', response.data.cave, {root: true})

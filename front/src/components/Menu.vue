@@ -65,6 +65,7 @@ export default {
       this.isOpen = false
     },
     changeCellar() {
+      store.dispatch("cellar/listCellars");
       router.push({
         path: "/cellarList"
       })

@@ -60,7 +60,7 @@ export default {
   justify-content: center;
   border-radius: 5px;
   margin-bottom: 3px;
-  animation: notif-appear 0.5s ease-out; /* Ajout de l'animation ici */
+  animation: notif-appear 0.5s ease-out;
 }
 
 .notification.good {
@@ -70,7 +70,6 @@ export default {
 
 .notification.good p {
   color: var(--blue);
-  font-weight: bold;
 }
 
 .notification p {

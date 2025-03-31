@@ -52,6 +52,7 @@ const actions = {
     axios.post(`${API_URL}/caves`, { name: name } )
     .then((response) => {
       dispatch("updateCellarSelected", response.data.cave);
+      dispatch("listCellars");
       router.push("/cellar");
     }).catch((error) => {
       dispatch(
@@ -71,6 +72,7 @@ const actions = {
     axios.post(`${API_URL}/caves/${cellar.id}`, cellar)
     .then((response) => {
       commit('setCellarSelected', cellar);
+      dispatch('listCellars');
       router.push("/cellar")
     }).catch((error) => {
       dispatch(
@@ -90,6 +92,7 @@ const actions = {
     axios.delete(`${API_URL}/caves/${cellar.id}`)
       .then(async (response) => {
         await dispatch('updateCellarSelected', {});
+        await dispatch('listCellars');
         await router.push('/cellarList')
       }).catch((error) => {
       dispatch(

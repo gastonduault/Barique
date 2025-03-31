@@ -17,7 +17,10 @@
           @click="remove = true"
       />
       <p class="warning" v-if="remove">
-        {{ $t('delete_cellar.warn_1') }} <strong>{{ $t('delete') }}</strong> {{ $t('delete_cellar.warn_2') }} <br />{{ $t('cellar') }} ?
+        {{ $t('delete_cellar.warn_1') }}
+        <strong>{{ $t('delete') }}</strong>
+        {{ $t('delete_cellar.warn_2') }} <br />
+        {{ $t('cellar') }} ?
       </p>
 
       <h3 v-if="!remove && creation">{{ $t('create_cellar') }}</h3>

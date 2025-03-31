@@ -176,7 +176,7 @@ h1 input {
   padding: 4px 0;
   text-align: center;
   background-color: var(--background-grey);
-  border-radius: 25px 25px;
+  border-radius: 10px 10px;
 }
 
 h1 img.close-modale {
@@ -259,7 +259,7 @@ h1 img.close-modale {
   border: transparent solid 1px;
   padding: 20px;
   background-color: var(--background-grey);
-  border-radius: 25px 25px;
+  border-radius: 10px 10px;
 }
 
 .inputs input:first-child{

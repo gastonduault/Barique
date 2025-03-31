@@ -1,5 +1,6 @@
 ---
 name: 'Issue Template'
+about: Use this template for tracking new features.
 title: "[Feature|Refactor|Fix] Brief description of the feature"
 labels: ''
 assignees: ''

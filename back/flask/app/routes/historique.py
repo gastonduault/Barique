@@ -1,8 +1,11 @@
 from flask import Blueprint, jsonify, request
 from ..models import Bouteille, Historique, Cave, db
-from ..auth_middleware import verify_token
+from ..middlewares.auth_middleware import verify_token
 
-bp = Blueprint('historique', __name__, url_prefix='/historique')
+
+
+bp = Blueprint('history', __name__)
+
 
 # @bp.route('/<int:cave_id>', methods=['GET'])
 # def get_historique_by_cave(cave_id):
@@ -14,7 +17,7 @@ bp = Blueprint('historique', __name__, url_prefix='/historique')
 #
 
 @bp.route('', methods=['GET'])
-def get_historique_by_user():
+def get_history_by_user():
     decoded_token, error_response = verify_token()
     if error_response:
         return error_response
@@ -50,7 +53,7 @@ Historique.to_dict = to_dict
 
 
 @bp.route('/<int:bouteille_id>', methods=['POST'])
-def update_bouteille(bouteille_id):
+def update_bottle(bouteille_id):
     decoded_token, error_response = verify_token()
     if error_response:
         return error_response

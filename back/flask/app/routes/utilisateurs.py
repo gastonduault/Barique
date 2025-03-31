@@ -1,9 +1,11 @@
 from flask import Blueprint, jsonify, request
 from firebase_admin import auth
 from ..models import Utilisateur, Cave, db
-from ..auth_middleware import verify_token
+from ..middlewares.auth_middleware import verify_token
 
-bp = Blueprint('utilisateurs', __name__, url_prefix='/utilisateurs')
+
+bp = Blueprint('login', __name__)
+
 
 @bp.route('', methods=['POST'])
 def authentifier_utilisateur():

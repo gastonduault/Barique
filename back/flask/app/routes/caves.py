@@ -1,14 +1,11 @@
 import os
 import random
-from ..auth_middleware import verify_token
 from ..models import Cave, Bouteille, Historique, db
+from ..middlewares.auth_middleware import verify_token
 from flask import Blueprint, jsonify, request, current_app
 
-bp = Blueprint('caves', __name__, url_prefix='/caves')
 
-
-
-bp = Blueprint('caves', __name__, url_prefix='/caves')
+bp = Blueprint('cellars', __name__)
 
 @bp.route('', methods=['POST'])
 def add_cave():
@@ -21,7 +18,7 @@ def add_cave():
     name_cave = data.get("name")
 
     if not name_cave:
-        return jsonify({"message": "Le nom de la cave est requis"}), 400
+        return jsonify({"message": "name of the cave required"}), 400
 
     images = []
     upload_folder = os.path.join(current_app.root_path, 'static', 'uploads')
@@ -77,7 +74,7 @@ def update_cave(cave_id):
         db.session.close()
 
 @bp.route('/<int:cave_id>', methods=['DELETE'])
-def delete_bouteille(cave_id):
+def delete_bottle(cave_id):
     decoded_token, error_response = verify_token()
     if error_response:
         return error_response

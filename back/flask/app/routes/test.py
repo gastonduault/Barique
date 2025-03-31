@@ -1,7 +1,9 @@
 from flask import Blueprint, jsonify, request
 from ..models import Bouteille, Historique, db
 
-bp = Blueprint('test', __name__, url_prefix='/test')
+
+bp = Blueprint('test', __name__)
+
 
 @bp.route('', methods=['GET'])
 def test():

@@ -1,12 +1,15 @@
 from flask import Blueprint, jsonify, request
 from ..models import Bouteille, Historique, db
 from datetime import datetime
-from ..auth_middleware import verify_token
+from ..middlewares.auth_middleware import verify_token
 
-bp = Blueprint('bouteilles', __name__, url_prefix='/bouteilles')
+
+
+bp = Blueprint('bottles', __name__)
+
 
 @bp.route('', methods=['POST'])
-def add_bouteille():
+def add_bottle():
     decoded_token, error_response = verify_token()
     if error_response:
         return error_response
@@ -24,7 +27,7 @@ def add_bouteille():
     try:
         db.session.add(new_bouteille)
         db.session.commit()
-        return jsonify({'message': 'Bouteille ajoutée avec succès!'}), 200
+        return jsonify({'message': 'Bottle added successfully!'}), 200
     except Exception as e:
         db.session.rollback()
         return jsonify({'message': 'Erreur lors de l\'ajout de la bouteille', 'error': str(e)}), 500
@@ -32,23 +35,23 @@ def add_bouteille():
         db.session.close()
 
 
-@bp.route('/<int:bouteille_id>', methods=['POST'])
-def update_bouteille(bouteille_id):
+@bp.route('/<int:bottle_id>', methods=['POST'])
+def update_bottle(bottle_id):
     decoded_token, error_response = verify_token()
     if error_response:
         return error_response
     data = request.get_json()
-    bouteille = Bouteille.query.get(bouteille_id)
-    if not bouteille:
-        return jsonify({'message': 'Bouteille non trouvée'}), 404
+    bottle = Bouteille.query.get(bottle_id)
+    if not bottle:
+        return jsonify({'message': 'Bottle not found'}), 404
     try:
-        bouteille.nom = data.get('nom', bouteille.nom)
-        bouteille.region = data.get('region', bouteille.region)
-        bouteille.cepage = data.get('cepage', bouteille.cepage)
-        bouteille.millesime = data.get('millesime', bouteille.millesime)
-        bouteille.categorie = data.get('categorie', bouteille.categorie)
-        bouteille.score = data.get('score', bouteille.score)
-        bouteille.notice = data.get('notice', bouteille.notice)
+        bottle.nom = data.get('nom', bottle.nom)
+        bottle.region = data.get('region', bottle.region)
+        bottle.cepage = data.get('cepage', bottle.cepage)
+        bottle.millesime = data.get('millesime', bottle.millesime)
+        bottle.categorie = data.get('categorie', bottle.categorie)
+        bottle.score = data.get('score', bottle.score)
+        bottle.notice = data.get('notice', bottle.notice)
         db.session.commit()
         return jsonify({'message': 'Bouteille mise à jour avec succès!'}), 200
     except Exception as e:
@@ -91,8 +94,8 @@ def delete_bouteille(bouteille_id):
         db.session.close()
 
 
-@bp.route('/cave/<int:cave_id>', methods=['GET'])
-def get_bouteilles_by_cave(cave_id):
+@bp.route('/cellars/<int:cave_id>', methods=['GET'])
+def get_bottles_by_cellar(cave_id):
     decoded_token, error_response = verify_token()
     if error_response:
         return error_response

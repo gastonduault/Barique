@@ -11,16 +11,6 @@ export default defineConfig({
     vue(),
     legacy()
   ],
-  server: {
-    proxy: {
-      '/api': {
-        target: 'https://localhost:5001',
-        changeOrigin: true,
-        secure: false, // Permet d'accepter les certificats auto-signés
-        rewrite: (path) => path.replace(/^\/api/, ''),
-      },
-    },
-  },
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),

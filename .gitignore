@@ -18,6 +18,7 @@ back/certbot/*
 back/letsencrypt/*
 
 # Python compiled files
+__pycache__/
 **/__pycache__/*
 *.pyc
 *.pyo

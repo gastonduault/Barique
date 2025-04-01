@@ -55,6 +55,7 @@ services:
       - /etc/letsencrypt:/etc/letsencrypt:ro
       - ./certbot/www:/var/www/certbot:ro
       - /var/www/html:/usr/share/nginx/html:ro
+      - ./flask/static/uploads/cellar-3.webp
     depends_on:
       - api-flask
       - adminer

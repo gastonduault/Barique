@@ -27,7 +27,7 @@ export default {
     if(token) {
       await store.dispatch('user/logIn')
     } else {
-      router.push('./Login')
+      router.push('./login')
     }
   }
 };

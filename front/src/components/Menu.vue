@@ -26,6 +26,10 @@
         <img src="@/assets/img/decconection.webp"  alt/>
         {{ $t('disconnect') }}
       </button>
+      <div class="version">
+        <p>Beta</p>
+        v{{VERSION}}
+      </div>
     </nav>
   </div>
 </template>
@@ -34,12 +38,15 @@
 import store from "@/store";
 import router from "@/router";
 import SelectLang from "@/components/selectLang.vue";
+import config from "@/store/modules/config"
+
 
 export default {
   name: 'Menu',
   data() {
     return {
       isOpen: false,
+      VERSION: config.VERSION,
     }
   },
   components: {
@@ -184,5 +191,18 @@ button img{
 
 button:last-child{
   color: var(--font-pink);
+}
+
+.version {
+  position: absolute;
+  bottom: 10px;
+  color: var(--font-pink);
+  text-align: center;
+  font-size: 0.7em;
+}
+.version p {
+  font-size: 1.2em;
+  margin: 0 0;
+  font-weight: bold;
 }
 </style>

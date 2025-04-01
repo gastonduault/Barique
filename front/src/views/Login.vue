@@ -11,6 +11,10 @@
         <img class="google-logo" src="@/assets/img/Google_login.webp"  alt="logo google"/>
         <button class="google-login" @click="logIn"> {{ $t('sign')}} 🗝️{{ $t('google')}}</button>
       </div>
+      <div class="version">
+        <p>Beta</p>
+        v{{VERSION}}
+      </div>
     </div>
     <loader v-if="loading"/>
   </ion-page>
@@ -18,20 +22,27 @@
 
 <script>
 import { IonPage } from '@ionic/vue';
-import { mapActions, mapGetters } from "vuex";
+import { mapActions } from "vuex";
 import store from '@/store'
-import router from "@/router"
 import SelectLang from "@/components/selectLang.vue"
-
+import loader from "@/components/loader.vue"
+import config from "@/store/modules/config"
 
 export default {
+  data() {
+    return {
+      VERSION: config.VERSION,
+    }
+  },
   components: {
     SelectLang,
-    IonPage
+    IonPage,
+    loader
   },
   computed: {
     connected: () => { return store.getters['user/getConnected'] },
-    user: () => { return store.getters['user/getUser'] }
+    user: () => { return store.getters['user/getUser'] },
+    loading: () => { return store.getters['user/getLoading'] }
   },
   methods: {
     ...mapActions("user", ["authentification", "disconnect"]),
@@ -155,4 +166,17 @@ export default {
     border: none;
     font-size: .9em;
   }
+
+  .version {
+    position: absolute;
+    bottom: 10px;
+    color: var(--white);
+    text-align: center;
+    font-size: 0.7em;
+  }
+   .version p {
+      font-size: 1.2em;
+     margin: 0 0;
+     font-weight: bold;
+   }
 </style>

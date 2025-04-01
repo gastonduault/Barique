@@ -79,7 +79,7 @@ const i18n = createI18n({
       newCellar: 'New cellar',
       disconnect: 'Disconnect',
       changeCellar: 'Change of cellar',
-      welcome: 'welcome here',
+      welcome: 'Welcome here',
       sign: 'Sign In/ Login',
       google: 'with Google',
       hello: 'Hi !',

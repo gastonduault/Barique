@@ -63,6 +63,17 @@ const i18n = createI18n({
       bottle_opinion: "Votre avis sur cette bouteille",
       opinion: "Votre avis sur cette bouteille",
       add: "Ajouter",
+      aboutTitle: 'A propos de Barique',
+      About : {
+        firstTest: 'Voici la beta de l\'application Barique.\n' +
+          'L\'application est en cours de développement et à sa première version',
+        next_features: "Fonctionnalités à venir :",
+        features: {
+          feature1: "Base données des vins du monde",
+          feature2: "Suivres des utilisateurs et partager des vins et caves",
+          feature3: "IA sommelier",
+        },
+      }
     },
     en: {
       connectionError: 'Error of connection',
@@ -79,7 +90,7 @@ const i18n = createI18n({
       newCellar: 'New cellar',
       disconnect: 'Disconnect',
       changeCellar: 'Change of cellar',
-      welcome: 'welcome here',
+      welcome: 'Welcome here',
       sign: 'Sign In/ Login',
       google: 'with Google',
       hello: 'Hi !',
@@ -124,6 +135,16 @@ const i18n = createI18n({
     bottle_opinion: "Your opinion on this bottle",
     opinion: "Your opinion on this bottle",
     add: "Add",
+    aboutTitle: 'About Barique',
+    About : {
+      firstTest: 'Here\'s the beta of the Barique application.\n' +
+        'The application is under development and in its first version. \n',
+      features: {
+        feature1: 'Database of world wines ',
+        feature2: 'Can follow people and share cellar and wine ',
+        feature3: 'AI wine steward',
+      },
+    },
   }
 });
 

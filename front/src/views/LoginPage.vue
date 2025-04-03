@@ -1,6 +1,7 @@
 <template>
   <ion-page>
     <ion-header class="header">
+      <ButtonAboutBarique class="button-about"/>
       <SelectLang class="select-lang"/>
       <h1>{{ $t('welcome') }} 🤗</h1>
       <img src="@/assets/img/Logo_PolyWine.webp"  alt="logo polywine"/>
@@ -11,6 +12,10 @@
         <img class="google-logo" src="@/assets/img/Google_login.webp"  alt="logo google"/>
         <button class="google-login" @click="logIn"> {{ $t('sign')}} 🗝️{{ $t('google')}}</button>
       </div>
+      <div class="version">
+        <p>Beta</p>
+        v{{VERSION}} - © Copyright barique
+      </div>
     </div>
     <loader v-if="loading"/>
   </ion-page>
@@ -18,20 +23,29 @@
 
 <script>
 import { IonPage } from '@ionic/vue';
-import { mapActions, mapGetters } from "vuex";
+import { mapActions } from "vuex";
 import store from '@/store'
-import router from "@/router"
 import SelectLang from "@/components/selectLang.vue"
-
+import loader from "@/components/loader.vue"
+import config from "@/store/modules/config"
+import ButtonAboutBarique from "@/components/ButtonAboutBarique.vue";
 
 export default {
+  data() {
+    return {
+      VERSION: config.VERSION,
+    }
+  },
   components: {
+    ButtonAboutBarique,
     SelectLang,
-    IonPage
+    IonPage,
+    loader
   },
   computed: {
     connected: () => { return store.getters['user/getConnected'] },
-    user: () => { return store.getters['user/getUser'] }
+    user: () => { return store.getters['user/getUser'] },
+    loading: () => { return store.getters['user/getLoading'] }
   },
   methods: {
     ...mapActions("user", ["authentification", "disconnect"]),
@@ -56,6 +70,12 @@ export default {
     justify-content: start;
     background-color: var(--background-color);
     box-shadow: none !important;
+  }
+
+  .button-about {
+    position: absolute;
+    top: 5px;
+    left: 20px;
   }
 
   .select-lang {
@@ -107,7 +127,7 @@ export default {
     margin: 0px auto;
   }
 
-  button {
+  .form button {
     width: 300px;
     background-color: var(--white);
     color: var(--black);
@@ -116,7 +136,7 @@ export default {
     transition: .3s;
   }
 
-  button:hover {
+  .form button:hover {
     background-color: #ece9e9;
     transform: scale(1.05);
   }
@@ -137,22 +157,16 @@ export default {
     color: var(--white);
   }
 
-  .credentials {
-    display: flex;
-    flex-direction: column;
-    align-content: center;
-    align-items: center;
-    justify-content: space-around;
-    width: 100%;
-    height: 40%;
+  .version {
+    position: absolute;
+    bottom: 10px;
+    color: var(--white);
+    text-align: center;
+    font-size: 0.7em;
   }
-
-  input {
-    width: 270px;
-    padding: 5px 5px;
-    border-radius: 5px 5px;
-    background-color: var(--background-color);
-    border: none;
-    font-size: .9em;
-  }
+   .version p {
+      font-size: 1.2em;
+     margin: 0 0;
+     font-weight: bold;
+   }
 </style>

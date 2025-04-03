@@ -5,8 +5,10 @@
          alt="arrow back"
          class="back"
          @click="$emit('back')"/>
-    <Menu v-else/>
-    <img :src="`${API_URL}${cellar.profile_picture}`" alt="profil picture" class="pp"/>
+    <MenuComponent v-else/>
+    <img v-if="cellarProfilePicture"
+         :src="`${API_URL}${cellar.profile_picture}`"
+         alt="profile picture" class="pp"/>
     <h3>
       {{ title }}
     </h3>
@@ -17,11 +19,11 @@
 import {IonHeader} from "@ionic/vue";
 import config from "@/store/modules/config";
 import store from "@/store";
-import Menu from "@/components/Menu.vue";
+import MenuComponent from "@/components/MenuComponent.vue";
 import {Storage} from "@ionic/storage";
 
 export default {
-  components: {Menu, IonHeader},
+  components: {MenuComponent, IonHeader},
   data(){
     return {
       API_URL: config.API_URL,
@@ -29,6 +31,10 @@ export default {
     }
   },
   props: {
+    cellarProfilePicture: {
+      type: Boolean,
+      default: true
+    },
     title: String,
     backBtn: {
       type: Boolean,
@@ -47,11 +53,13 @@ export default {
   },
   methods: {
     async init() {
-      if (store.getters['cellar/getCellarSelected'].id === undefined) {
-        const cellar = await this.storage.get('cellar');
-        await store.dispatch('cellar/updateCellarSelected', cellar);
+      if(store.getters['user/getConnected']){
+        if (store.getters['cellar/getCellarSelected'].id === undefined) {
+          const cellar = await this.storage.get('cellar');
+          await store.dispatch('cellar/updateCellarSelected', cellar);
+        }
+        await store.dispatch('bottles/bottles', store.getters["cellar/getCellarSelected"].id);
       }
-      await store.dispatch('bottles/bottles', store.getters["cellar/getCellarSelected"].id);
     },
   }
 }

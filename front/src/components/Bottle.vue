@@ -1,7 +1,7 @@
 <template>
     <div class="top" @click="close"></div>
     <div v-if="bottle" class="addbottle" :class="{'close': closeModal}">
-        <img src="@/assets/img/close-red.webp" class="close-modale" alt="close add bottle" @click="close">
+        <img src="../assets/img/close-red.webp" class="close-modale" alt="close add bottle" @click="close">
       <h1>
         <input v-model="nom" type="text" :placeholder="$t('name')" class="editable" />
       </h1>
@@ -29,24 +29,26 @@
                @click="categorySelected = category"
                :src="'/img/grape_'+category+'.webp'"/>
         </div>
-        <div class="opinion">
-          <div class="stars">
-            <div v-for="i in 5" :key="i" @click="score = i">
-              <img src="@/assets/img/empty_star.webp" alt="stars" v-if="score<i"/>
-              <img src="@/assets/img/star.webp" alt="stars" v-else/>
+        <div class="opinion-bottom">
+          <div class="opinion">
+            <div class="stars">
+              <div v-for="i in 5" :key="i" @click="score = i">
+                <img src="../assets/img/empty_star.webp" alt="stars" v-if="score<i"/>
+                <img src="../assets/img/star.webp" alt="stars" v-else/>
+              </div>
             </div>
+            <textarea
+                rows="5"
+                cols="37"
+                v-model="notice"
+                :placeholder="$t('opinion')"></textarea>
           </div>
-          <textarea
-              rows="5"
-              cols="37"
-              v-model="notice"
-              :placeholder="$t('opinion')"></textarea>
-        </div>
-        <div class="bottom">
-          <button class="remove-bottle" @click="bottleDrunk">
-            <p>{{ $t('bottle_drunk') }}</p>
-            <img src="@/assets/img/bottle_drunk.webp" alt="remove bottle"/>
-          </button>
+          <div class="bottom">
+            <button class="remove-bottle" @click="bottleDrunk">
+              <p>{{ $t('bottle_drunk') }}</p>
+              <img src="../assets/img/bottle_drunk.webp" alt="remove bottle"/>
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -54,13 +56,9 @@
 
 <script lang="ts">
 
-import {defineComponent} from "vue";
-import {IonHeader, IonPage} from "@ionic/vue";
-import loader from "@/components/loader.vue";
 import store from "@/store";
 
 export default{
-  components: {loader, IonPage, IonHeader},
   data() {
     return {
       loading: true,
@@ -111,7 +109,6 @@ export default{
         "region": this.region,
         "nom": this.nom,
         "categorie": this.categorySelected,
-        "id": this.bottle.id,
         "cave_id": this.bottle.cave_id,
         "score": this.score,
         "notice": this.notice,
@@ -289,6 +286,14 @@ img.close-modale {
   border: solid 1px var(--background-dark);
 }
 
+.opinion-bottom {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}
+
 .bottom {
   width: 100%;
   display: flex;
@@ -356,6 +361,20 @@ img.close-modale {
   .category,
   .bottom{
     margin: 30px;
+  }
+  .opinion-bottom {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+  }
+  .opinion{
+    width: 70%;
+  }
+  .bottom {
+    margin-top: 100px;
+    width: 30%;
   }
 }
 

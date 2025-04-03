@@ -29,7 +29,7 @@
 </template>
 
 <script lang="ts">
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/vue'
+import { IonPage } from '@ionic/vue'
 import store from '@/store'
 import router from "@/router"
 import config from "@/store/modules/config"
@@ -38,7 +38,7 @@ import Loader from "@/components/loader.vue"
 export default {
   name: "CaveList",
   components: {
-    IonContent, IonHeader, IonPage, IonTitle, IonToolbar, Loader
+    IonPage, Loader
   },
   data() {
     return {

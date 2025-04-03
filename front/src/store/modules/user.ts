@@ -178,10 +178,10 @@ const actions = {
     if (position === "/login" || position === "/home"){
       if (response.data.cave && response.data.cave.nom) {
         console.log("push /cellar")
-        dispatch('cellar/updateCellarSelected', response.data.cave, {root: true})
-        router.push("/cellar");
+        await dispatch('cellar/updateCellarSelected', response.data.cave, {root: true})
+        await router.push({path: '/cellar'});
       } else {
-        router.push("/create-cellar");
+        await router.push("/create-cellar");
       }
     }
     commit("setTry", 0)

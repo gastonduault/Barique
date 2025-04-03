@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from '@ionic/vue-router';
 import { RouteRecordRaw } from 'vue-router';
-import HomePage from '../views/Login.vue';
+import HomePage from '../views/LoginPage.vue';
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -10,12 +10,12 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/home',
     name: 'Home',
-    component: () => import('@/views/Home.vue')
+    component: () => import('@/views/HomePage.vue')
   },
   {
     path: '/login',
     name: 'Login',
-    component: () => import('@/views/Login.vue')
+    component: () => import('@/views/LoginPage.vue')
   },
   {
     path: '/create-cellar',
@@ -34,18 +34,18 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/cellar',
     name: 'Cellar',
-    component: () => import('@/views/Cave.vue')
-  },
-  {
-    path: '/newBottle',
-    name: 'AddBottle',
-    component: () => import('@/views/AddBottle.vue')
+    component: () => import('@/views/Cellar.vue')
   },
   {
     path: '/historique',
     name: 'Historique',
     component: () => import('@/views/History.vue')
-  }
+  },
+  {
+    path: '/about-barique',
+    name: 'AboutBarique',
+    component: () => import('@/views/AboutBarique.vue')
+  },
 ];
 
 const router = createRouter({

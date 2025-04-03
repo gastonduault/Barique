@@ -1,7 +1,7 @@
 <template>
     <div class="top" @click="close"></div>
     <div v-if="bottle" class="addbottle" :class="{'close': closeModal}">
-        <img src="@/assets/img/close-red.webp" class="close-modale" alt="close add bottle" @click="close">
+        <img src="../assets/img/close-red.webp" class="close-modale" alt="close add bottle" @click="close">
       <h1>
         <input v-model="nom" type="text" :placeholder="$t('name')" class="editable" />
       </h1>
@@ -33,8 +33,8 @@
           <div class="opinion">
             <div class="stars">
               <div v-for="i in 5" :key="i" @click="score = i">
-                <img src="@/assets/img/empty_star.webp" alt="stars" v-if="score<i"/>
-                <img src="@/assets/img/star.webp" alt="stars" v-else/>
+                <img src="../assets/img/empty_star.webp" alt="stars" v-if="score<i"/>
+                <img src="../assets/img/star.webp" alt="stars" v-else/>
               </div>
             </div>
             <textarea
@@ -46,7 +46,7 @@
           <div class="bottom">
             <button class="remove-bottle" @click="bottleDrunk">
               <p>{{ $t('bottle_drunk') }}</p>
-              <img src="@/assets/img/bottle_drunk.webp" alt="remove bottle"/>
+              <img src="../assets/img/bottle_drunk.webp" alt="remove bottle"/>
             </button>
           </div>
         </div>

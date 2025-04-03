@@ -26,9 +26,12 @@
         <img src="@/assets/img/decconection.webp"  alt/>
         {{ $t('disconnect') }}
       </button>
-      <div class="version">
-        <p>Beta</p>
-        v{{VERSION}}
+      <div class="bottom">
+        <div class="version">
+          <p>Beta</p>
+          v{{VERSION}} - © Copyright barique
+        </div>
+        <ButtonAboutBarique class="button-about"/>
       </div>
     </nav>
   </div>
@@ -39,10 +42,11 @@ import store from "@/store";
 import router from "@/router";
 import SelectLang from "@/components/selectLang.vue";
 import config from "@/store/modules/config"
+import ButtonAboutBarique from "@/components/ButtonAboutBarique.vue";
 
 
 export default {
-  name: 'Menu',
+  name: 'MenuComponent',
   data() {
     return {
       isOpen: false,
@@ -50,6 +54,7 @@ export default {
     }
   },
   components: {
+    ButtonAboutBarique,
     SelectLang
   },
   computed: {
@@ -192,15 +197,30 @@ button img{
 button:last-child{
   color: var(--font-pink);
 }
+.bottom {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-direction: row;
+  bottom: 5px;
+  width: 100%;
+}
+
+.bottom button {
+  width: fit-content;
+  padding: 5px 5px;
+  font-size: 0.9em;
+  background-color: transparent;
+}
 
 .version {
-  position: absolute;
-  bottom: 10px;
-  color: var(--font-pink);
   text-align: center;
   font-size: 0.7em;
+  color: var(--font-black)
 }
 .version p {
+  color: var(--font-pink);
   font-size: 1.2em;
   margin: 0 0;
   font-weight: bold;

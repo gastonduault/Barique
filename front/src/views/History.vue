@@ -52,11 +52,11 @@ import store from '@/store';
 import {Storage} from "@ionic/storage";
 import router from "@/router";
 import Loader from "@/components/loader.vue";
-import AddBottle from "@/views/AddBottle.vue";
-import Bottle from "@/views/Bottle.vue"
+import AddBottle from "@/components/AddBottle.vue";
+import Bottle from "@/components/Bottle.vue"
 import EditOpinion from "@/components/editOpinion.vue";
 import config from "@/store/modules/config";
-import Header from "@/components/Header.vue";
+import Header from "@/components/HeaderComponent.vue";
 
 export default {
   name: "Historique",

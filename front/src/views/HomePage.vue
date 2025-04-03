@@ -20,7 +20,7 @@ export default {
     user: () => { return store.getters['user/getUser'] },
     connected: () => { return store.getters['user/getConnected'] },
   },
-  async mounted() {
+  async updated() {
     this.storage = new Storage()
     await this.storage.create()
     const token = await this.storage.get('token')

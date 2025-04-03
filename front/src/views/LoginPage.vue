@@ -1,6 +1,7 @@
 <template>
   <ion-page>
     <ion-header class="header">
+      <ButtonAboutBarique class="button-about"/>
       <SelectLang class="select-lang"/>
       <h1>{{ $t('welcome') }} 🤗</h1>
       <img src="@/assets/img/Logo_PolyWine.webp"  alt="logo polywine"/>
@@ -13,7 +14,7 @@
       </div>
       <div class="version">
         <p>Beta</p>
-        v{{VERSION}}
+        v{{VERSION}} - © Copyright barique
       </div>
     </div>
     <loader v-if="loading"/>
@@ -27,6 +28,7 @@ import store from '@/store'
 import SelectLang from "@/components/selectLang.vue"
 import loader from "@/components/loader.vue"
 import config from "@/store/modules/config"
+import ButtonAboutBarique from "@/components/ButtonAboutBarique.vue";
 
 export default {
   data() {
@@ -35,6 +37,7 @@ export default {
     }
   },
   components: {
+    ButtonAboutBarique,
     SelectLang,
     IonPage,
     loader
@@ -67,6 +70,12 @@ export default {
     justify-content: start;
     background-color: var(--background-color);
     box-shadow: none !important;
+  }
+
+  .button-about {
+    position: absolute;
+    top: 5px;
+    left: 20px;
   }
 
   .select-lang {
@@ -118,7 +127,7 @@ export default {
     margin: 0px auto;
   }
 
-  button {
+  .form button {
     width: 300px;
     background-color: var(--white);
     color: var(--black);
@@ -127,7 +136,7 @@ export default {
     transition: .3s;
   }
 
-  button:hover {
+  .form button:hover {
     background-color: #ece9e9;
     transform: scale(1.05);
   }
@@ -146,25 +155,6 @@ export default {
   .form p {
     font-weight: bold;
     color: var(--white);
-  }
-
-  .credentials {
-    display: flex;
-    flex-direction: column;
-    align-content: center;
-    align-items: center;
-    justify-content: space-around;
-    width: 100%;
-    height: 40%;
-  }
-
-  input {
-    width: 270px;
-    padding: 5px 5px;
-    border-radius: 5px 5px;
-    background-color: var(--background-color);
-    border: none;
-    font-size: .9em;
   }
 
   .version {

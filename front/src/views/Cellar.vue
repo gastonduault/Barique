@@ -1,6 +1,6 @@
 <template>
   <ion-page>
-    <Header :title="cellar.nom"/>
+    <HeaderComponent :title="cellar.nom"/>
     <div class="content">
       <div class="search-bottle">
         <input v-model="search" :placeholder="$t('search')"/>
@@ -42,21 +42,21 @@
 </template>
 
 <script lang="ts">
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/vue';
-import AddBottle from "@/views/AddBottle.vue";
-import Header from "@/components/Header.vue";
+import { IonPage } from '@ionic/vue';
+import AddBottle from "@/components/AddBottle.vue";
+import HeaderComponent from "@/components/HeaderComponent.vue";
 import Loader from "@/components/loader.vue";
 import config from '@/store/modules/config';
-import Bottle from "@/views/Bottle.vue";
+import Bottle from "@/components/Bottle.vue";
 import {Storage} from "@ionic/storage";
 import store from '@/store';
 
 export default {
   name: "CaveList",
   components: {
-    IonContent, IonHeader, IonPage, IonTitle,
-    IonToolbar, Loader, AddBottle, Bottle,
-    Header
+    IonPage,
+    Loader, AddBottle, Bottle,
+    HeaderComponent
   },
   data() {
     return {

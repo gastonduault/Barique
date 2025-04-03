@@ -2,7 +2,7 @@
     <div class="top" @click="close"></div>
     <div class="addbottle" :class="{'close': closeModal}">
       <h1>
-        <img src="@/assets/img/close-red.webp" alt="close add bottle" @click="close">
+        <img src="../assets/img/close-red.webp" alt="close add bottle" @click="close">
         {{ $t('new_bottle') }}
       </h1>
       <div class="fields">
@@ -27,13 +27,9 @@
 
 <script lang="ts">
 
-import {defineComponent} from "vue";
-import {IonHeader, IonPage} from "@ionic/vue";
-import loader from "@/components/loader.vue";
 import store from "@/store";
 
 export default{
-  components: {loader, IonPage, IonHeader},
   data() {
     return {
       name: "",

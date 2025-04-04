@@ -4,6 +4,7 @@
             :back-btn="true"
             @back="clickBack"
             :title="$t('aboutTitle')"/>
+    <SelectLang style="z-index: 100"/>
     <main>
       <img src="@/assets/img/Logo_PolyWine.webp" alt="logo barique"/>
       <div class="links">
@@ -40,6 +41,7 @@ import Header from "@/components/HeaderComponent.vue";
 import { IonPage } from '@ionic/vue';
 import config from "@/store/modules/config";
 import router from "@/router";
+import SelectLang from "@/components/selectLang.vue";
 const VERSION = config.VERSION;
 
 const clickBack = () => {
@@ -57,6 +59,10 @@ const clickBack = () => {
     gap: 30px;
     height: 100%;
     overflow-y: auto;
+  }
+
+  .lang {
+
   }
 
   main img {

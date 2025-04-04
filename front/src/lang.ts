@@ -130,19 +130,19 @@ const i18n = createI18n({
         msg_1: "For the moment your history of bottle drunk",
         msg_2: 'is empty'
       },
-    },
-    image_cellar: "cellar image",
-    bottle_opinion: "Your opinion on this bottle",
-    opinion: "Your opinion on this bottle",
-    add: "Add",
-    aboutTitle: 'About Barique',
-    About : {
-      firstTest: 'Here\'s the beta of the Barique application.\n' +
-        'The application is under development and in its first version. \n',
-      features: {
-        feature1: 'Database of world wines ',
-        feature2: 'Can follow people and share cellar and wine ',
-        feature3: 'AI wine steward',
+      image_cellar: "cellar image",
+      bottle_opinion: "Your opinion on this bottle",
+      opinion: "Your opinion on this bottle",
+      add: "Add",
+      aboutTitle: 'About Barique',
+      About : {
+        firstTest: 'Here\'s the beta of the Barique application.\n' +
+          'The application is under development and in its first version. \n',
+        features: {
+          feature1: 'Database of world wines ',
+          feature2: 'Can follow people and share cellar and wine ',
+          feature3: 'AI wine steward',
+        },
       },
     },
   }
